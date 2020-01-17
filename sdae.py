@@ -83,7 +83,6 @@ def filterPair(p):
         p[1].startswith(eng_prefixes)
 
 
-
 def filterPairs(pairs):
     return [pair for pair in pairs if filterPair(pair)]
 
@@ -101,8 +100,6 @@ def prepareData(lang1, lang2, reverse=False):
     # print(output_lang.name, output_lang.n_words)
     return input_lang, output_lang, pairs
 
-
-input_lang, output_lang, pairs = prepareData('eng', 'eng', True)
 # print(random.choice(pairs))
 
 # encoder network
@@ -272,14 +269,6 @@ def trainIters(encoder, decoder, n_iters, print_every=1000, plot_every=100, lear
         #     plot_loss_avg = plot_loss_total / plot_every
         #     plot_losses.append(plot_loss_avg)
         #     plot_loss_total = 0
-
-
-hidden_size = 256
-encoder = EncoderRNN(input_lang.n_words, hidden_size).to(device)
-attn_decoder = AttnDecoderRNN(hidden_size, output_lang.n_words, dropout_p=0.1).to(device)
-
-trainIters(encoder, attn_decoder, 75000, print_every=5000)
-
 def evaluate(encoder, decoder, sentence, max_length=MAX_LENGTH):
     with torch.no_grad():
         input_tensor = tensorFromSentence(input_lang, sentence)
@@ -306,21 +295,23 @@ def evaluate(encoder, decoder, sentence, max_length=MAX_LENGTH):
             decoder_attentions[di] = decoder_attention.data
             topv, topi = decoder_output.data.topk(1)
             if topi.item() == EOS_token:
-                decoded_words.append('<EOS>')
                 break
             else:
                 decoded_words.append(output_lang.index2word[topi.item()])
 
             decoder_input = topi.squeeze().detach()
 
-        return decoded_words, decoder_attentions[:di + 1]
+        return decoded_words #, decoder_attentions[:di + 1]
 
-def evaluateRandomly(encoder, decoder, n=100):
-    for i in range(n):
-        pair = random.choice(pairs)
-        logging.log('>', pair[0])
-        logging.log('=', pair[1])
-        output_words, attentions = evaluate(encoder, decoder, pair[0])
-        output_sentence = ' '.join(output_words)
-        logging.log('<', output_sentence)
-        logging.log('')
+
+input_lang, output_lang, pairs = prepareData('eng', 'eng', True)
+
+hidden_size = 256
+encoder = EncoderRNN(input_lang.n_words, hidden_size).to(device)
+attn_decoder = AttnDecoderRNN(hidden_size, output_lang.n_words, dropout_p=0.1).to(device)
+trainIters(encoder, attn_decoder, 7500, print_every=500)
+testing_pairs = [random.choice(pairs) for _ in range(1000)]
+for pair in testing_pairs:
+    guess = evaluate(encoder, attn_decoder, pair[0])
+    guess = ' '.join(guess)
+    logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + str(guess == pair[1]))

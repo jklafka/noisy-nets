@@ -1,4 +1,4 @@
-import random
+import random, argparse
 
 NOISE_RATIO = 0.5
 
@@ -17,13 +17,21 @@ for pair in source_pairs:
         vocabulary = vocabulary | set(seq1s)
         if random.random() < NOISE_RATIO: # make edit with prob < NOISE_RATIO
             j = random.randint(0, len(seq1s) - 1)
-            if random.random() < .5: # 50% chance insert, 50% chance removes
+            p = random.random()
+            if p < .33: # 50% chance insert, 50% chance removes
                 # remove word at index j
                 seq1s.pop(j)
-            else:
+            elif p >= .33 and p < ..66:
                 # insert random word at index j
                 random_word = random.choice(tuple(vocabulary))
                 seq1s.insert(j, random_word)
+            else:
+                # swap words
+                # choose a random word from seq1 that isn't at position j
+                indices = list(range(len(seq1s)))
+                indices.pop(j)
+                i = random.choice(indices)
+                seq1s[i], seq1s[j] = seq1s[j], seq1s[i]
             seq1 = ' '.join(seq1s)
         noisy_pairs.append(seq1 + '\t' + seq2)
 
