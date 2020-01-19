@@ -5,4 +5,4 @@
 #SBATCH --mail-user=jklafka@andrew.cmu.edu
 #SBATCH --mail-type=END,FAIL
 
-python3 sdae.py
+python3 sdae.py $1

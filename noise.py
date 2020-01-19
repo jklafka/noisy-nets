@@ -2,8 +2,12 @@ import random, argparse
 
 NOISE_RATIO = 0.5
 
+parser = argparse.ArgumentParser()
+parser.add_argument("language_file", help="Name of the (noised) .tsv to use")
+args = parser.parse_args()
+
 # read in stimuli
-source_pairs = open("Stimuli/eng-eng.txt", 'r').readlines()
+source_pairs = open("Stimuli/" + args.language_file + ".txt", 'r').readlines()
 # get vocabulary
 
 
