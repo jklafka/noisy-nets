@@ -13,3 +13,28 @@ require(here)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r read results}
+clean_results <- read_csv(here("Results/clean-results.csv"), 
+                    col_names = c("Input", "Prediction", "Output", "Correct"))
+
+noisy_results <- read_csv(here("Results/noisy-results.csv"), 
+                    col_names = c("Input", "Prediction", "Output", "Correct"))
+
+results %>% 
+  clean_results %>% 
+  bind_rows(noisy_results)
+```
+
+```{r plot proportion correct}
+results %>% 
+  ggplot(aes(x = Correct)) + 
+    geom_bar()
+
+```
+
+```{r analyzing what went wrong}
+results %>%
+  mutate(id = 1:n()) %>%
+  select(-Output, -Correct)
+
+```
