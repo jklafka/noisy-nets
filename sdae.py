@@ -50,7 +50,7 @@ def normalizeString(s):
 
 def readLang(language_file, reverse=False):
     # Read the file and split into lines
-    lines = open('Stimuli/' + language_file, encoding='utf-8').\
+    lines = open('Stimuli/' + language_file + ".txt", encoding='utf-8').\
         read().strip().split('\n')
     # Split every line into pairs and normalize
     pairs = [[normalizeString(s) for s in l.split('\t')] for l in lines]
@@ -66,7 +66,12 @@ def readLang(language_file, reverse=False):
 
 def prepareData(lang, reverse=False):
     lang_class, pairs = readLang(lang, reverse)
-    pairs = [pair for pair in pairs if len(pair[0].split(' ')) < MAX_LENGTH and \
+    # new_pairs = []
+    # for pair in pairs:
+    #     print(pair)
+    #     if len(pair[0].split(' ')) < MAX_LENGTH and len(pair[1].split(' ')) < MAX_LENGTH:
+    #          new_pairs.append(pair)
+    pairs = [pair for pair in pairs if pair != [""] and len(pair[0].split(' ')) < MAX_LENGTH and \
         len(pair[1].split(' ')) < MAX_LENGTH]
     for pair in pairs:
         lang_class.addSentence(pair[0])

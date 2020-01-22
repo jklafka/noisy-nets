@@ -25,7 +25,7 @@ for pair in source_pairs:
             if p < .33: # 50% chance insert, 50% chance removes
                 # remove word at index j
                 seq1s.pop(j)
-            elif p >= .33 and p < ..66:
+            elif p >= .33 and p < .66:
                 # insert random word at index j
                 random_word = random.choice(tuple(vocabulary))
                 seq1s.insert(j, random_word)

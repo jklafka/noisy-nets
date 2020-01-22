@@ -1,0 +1,15 @@
+---
+title: "analysis"
+author: "Josef Klafka and Allyson Ettinger"
+date: "1/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+require(tidyverse)
+require(tidytext)
+require(here)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
