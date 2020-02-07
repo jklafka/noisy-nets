@@ -1,6 +1,7 @@
 import torch, random, unicodedata, re, logging, argparse
 import torch.nn as nn
 import torch.nn.functional as F
+from pytorch_pretrained_bert import BertTokenizer, BertModel
 from torch import optim
 
 MAX_LENGTH = 6
@@ -77,6 +78,7 @@ def prepareData(lang, reverse=False):
         lang_class.addSentence(pair[0])
     return lang_class, pairs
 
+## sub in bert and glove embeddings for the embedding layer here
 class EncoderRNN(nn.Module):
     def __init__(self, input_size, hidden_size):
         super(EncoderRNN, self).__init__()

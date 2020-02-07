@@ -26,15 +26,29 @@ results %>%
 ```
 
 ```{r plot proportion correct}
-results %>% 
+clean_results %>% 
   ggplot(aes(x = Correct)) + 
     geom_bar()
 
 ```
 
 ```{r analyzing what went wrong}
-results %>%
+## how many words in common between prediction and output
+predictions <- noisy_results %>%
   mutate(id = 1:n()) %>%
-  select(-Output, -Correct)
+  select(id, Prediction) %>%
+  unnest_tokens(word, Prediction)
+  
+outputs <- noisy_results %>%
+  mutate(id = 1:n()) %>%
+  select(id, Output) %>%
+  unnest_tokens(word, Output)
 
+predictions %>%
+  left_join(outputs, by = "id") %>% 
+  mutate(Correct = ifelse(word.x == word.y, 1, 0)) %>%
+  group_by(id) %>%
+  mutate(word_id = 1:n()) %>%
+  summarize(Percent = sum(Correct) / max(word_id)) %>%
+  
 ```
