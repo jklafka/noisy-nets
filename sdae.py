@@ -7,8 +7,8 @@ from torch import optim
 MAX_LENGTH = 6
 HIDDEN_SIZE = 256
 NUM_ITERS = 75000
-device = torch.device("cuda:0")
-# device = torch.device("cpu")
+# device = torch.device("cuda:0")
+device = torch.device("cpu")
 
 teacher_forcing_ratio = 0.5
 SOS_token = 0
@@ -117,6 +117,11 @@ class AttnDecoderRNN(nn.Module):
 
         attn_weights = F.softmax(
             self.attn(torch.cat((embedded[0], hidden[0]), 1)), dim=1)
+        print(input)
+        print(embedded)
+        print(hidden)
+        print(attn_weights)
+        print(encoder_outputs)
         attn_applied = torch.bmm(attn_weights.unsqueeze(0),
                                  encoder_outputs.unsqueeze(0))
 
