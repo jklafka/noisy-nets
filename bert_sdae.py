@@ -4,11 +4,11 @@ import torch.nn.functional as F
 from pytorch_pretrained_bert import BertTokenizer, BertModel
 from torch import optim
 
-MAX_LENGTH = 100
+MAX_LENGTH = 10
 HIDDEN_SIZE = 256
 NUM_ITERS = 75000
-device = torch.device("cuda:0")
-# device = torch.device("cpu")
+# device = torch.device("cuda:0")
+device = torch.device("cpu")
 
 teacher_forcing_ratio = 0.5
 SOS_token = 0
@@ -101,8 +101,13 @@ class AttnDecoderRNN(nn.Module):
 
         attn_weights = F.softmax(
             self.attn(torch.cat((embedded[0], hidden[0]), 1)), dim=1)
+        print(input)
+        print(embedded)
+        print(hidden)
+        print(attn_weights)
+        print(encoder_outputs)
         attn_applied = torch.bmm(attn_weights.unsqueeze(0),
-                                 encoder_outputs.unsqueeze(0))
+                                 encoder_outputs.unsqueeze(0)[0])
 
         output = torch.cat((embedded[0], attn_applied[0]), 1)
         output = self.attn_combine(output).unsqueeze(0)
@@ -136,7 +141,7 @@ def train(input_text, target_tensor, model, tokenizer, decoder, \
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
     tokens_tensor = torch.tensor([indexed_tokens])
 
-    tokens_tensor = tokens_tensor.to('cuda')
+    # tokens_tensor = tokens_tensor.to('cuda')
 
     with torch.no_grad():
         encoded_layers, _ = model(tokens_tensor)
@@ -228,7 +233,7 @@ bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 # Load pre-trained model (weights)
 bert_model = BertModel.from_pretrained('bert-base-uncased')
-bert_model.to('cuda')
+# bert_model.to('cuda')
 bert_model.eval()
 
 lang, pairs = prepareData(args.language_file, True)
