@@ -95,6 +95,7 @@ class EncoderRNN(nn.Module):
     def initHidden(self):
         return torch.zeros(1, 1, self.hidden_size, device=device)
 
+
 class AttnDecoderRNN(nn.Module):
     def __init__(self, hidden_size, output_size, dropout_p=0.1, max_length=MAX_LENGTH):
         super(AttnDecoderRNN, self).__init__()
@@ -116,11 +117,11 @@ class AttnDecoderRNN(nn.Module):
 
         attn_weights = F.softmax(
             self.attn(torch.cat((embedded[0], hidden[0]), 1)), dim=1)
-        print(input)
-        print(embedded)
-        print(hidden)
-        print(attn_weights)
-        print(encoder_outputs)
+        # print(input)
+        # print(embedded)
+        # print(hidden)
+        # print(attn_weights)
+        # print(encoder_outputs)
         attn_applied = torch.bmm(attn_weights.unsqueeze(0),
                                  encoder_outputs.unsqueeze(0))
 
@@ -172,9 +173,12 @@ def train(input_tensor, target_tensor, encoder, decoder, \
 
     use_teacher_forcing = True if random.random() < teacher_forcing_ratio else False
 
+    print(decoder_input)
     if use_teacher_forcing:
         # Teacher forcing: Feed the target as the next input
         for di in range(target_length):
+            # decoder_output, decoder_hidden = decoder(
+            #     decoder_input.unsqueeze(0), decoder_hidden)
             decoder_output, decoder_hidden, decoder_attention = decoder(
                 decoder_input, decoder_hidden, encoder_outputs)
             loss += criterion(decoder_output, target_tensor[di])
@@ -183,6 +187,8 @@ def train(input_tensor, target_tensor, encoder, decoder, \
     else:
         # Without teacher forcing: use its own predictions as the next input
         for di in range(target_length):
+            # decoder_output, decoder_hidden = decoder(
+            #     decoder_input.unsqueeze(0), decoder_hidden)
             decoder_output, decoder_hidden, decoder_attention = decoder(
                 decoder_input, decoder_hidden, encoder_outputs)
             topv, topi = decoder_output.topk(1)
@@ -249,6 +255,7 @@ def evaluate(lang, encoder, decoder, sentence, max_length=MAX_LENGTH):
 
 lang, pairs = prepareData(args.language_file, True)
 encoder = EncoderRNN(lang.n_words, HIDDEN_SIZE).to(device)
+lang, pairs = prepareData(args.language_file, True)
 attn_decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
 trainIters(lang, encoder, attn_decoder, NUM_ITERS)
 testing_pairs = [random.choice(pairs) for _ in range(1000)]
