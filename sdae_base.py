@@ -6,7 +6,7 @@ from torch import optim
 
 MAX_LENGTH = 6
 HIDDEN_SIZE = 256
-NUM_ITERS = 75000
+NUM_ITERS = 7500
 # device = torch.device("cuda:0")
 device = torch.device("cpu")
 
@@ -98,13 +98,21 @@ class EncoderRNN(nn.Module):
 class DecoderRNN(nn.Module):
     def __init__(self, hidden_size, output_size):
         super(DecoderRNN, self).__init__()
+        self.output_size = output_size
         self.hidden_size = hidden_size
-        self.gru = nn.GRU(hidden_size, hidden_size)
-        self.out = nn.Linear(hidden_size, output_size)
+
+        self.embedding = nn.Embedding(self.output_size, self.hidden_size)
+        self.gru = nn.GRU(self.hidden_size, self.hidden_size)
+        self.out = nn.Linear(self.hidden_size, self.output_size)
         self.softmax = nn.LogSoftmax(dim=1)
 
     def forward(self, input, hidden):
-        output = F.relu(input)
+        output = self.embedding(input).view(1, 1, -1)
+        # output = F.relu(output)
+        # print("output")
+        # print(output)
+        # print("hidden")
+        # print(hidden)
         output, hidden = self.gru(output, hidden)
         output = self.softmax(self.out(output[0]))
         return output, hidden
@@ -143,17 +151,15 @@ def train(input_tensor, target_tensor, encoder, decoder, \
         encoder_outputs[ei] = encoder_output[0, 0]
 
     decoder_input = torch.tensor([[SOS_token]], device=device)
-
     decoder_hidden = encoder_hidden
 
-    use_teacher_forcing = True if random.random() < teacher_forcing_ratio else False
+    use_teacher_forcing = False #True if random.random() < teacher_forcing_ratio else False
 
-    print(decoder_input)
     if use_teacher_forcing:
         # Teacher forcing: Feed the target as the next input
         for di in range(target_length):
             decoder_output, decoder_hidden = decoder(
-                decoder_input.unsqueeze(0), decoder_hidden)
+                decoder_input.unsqueeze(-3), decoder_hidden)
             # decoder_output, decoder_hidden, decoder_attention = decoder(
             #     decoder_input, decoder_hidden, encoder_outputs)
             loss += criterion(decoder_output, target_tensor[di])
@@ -163,7 +169,7 @@ def train(input_tensor, target_tensor, encoder, decoder, \
         # Without teacher forcing: use its own predictions as the next input
         for di in range(target_length):
             decoder_output, decoder_hidden = decoder(
-                decoder_input.unsqueeze(0), decoder_hidden)
+                decoder_input, decoder_hidden)
             # decoder_output, decoder_hidden, decoder_attention = decoder(
             #     decoder_input, decoder_hidden, encoder_outputs)
             topv, topi = decoder_output.topk(1)

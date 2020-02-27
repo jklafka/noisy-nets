@@ -5,8 +5,9 @@ from pytorch_pretrained_bert import BertTokenizer, BertModel
 from torch import optim
 
 MAX_LENGTH = 10
-HIDDEN_SIZE = 768
-NUM_ITERS = 75000
+HIDDEN_SIZE = 768 # same as BERT embedding
+NUM_ITERS = 7500
+BERT_LAYER = 11
 # device = torch.device("cuda:0")
 device = torch.device("cpu")
 
@@ -89,7 +90,11 @@ class DecoderRNN(nn.Module):
 
     def forward(self, input, hidden):
         output = F.relu(input)
+        print("here's what goes in")
+        print(output)
         output, hidden = self.gru(output, hidden)
+        print("here's what comes out")
+        print(output)
         output = self.softmax(self.out(output[0]))
         return output, hidden
 
@@ -162,37 +167,43 @@ def train(input_text, target_tensor, model, tokenizer, decoder, \
     with torch.no_grad():
         encoded_layers, _ = model(tokens_tensor)
 
-    encoder_outputs = encoded_layers[11]
+    encoder_outputs = encoded_layers[BERT_LAYER]
 
-    decoder_input = torch.tensor([[SOS_token]], device=device)
+    # decoder_input = torch.tensor([[SOS_token]], device=device)
 
     decoder_hidden = decoder.initHidden()
 
     # use_teacher_forcing = True if random.random() < teacher_forcing_ratio else False
     #
     # if use_teacher_forcing:
-    #     # Teacher forcing: Feed the target as the next input
-    #     for di in range(target_length):
-    #         decoder_output, decoder_hidden = decoder(
-    #             encoder_outputs, decoder_hidden)
-    #         # decoder_output, decoder_hidden, decoder_attention = decoder(
-    #         #     decoder_input, decoder_hidden, encoder_outputs)
-    #         loss += criterion(decoder_output, target_tensor[di])
-    #         decoder_input = target_tensor[di]  # Teacher forcing
+    # Teacher forcing: Feed the target as the next input
+    for i in range(target_length):
+        decoder_input = encoder_outputs[:,i].unsqueeze(0)
+
+        decoder_output, decoder_hidden = decoder(
+            decoder_input, decoder_hidden)
+        # decoder_output, decoder_hidden, decoder_attention = decoder(
+        #     decoder_input, decoder_hidden, encoder_outputs)
+        decoder_output = decoder_output.unsqueeze(0)
+        # print("output")
+        # print(decoder_output)
+        # print("input")
+        # print(decoder_input)
+        loss += criterion(decoder_output, decoder_input)
 
     # else:
     # Without teacher forcing: use its own predictions as the next input
     # print(encoder_outputs)
     # print(decoder_hidden)
-    for di in range(target_length):
-        decoder_output, decoder_hidden = decoder(
-            encoder_outputs[:,di,:].unsqueeze(-3), decoder_hidden)
-        # decoder_output, decoder_hidden, decoder_attention = decoder(
-        #     decoder_input, decoder_hidden, encoder_outputs)
-        topv, topi = decoder_output.topk(1)
-        decoder_input = topi.squeeze().detach()  # detach from history as input
-
-        loss += criterion(decoder_output, target_tensor[di])
+        # for di in range(target_length):
+        #     decoder_output, decoder_hidden = decoder(
+        #         encoder_outputs[:,di,:].unsqueeze(-3), decoder_hidden)
+        #     # decoder_output, decoder_hidden, decoder_attention = decoder(
+        #     #     decoder_input, decoder_hidden, encoder_outputs)
+        #     topv, topi = decoder_output.topk(1)
+        #     decoder_input = topi.squeeze().detach()  # detach from history as input
+        #
+        #     loss += criterion(decoder_output, target_tensor[di])
         # if decoder_input.item() == EOS_token:
         #     break
 

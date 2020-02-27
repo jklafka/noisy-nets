@@ -6,7 +6,7 @@ from torch import optim
 
 MAX_LENGTH = 6
 HIDDEN_SIZE = 256
-NUM_ITERS = 75000
+NUM_ITERS = 1
 # device = torch.device("cuda:0")
 device = torch.device("cpu")
 
@@ -129,6 +129,10 @@ class AttnDecoderRNN(nn.Module):
         output = self.attn_combine(output).unsqueeze(0)
 
         output = F.relu(output)
+        print("output")
+        print(output)
+        print("hidden")
+        print(hidden)
         output, hidden = self.gru(output, hidden)
 
         output = F.log_softmax(self.out(output[0]), dim=1)
@@ -173,7 +177,6 @@ def train(input_tensor, target_tensor, encoder, decoder, \
 
     use_teacher_forcing = True if random.random() < teacher_forcing_ratio else False
 
-    print(decoder_input)
     if use_teacher_forcing:
         # Teacher forcing: Feed the target as the next input
         for di in range(target_length):
