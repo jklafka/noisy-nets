@@ -1,19 +1,21 @@
-import torch, random, unicodedata, re, logging, argparse
+import torch, random, logging, argparse
 import torch.nn as nn
 import torch.nn.functional as F
-from pytorch_pretrained_bert import BertTokenizer, BertModel
 from torch import optim
+from transformers import BertTokenizer, BertModel
+
 
 MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as BERT embedding
 NUM_ITERS = 7500
 BERT_LAYER = 11
+
+SOS_token = 0
+EOS_token = 1
+
 # device = torch.device("cuda:0")
 device = torch.device("cpu")
 
-teacher_forcing_ratio = 0.5
-SOS_token = 0
-EOS_token = 1
 
 logging.basicConfig(filename = "noisy-results.csv", format="%(message)s", \
                     level=logging.INFO)
@@ -23,62 +25,24 @@ parser.add_argument("language_file", help="Name of the (noised) .txt to use")
 args = parser.parse_args()
 
 
-class Lang:
-    def __init__(self, name):
-        self.name = name
-        self.word2index = {}
-        self.word2count = {}
-        self.index2word = {0: "SOS", 1: "EOS"}
-        self.n_words = 2  # Count SOS and EOS
+def getBERTvocab(tokenizer, language_file):
+    '''
+    Get one-hot indices for each BERT-token in language_file.
+    '''
+    text = language_file.readlines()
+    vocab = set()
+    for line in text:
+        tokens = tokenizer.tokenize(line)
+        vocab = vocab || set(tokens)
+    vocab = ["SOS", "EOS"] + list(vocab) # insert SOS and EOS tokens
+    vocab = {word, index for word, index in enumerate(vocab)}
+    return vocab
 
-    def addSentence(self, sentence):
-        for word in sentence.split(' '):
-            if word not in self.word2index:
-                self.word2index[word] = self.n_words
-                self.word2count[word] = 1
-                self.index2word[self.n_words] = word
-                self.n_words += 1
-            else:
-                self.word2count[word] += 1
-
-# Lowercase, trim, and remove non-letter characters
-def normalizeString(s):
-    s = s.lower().strip()
-    s = ''.join(c for c in unicodedata.normalize('NFD', s)
-        if unicodedata.category(c) != 'Mn')
-    s = re.sub(r"([.!?])", r" \1", s)
-    s = re.sub(r"[^a-zA-Z.!?]+", r" ", s)
-    return s
-
-def readLang(language_file, reverse=False):
-    # Read the file and split into lines
-    lines = open('Stimuli/' + language_file + ".txt", encoding='utf-8').\
-        read().strip().split('\n')
-    # Split every line into pairs and normalize
-    pairs = [[normalizeString(s) for s in l.split('\t')] for l in lines]
-    # Reverse pairs, make Lang instances
-    if reverse:
-        pairs = [list(reversed(p)) for p in pairs]
-        lang_object = Lang(language_file)
-    else:
-        lang_object = Lang(language_file)
-
-    return lang_object, pairs
-
-
-def prepareData(lang, reverse=False):
-    lang_class, pairs = readLang(lang, reverse)
-    # new_pairs = []
-    # for pair in pairs:
-    #     print(pair)
-    #     if len(pair[0].split(' ')) < MAX_LENGTH and len(pair[1].split(' ')) < MAX_LENGTH:
-    #          new_pairs.append(pair)
-    pairs = [pair for pair in pairs if pair != [""] and len(pair[0].split(' ')) < MAX_LENGTH and \
-        len(pair[1].split(' ')) < MAX_LENGTH]
-    for pair in pairs:
-        lang_class.addSentence(pair[0])
-    return lang_class, pairs
-
+def tensorFromSentence(vocab, sentence):
+    indexes = [SOS_token]
+    indexes = [lang.word2index[word] for word in sentence.split(' ')]
+    indexes.append(EOS_token)
+    return torch.tensor(indexes, dtype=torch.long, device=device).view(-1, 1)
 
 class DecoderRNN(nn.Module):
     def __init__(self, hidden_size, output_size):
@@ -90,11 +54,7 @@ class DecoderRNN(nn.Module):
 
     def forward(self, input, hidden):
         output = F.relu(input)
-        print("here's what goes in")
-        print(output)
         output, hidden = self.gru(output, hidden)
-        print("here's what comes out")
-        print(output)
         output = self.softmax(self.out(output[0]))
         return output, hidden
 
@@ -143,12 +103,6 @@ class DecoderRNN(nn.Module):
 #         return torch.zeros(1, 1, self.hidden_size, device=device)
 
 
-def tensorFromSentence(lang, sentence):
-    indexes = [lang.word2index[word] for word in sentence.split(' ')]
-    indexes.append(EOS_token)
-    return torch.tensor(indexes, dtype=torch.long, device=device).view(-1, 1)
-
-
 def train(input_text, target_tensor, model, tokenizer, decoder, \
             decoder_optimizer, criterion, max_length=MAX_LENGTH):
 
@@ -178,18 +132,17 @@ def train(input_text, target_tensor, model, tokenizer, decoder, \
     # if use_teacher_forcing:
     # Teacher forcing: Feed the target as the next input
     for i in range(target_length):
-        decoder_input = encoder_outputs[:,i].unsqueeze(0)
-
         decoder_output, decoder_hidden = decoder(
-            decoder_input, decoder_hidden)
+            encoder_outputs[:,i].unsqueeze(0), decoder_hidden)
         # decoder_output, decoder_hidden, decoder_attention = decoder(
         #     decoder_input, decoder_hidden, encoder_outputs)
-        decoder_output = decoder_output.unsqueeze(0)
-        # print("output")
-        # print(decoder_output)
-        # print("input")
-        # print(decoder_input)
+
+        topv, topi = decoder_output.topk(1)
+        decoder_output = topi.squeeze().detach()
+
+        # loss defined on one-hot vectors
         loss += criterion(decoder_output, decoder_input)
+        decoder_input = decoder_output
 
     # else:
     # Without teacher forcing: use its own predictions as the next input
