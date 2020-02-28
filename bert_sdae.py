@@ -25,7 +25,7 @@ parser.add_argument("language_file", help="Name of the (noised) .txt to use")
 args = parser.parse_args()
 
 
-def getBERTvocab(tokenizer, language_file):
+def get_BERT_vocab(tokenizer, language_file):
     '''
     Get one-hot indices for each BERT-token in language_file.
     '''
@@ -33,18 +33,27 @@ def getBERTvocab(tokenizer, language_file):
     vocab = set()
     for line in text:
         tokens = tokenizer.tokenize(line)
-        vocab = vocab || set(tokens)
+        vocab = vocab | set(tokens)
     vocab = ["SOS", "EOS"] + list(vocab) # insert SOS and EOS tokens
-    vocab = {word, index for word, index in enumerate(vocab)}
+    vocab = {word : index for word, index in enumerate(vocab)} # get vocab indices
     return vocab
 
-def tensorFromSentence(vocab, sentence):
+
+def sentence_to_tensor(tokenizer, vocab, sentence):
+    '''
+    Get list of vocabulary indices for each token in sentence from vocab.
+    '''
     indexes = [SOS_token]
-    indexes = [lang.word2index[word] for word in sentence.split(' ')]
+    indexes = [vocab[token] for token in tokenizer.tokenize(sentence)]
     indexes.append(EOS_token)
     return torch.tensor(indexes, dtype=torch.long, device=device).view(-1, 1)
 
+
 class DecoderRNN(nn.Module):
+    '''
+    Gated recurrent unit neural network. Takes in a BERT or GLoVe embedding and
+    returns a vocabulary index and hidden state on its forward pass.
+    '''
     def __init__(self, hidden_size, output_size):
         super(DecoderRNN, self).__init__()
         self.hidden_size = hidden_size
@@ -61,52 +70,14 @@ class DecoderRNN(nn.Module):
     def initHidden(self):
         return torch.zeros(1, 1, self.hidden_size, device=device)
 
-# class AttnDecoderRNN(nn.Module):
-#     def __init__(self, hidden_size, output_size, dropout_p=0.1, max_length=MAX_LENGTH):
-#         super(AttnDecoderRNN, self).__init__()
-#         self.hidden_size = hidden_size
-#         self.output_size = output_size
-#         self.dropout_p = dropout_p
-#         self.max_length = max_length
-#
-#         self.embedding = nn.Embedding(self.output_size, self.hidden_size)
-#         self.attn = nn.Linear(self.hidden_size * 2, self.max_length)
-#         self.attn_combine = nn.Linear(self.hidden_size * 2, self.hidden_size)
-#         self.dropout = nn.Dropout(self.dropout_p)
-#         self.gru = nn.GRU(self.hidden_size, self.hidden_size)
-#         self.out = nn.Linear(self.hidden_size, self.output_size)
-#
-#     def forward(self, input, hidden, encoder_outputs):
-#         embedded = self.embedding(input).view(1, 1, -1)
-#         embedded = self.dropout(embedded)
-#
-#         attn_weights = F.softmax(
-#             self.attn(torch.cat((embedded[0], hidden[0]), 1)), dim=1)
-#         print(input)
-#         print(embedded)
-#         print(hidden)
-#         print(attn_weights)
-#         print(encoder_outputs)
-#         attn_applied = torch.bmm(attn_weights.unsqueeze(0),
-#                                  encoder_outputs.unsqueeze(0)[0])
-#
-#         output = torch.cat((embedded[0], attn_applied[0]), 1)
-#         output = self.attn_combine(output).unsqueeze(0)
-#
-#         output = F.relu(output)
-#         output, hidden = self.gru(output, hidden)
-#
-#         output = F.log_softmax(self.out(output[0]), dim=1)
-#         return output, hidden, attn_weights
-#
-#     def initHidden(self):
-#         return torch.zeros(1, 1, self.hidden_size, device=device)
 
-
-def train(input_text, target_tensor, model, tokenizer, decoder, \
+def train(input_text, target_text, model, tokenizer, decoder, \
             decoder_optimizer, criterion, max_length=MAX_LENGTH):
-
+    '''
+    One training iteration for the decoder on BERT embeddings. 
+    '''
     decoder_optimizer.zero_grad()
+    target_tensor = sentence_to_tensor(target_text)
     target_length = target_tensor.size(0)
 
     loss = 0
@@ -167,19 +138,19 @@ def train(input_text, target_tensor, model, tokenizer, decoder, \
     return loss.item() / target_length
 
 
-def trainIters(lang, encoder, tokenizer, decoder, n_iters, learning_rate=0.01):
+def trainIters(vocab, encoder, tokenizer, decoder, n_iters, learning_rate=0.01):
     decoder_optimizer = optim.SGD(decoder.parameters(), lr=learning_rate)
     for i in range(n_iters):
         pair_i = random.choice(pairs)
-        training_pairs = [(pair_i[0], tensorFromSentence(lang, pair_i[1]))]
+        training_pairs = [(pair_i[0], sentence_to_tensor(tokenizer, vocab, pair_i[1]))]
     criterion = nn.NLLLoss()
 
     for iter in range(1, n_iters + 1):
         training_pair = training_pairs[iter - 1]
         input_text = training_pair[0]
-        target_tensor = training_pair[1]
+        target_text = training_pair[1]
 
-        loss = train(input_text, target_tensor, encoder, tokenizer,
+        loss = train(input_text, target_text, encoder, tokenizer,
                      decoder, decoder_optimizer, criterion)
 
 
@@ -222,9 +193,9 @@ bert_model = BertModel.from_pretrained('bert-base-uncased')
 # bert_model.to('cuda')
 bert_model.eval()
 
-lang, pairs = prepareData(args.language_file, True)
-decoder = DecoderRNN(HIDDEN_SIZE, lang.n_words)
-trainIters(lang, bert_model, bert_tokenizer, decoder, NUM_ITERS)
+vocab = get_BERT_vocab(args.language_file)
+decoder = DecoderRNN(HIDDEN_SIZE, len(vocab))
+trainIters(vocab, bert_model, bert_tokenizer, decoder, NUM_ITERS)
 testing_pairs = [random.choice(pairs) for _ in range(1000)]
 for pair in testing_pairs:
     guess = evaluate(lang, encoder, decoder, pair[0])
