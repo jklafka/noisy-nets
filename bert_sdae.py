@@ -16,29 +16,44 @@ EOS_token = 1
 # device = torch.device("cuda:0")
 device = torch.device("cpu")
 
-
 logging.basicConfig(filename = "noisy-results.csv", format="%(message)s", \
                     level=logging.INFO)
 
 parser = argparse.ArgumentParser()
-parser.add_argument("language_file", help="Name of the (noised) .txt to use")
+parser.add_argument("train_file", help="Where to read the training pairs")
+parser.add_argument("test_file", help="Where to read the testing pairs")
+parser.add_argument("vocab_file", help="Where to read the vocab file")
 args = parser.parse_args()
 
+# Load pre-trained model tokenizer (vocabulary)
+bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+# Load pre-trained model (weights)
+bert_model = BertModel.from_pretrained('bert-base-uncased')
+# bert_model.to('cuda')
+bert_model.eval()
+##### READ IN training pairs, testing pairs and vocabulary
 
-def get_BERT_vocab(tokenizer, language_file):
-    '''
-    Get one-hot indices for each BERT-token in language_file.
-    '''
-    text = open("Stimuli/" + language_file + ".txt", 'r').readlines()
-    text = [line.strip('\n').split('\t') for line in text]
-    vocab = set()
-    for pair in text:
-        for line in pair:
-            tokens = tokenizer.tokenize(line)
-            vocab = vocab | set(tokens)
-    vocab = ["SOS", "EOS"] + list(vocab) # insert SOS and EOS tokens
-    vocab = {word : index for word, index in enumerate(vocab)} # get vocab indices
-    return vocab
+# read in pairs and vocab from bert_preprocess
+
+decoder = DecoderRNN(HIDDEN_SIZE, len(vocab))
+### REWRITE TRAINITERS TO USE WHAT WE ALREADY HAVE
+trainIters(vocab, training pairs, bert_model, bert_tokenizer, decoder, NUM_ITERS)
+### WRITE TESTING PAIRS FUNCTION
+# testing_pairs = [random.choice(pairs) for _ in range(1000)]
+# for pair in testing_pairs:
+#     guess = evaluate(lang, encoder, decoder, pair[0])
+#     guess = ' '.join(guess)
+#     logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + \
+#                     str(int(guess == pair[1])))
+
+# attn_decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
+# trainIters(lang, bert_model, bert_tokenizer, attn_decoder, NUM_ITERS)
+# testing_pairs = [random.choice(pairs) for _ in range(1000)]
+# for pair in testing_pairs:
+#     guess = evaluate(lang, encoder, attn_decoder, pair[0])
+#     guess = ' '.join(guess)
+#     logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + \
+#                     str(int(guess == pair[1])))
 
 
 def sentence_to_tensor(tokenizer, vocab, sentence):
@@ -140,7 +155,7 @@ def train(input_text, target_text, model, tokenizer, decoder, \
     return loss.item() / target_length
 
 
-def trainIters(vocab, encoder, tokenizer, decoder, n_iters, learning_rate=0.01):
+def trainIters(vocab, pairs, encoder, tokenizer, decoder, n_iters, learning_rate=0.01):
     decoder_optimizer = optim.SGD(decoder.parameters(), lr=learning_rate)
     for i in range(n_iters):
         pair_i = random.choice(pairs)
@@ -185,31 +200,3 @@ def evaluate(lang, encoder, decoder, sentence, max_length=MAX_LENGTH):
             decoder_input = topi.squeeze().detach()
 
         return decoded_words
-
-
-# Load pre-trained model tokenizer (vocabulary)
-bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-
-# Load pre-trained model (weights)
-bert_model = BertModel.from_pretrained('bert-base-uncased')
-# bert_model.to('cuda')
-bert_model.eval()
-
-vocab = get_BERT_vocab(bert_tokenizer, args.language_file)
-decoder = DecoderRNN(HIDDEN_SIZE, len(vocab))
-trainIters(vocab, bert_model, bert_tokenizer, decoder, NUM_ITERS)
-testing_pairs = [random.choice(pairs) for _ in range(1000)]
-for pair in testing_pairs:
-    guess = evaluate(lang, encoder, decoder, pair[0])
-    guess = ' '.join(guess)
-    logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + \
-                    str(int(guess == pair[1])))
-
-# attn_decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
-# trainIters(lang, bert_model, bert_tokenizer, attn_decoder, NUM_ITERS)
-# testing_pairs = [random.choice(pairs) for _ in range(1000)]
-# for pair in testing_pairs:
-#     guess = evaluate(lang, encoder, attn_decoder, pair[0])
-#     guess = ' '.join(guess)
-#     logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + \
-#                     str(int(guess == pair[1])))
