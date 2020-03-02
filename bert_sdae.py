@@ -29,11 +29,13 @@ def get_BERT_vocab(tokenizer, language_file):
     '''
     Get one-hot indices for each BERT-token in language_file.
     '''
-    text = language_file.readlines()
+    text = open("Stimuli/" + language_file + ".txt", 'r').readlines()
+    text = [line.strip('\n').split('\t') for line in text]
     vocab = set()
-    for line in text:
-        tokens = tokenizer.tokenize(line)
-        vocab = vocab | set(tokens)
+    for pair in text:
+        for line in pair:
+            tokens = tokenizer.tokenize(line)
+            vocab = vocab | set(tokens)
     vocab = ["SOS", "EOS"] + list(vocab) # insert SOS and EOS tokens
     vocab = {word : index for word, index in enumerate(vocab)} # get vocab indices
     return vocab
@@ -74,7 +76,7 @@ class DecoderRNN(nn.Module):
 def train(input_text, target_text, model, tokenizer, decoder, \
             decoder_optimizer, criterion, max_length=MAX_LENGTH):
     '''
-    One training iteration for the decoder on BERT embeddings. 
+    One training iteration for the decoder on BERT embeddings.
     '''
     decoder_optimizer.zero_grad()
     target_tensor = sentence_to_tensor(target_text)
@@ -193,7 +195,7 @@ bert_model = BertModel.from_pretrained('bert-base-uncased')
 # bert_model.to('cuda')
 bert_model.eval()
 
-vocab = get_BERT_vocab(args.language_file)
+vocab = get_BERT_vocab(bert_tokenizer, args.language_file)
 decoder = DecoderRNN(HIDDEN_SIZE, len(vocab))
 trainIters(vocab, bert_model, bert_tokenizer, decoder, NUM_ITERS)
 testing_pairs = [random.choice(pairs) for _ in range(1000)]
