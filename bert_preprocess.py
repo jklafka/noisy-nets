@@ -40,10 +40,10 @@ pairs_train, pairs_test = train_test_split(pairs, test_size = 0.1, \
                                             stratify = lengths)
 # write training and testing pairs to separate files
 with open("Stimuli/" + args.train_file + ".txt", 'w') as filename:
-        filename.writelines("%s\t%s" % (pair[0], pair[1]) for pair in pairs_train)
+        filename.writelines("%s\t%s\n" % (pair[0], pair[1]) for pair in pairs_train)
 
 with open("Stimuli/" + args.test_file + ".txt", 'w') as filename:
-        filename.writelines("%s\t%s" % (pair[0], pair[1]) for pair in pairs_test)
+        filename.writelines("%s\t%s\n" % (pair[0], pair[1]) for pair in pairs_test)
 
 
 # get vocabulary and print to external file
@@ -51,4 +51,4 @@ bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 vocab = get_BERT_vocab(bert_tokenizer, pairs)
 
 with open("Stimuli/" + args.vocab_file + ".txt", 'w') as filename:
-        filename.writelines("%s\t%d" % (word, index) for index, word in enumerate(vocab))
+        filename.writelines("%s\t%d\n" % (word, index) for index, word in enumerate(vocab))
