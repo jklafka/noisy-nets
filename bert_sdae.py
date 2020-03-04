@@ -9,6 +9,7 @@ MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as BERT embedding
 NUM_ITERS = 7500
 BERT_LAYER = 11
+LEARNING_RATE = .01
 
 SOS_token = 0
 EOS_token = 1
@@ -31,29 +32,17 @@ bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 bert_model = BertModel.from_pretrained('bert-base-uncased')
 # bert_model.to('cuda')
 bert_model.eval()
-##### READ IN training pairs, testing pairs and vocabulary
 
-# read in pairs and vocab from bert_preprocess
+# read in training and testing pairs and vocab
+training_pairs = open("Stimuli/" + args.train_file + ".txt", 'r').readlines()
+training_pairs = [line.strip('\n').split('\t') for line in training_pairs]
 
-decoder = DecoderRNN(HIDDEN_SIZE, len(vocab))
-### REWRITE TRAINITERS TO USE WHAT WE ALREADY HAVE
-trainIters(vocab, training pairs, bert_model, bert_tokenizer, decoder, NUM_ITERS)
-### WRITE TESTING PAIRS FUNCTION
-# testing_pairs = [random.choice(pairs) for _ in range(1000)]
-# for pair in testing_pairs:
-#     guess = evaluate(lang, encoder, decoder, pair[0])
-#     guess = ' '.join(guess)
-#     logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + \
-#                     str(int(guess == pair[1])))
+test_pairs = open("Stimuli/" + args.test_file + ".txt", 'r').readlines()
+test_pairs = [line.strip('\n').split('\t') for line in test_pairs]
 
-# attn_decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
-# trainIters(lang, bert_model, bert_tokenizer, attn_decoder, NUM_ITERS)
-# testing_pairs = [random.choice(pairs) for _ in range(1000)]
-# for pair in testing_pairs:
-#     guess = evaluate(lang, encoder, attn_decoder, pair[0])
-#     guess = ' '.join(guess)
-#     logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + \
-#                     str(int(guess == pair[1])))
+vocab = open("Stimuli/" + args.vocab_file + ".txt", 'r').readlines()
+vocab = [line.strip('\n').split('\t') for line in vocab]
+vocab = {word : int(index) for word, index in vocab}
 
 
 def sentence_to_tensor(tokenizer, vocab, sentence):
@@ -88,13 +77,13 @@ class DecoderRNN(nn.Module):
         return torch.zeros(1, 1, self.hidden_size, device=device)
 
 
-def train(input_text, target_text, model, tokenizer, decoder, \
+def train(vocab, input_text, target_text, model, tokenizer, decoder, \
             decoder_optimizer, criterion, max_length=MAX_LENGTH):
     '''
     One training iteration for the decoder on BERT embeddings.
     '''
     decoder_optimizer.zero_grad()
-    target_tensor = sentence_to_tensor(target_text)
+    target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
     target_length = target_tensor.size(0)
 
     loss = 0
@@ -125,11 +114,11 @@ def train(input_text, target_text, model, tokenizer, decoder, \
         # decoder_output, decoder_hidden, decoder_attention = decoder(
         #     decoder_input, decoder_hidden, encoder_outputs)
 
-        topv, topi = decoder_output.topk(1)
+        topv, topi = decoder_output.topk(1) #which
         decoder_output = topi.squeeze().detach()
 
         # loss defined on one-hot vectors
-        loss += criterion(decoder_output, decoder_input)
+        loss += criterion(decoder_output, target_tensor)
         decoder_input = decoder_output
 
     # else:
@@ -153,23 +142,6 @@ def train(input_text, target_text, model, tokenizer, decoder, \
     decoder_optimizer.step()
 
     return loss.item() / target_length
-
-
-def trainIters(vocab, pairs, encoder, tokenizer, decoder, n_iters, learning_rate=0.01):
-    decoder_optimizer = optim.SGD(decoder.parameters(), lr=learning_rate)
-    for i in range(n_iters):
-        pair_i = random.choice(pairs)
-        training_pairs = [(pair_i[0], sentence_to_tensor(tokenizer, vocab, pair_i[1]))]
-    criterion = nn.NLLLoss()
-
-    for iter in range(1, n_iters + 1):
-        training_pair = training_pairs[iter - 1]
-        input_text = training_pair[0]
-        target_text = training_pair[1]
-
-        loss = train(input_text, target_text, encoder, tokenizer,
-                     decoder, decoder_optimizer, criterion)
-
 
 def evaluate(lang, encoder, decoder, sentence, max_length=MAX_LENGTH):
     with torch.no_grad():
@@ -200,3 +172,35 @@ def evaluate(lang, encoder, decoder, sentence, max_length=MAX_LENGTH):
             decoder_input = topi.squeeze().detach()
 
         return decoded_words
+
+# initialize decoder, optimizer and loss function
+decoder = DecoderRNN(HIDDEN_SIZE, len(vocab))
+decoder_optimizer = optim.SGD(decoder.parameters(), lr=LEARNING_RATE)
+criterion = nn.NLLLoss()
+
+training_losses = []
+for iter in range(1, NUM_ITERS + 1):
+    training_pair = training_pairs[iter - 1]
+    input_text = training_pair[0]
+    target_text = training_pair[1]
+
+    loss = train(vocab, input_text, target_text, bert_model, bert_tokenizer,
+                 decoder, decoder_optimizer, criterion)
+    training_losses.append(loss)
+
+### WRITE TESTING PAIRS FUNCTION
+# testing_pairs = [random.choice(pairs) for _ in range(1000)]
+# for pair in testing_pairs:
+#     guess = evaluate(lang, encoder, decoder, pair[0])
+#     guess = ' '.join(guess)
+#     logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + \
+#                     str(int(guess == pair[1])))
+
+# attn_decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
+# trainIters(lang, bert_model, bert_tokenizer, attn_decoder, NUM_ITERS)
+# testing_pairs = [random.choice(pairs) for _ in range(1000)]
+# for pair in testing_pairs:
+#     guess = evaluate(lang, encoder, attn_decoder, pair[0])
+#     guess = ' '.join(guess)
+#     logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + \
+#                     str(int(guess == pair[1])))
