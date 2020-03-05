@@ -7,7 +7,6 @@ from transformers import BertTokenizer, BertModel
 
 MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as BERT embedding
-NUM_ITERS = 7500
 BERT_LAYER = 11
 LEARNING_RATE = .01
 SOS_token = 0
@@ -122,7 +121,7 @@ def train(vocab, input_text, target_text, model, tokenizer, decoder, \
     return loss.item() / target_length
 
 
-def evaluate(vocab, input_text, target_text, model, tokenizer, decoder, \
+def test(vocab, input_text, target_text, model, tokenizer, decoder, \
             decoder_optimizer, criterion, max_length=MAX_LENGTH):
     with torch.no_grad():
         target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
@@ -174,12 +173,12 @@ def evaluate(vocab, input_text, target_text, model, tokenizer, decoder, \
             #     loss += criterion(decoder_output, target_tensor[di])
             # if decoder_input.item() == EOS_token:
             #     break
-
-        loss.backward()
-
-        decoder_optimizer.step()
-
-        return loss.item() / target_length
+        #
+        # loss.backward()
+        #
+        # decoder_optimizer.step()
+        #
+        # return loss.item() / target_length
 
 
 # initialize decoder, optimizer and loss function
@@ -189,8 +188,7 @@ criterion = nn.NLLLoss()
 
 # training
 training_losses = []
-for iter in range(1, NUM_ITERS + 1):
-    training_pair = training_pairs[iter - 1]
+for training_pair in training_pairs:
     input_text = training_pair[0]
     target_text = training_pair[1]
 
