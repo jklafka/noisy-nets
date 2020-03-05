@@ -5,4 +5,5 @@
 #SBATCH --mail-user=jklafka@andrew.cmu.edu
 #SBATCH --mail-type=END,FAIL
 
-python3 sdae.py $1
+python3 bert_preprocess.py $1 train test vocab
+python3 bert_sdae.py train test vocab
