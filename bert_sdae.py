@@ -1,4 +1,4 @@
-import torch, random, logging, argparse
+import torch, random, logging, argparse, statistics
 import torch.nn as nn
 import torch.nn.functional as F
 from torch import optim
@@ -29,7 +29,7 @@ args = parser.parse_args()
 bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 # Load pre-trained model (weights)
 bert_model = BertModel.from_pretrained('bert-base-uncased')
-# bert_model.to('cuda')
+bert_model.to('cuda')
 bert_model.eval()
 
 # read in training and testing pairs and vocab
@@ -68,7 +68,7 @@ class DecoderRNN(nn.Module):
 
     def forward(self, input, hidden):
         output = F.relu(input)
-        output, hidden = self.gru(output, hidden)
+        output, hidden = self.gru(output.to('cuda'), hidden.to('cuda'))
         output = self.softmax(self.out(output[0]))
         return output, hidden
 
@@ -92,7 +92,7 @@ def train(vocab, input_text, target_text, model, tokenizer, decoder, \
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
     tokens_tensor = torch.tensor([indexed_tokens])
 
-    # tokens_tensor = tokens_tensor.to('cuda')
+    tokens_tensor = tokens_tensor.to('cuda')
     with torch.no_grad():
         encoded_layers, _ = model(tokens_tensor)
     encoder_outputs = encoded_layers
@@ -111,7 +111,7 @@ def train(vocab, input_text, target_text, model, tokenizer, decoder, \
 
         topv, topi = decoder_output.topk(1) #which
         decoder_input = topi.squeeze().detach()
-        # loss defined on one-hot vectors
+
         loss += criterion(decoder_output, target_tensor[i])
 
     loss.backward()
@@ -153,36 +153,17 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
 
             topv, topi = decoder_output.topk(1) #which
             decoder_input = topi.squeeze().detach()
-            # loss defined on one-hot vectors
+
             loss += criterion(decoder_output, target_tensor[i])
+            # loss += int(decoder_input == target_tensor[i])
 
     return loss.item() / target_length
-
-        # else:
-        # Without teacher forcing: use its own predictions as the next input
-        # print(encoder_outputs)
-        # print(decoder_hidden)
-            # for di in range(target_length):
-            #     decoder_output, decoder_hidden = decoder(
-            #         encoder_outputs[:,di,:].unsqueeze(-3), decoder_hidden)
-            #     # decoder_output, decoder_hidden, decoder_attention = decoder(
-            #     #     decoder_input, decoder_hidden, encoder_outputs)
-            #     topv, topi = decoder_output.topk(1)
-            #     decoder_input = topi.squeeze().detach()  # detach from history as input
-            #
-            #     loss += criterion(decoder_output, target_tensor[di])
-            # if decoder_input.item() == EOS_token:
-            #     break
-        #
-        # loss.backward()
-        #
-        # decoder_optimizer.step()
-        #
-        # return loss.item() / target_length
+    # return loss / target_length
 
 
 # initialize decoder, optimizer and loss function
-decoder = DecoderRNN(HIDDEN_SIZE, len(vocab))
+decoder = DecoderRNN(HIDDEN_SIZE, len(vocab)).to("cuda")
+# decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
 decoder_optimizer = optim.SGD(decoder.parameters(), lr=LEARNING_RATE)
 criterion = nn.NLLLoss()
 
@@ -205,12 +186,4 @@ for testing_pair in testing_pairs:
     loss = test(vocab, input_text, target_text, bert_model, bert_tokenizer,
                  decoder, decoder_optimizer, criterion)
     testing_losses.append(loss)
-
-# attn_decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
-# trainIters(lang, bert_model, bert_tokenizer, attn_decoder, NUM_ITERS)
-# testing_pairs = [random.choice(pairs) for _ in range(1000)]
-# for pair in testing_pairs:
-#     guess = evaluate(lang, encoder, attn_decoder, pair[0])
-#     guess = ' '.join(guess)
-#     logging.info(pair[0] + ',' + guess + ',' + pair[1] + ',' + \
-#                     str(int(guess == pair[1])))
+total_loss = statistics.mean(testing_losses)
