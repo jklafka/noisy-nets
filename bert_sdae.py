@@ -35,9 +35,10 @@ bert_model.eval()
 # read in training and testing pairs and vocab
 training_pairs = open("Stimuli/" + args.train_file + ".txt", 'r').readlines()
 training_pairs = [line.strip('\n').split('\t') for line in training_pairs]
+training_pairs = random.choices(training_pairs, k = 2000)
 
-test_pairs = open("Stimuli/" + args.test_file + ".txt", 'r').readlines()
-test_pairs = [line.strip('\n').split('\t') for line in test_pairs]
+testing_pairs = open("Stimuli/" + args.test_file + ".txt", 'r').readlines()
+testing_pairs = [line.strip('\n').split('\t') for line in testing_pairs]
 
 vocab = open("Stimuli/" + args.vocab_file + ".txt", 'r').readlines()
 vocab = [line.strip('\n').split('\t') for line in vocab]
