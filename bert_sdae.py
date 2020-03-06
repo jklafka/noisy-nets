@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from torch import optim
 from transformers import BertTokenizer, BertModel
 
-
+NUM_TRAINING = 15000
 MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as BERT embedding
 BERT_LAYER = 11
@@ -32,10 +32,11 @@ bert_model = BertModel.from_pretrained('bert-base-uncased')
 bert_model.to('cuda')
 bert_model.eval()
 
+
 # read in training and testing pairs and vocab
 training_pairs = open("Stimuli/" + args.train_file + ".txt", 'r').readlines()
 training_pairs = [line.strip('\n').split('\t') for line in training_pairs]
-training_pairs = random.choices(training_pairs, k = 2000)
+training_pairs = random.choices(training_pairs, k = NUM_TRAINING)
 
 testing_pairs = open("Stimuli/" + args.test_file + ".txt", 'r').readlines()
 testing_pairs = [line.strip('\n').split('\t') for line in testing_pairs]
@@ -135,7 +136,7 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
         indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
         tokens_tensor = torch.tensor([indexed_tokens])
 
-        # tokens_tensor = tokens_tensor.to('cuda')
+        tokens_tensor = tokens_tensor.to('cuda')
         with torch.no_grad():
             encoded_layers, _ = model(tokens_tensor)
         encoder_outputs = encoded_layers
@@ -155,11 +156,11 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
             topv, topi = decoder_output.topk(1) #which
             decoder_input = topi.squeeze().detach()
 
-            loss += criterion(decoder_output, target_tensor[i])
-            # loss += int(decoder_input == target_tensor[i])
+            # loss += criterion(decoder_output, target_tensor[i])
+            loss += int(decoder_input == target_tensor[i])
 
-    return loss.item() / target_length
-    # return loss / target_length
+    # return loss.item() / target_length
+    return loss / target_length
 
 
 # initialize decoder, optimizer and loss function
@@ -187,4 +188,6 @@ for testing_pair in testing_pairs:
     loss = test(vocab, input_text, target_text, bert_model, bert_tokenizer,
                  decoder, decoder_optimizer, criterion)
     testing_losses.append(loss)
+    # logging.info(loss)
 total_loss = statistics.mean(testing_losses)
+logging.info(str(total_loss) + ',' + str(NUM_TRAINING))
