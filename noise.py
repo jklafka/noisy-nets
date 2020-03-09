@@ -40,6 +40,6 @@ for pair in source_pairs:
         noisy_pairs.append(seq1 + '\t' + seq2)
 
 # write to output
-with open("Stimuli/noisy-eng-eng.txt", 'w') as f:
+with open("Stimuli/noisy-" + args.language_file + ".txt", 'w') as f:
     for pair in noisy_pairs:
-        f.write("%s\n" % pair)
+        f.write("%s" % pair)
