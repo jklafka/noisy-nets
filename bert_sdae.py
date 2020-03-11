@@ -4,7 +4,8 @@ import torch.nn.functional as F
 from torch import optim
 from transformers import BertTokenizer, BertModel
 
-NUM_TRAINING = 10#120000
+NUM_TRAINING = 100000#120000
+NUM_TESTING = 1000
 MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as BERT embedding
 BERT_LAYER = 11
@@ -32,12 +33,14 @@ logging.basicConfig(filename = "Results/noisy-results.csv", format="%(message)s"
                     level=logging.INFO)
 
 # read in training and testing pairs and vocab
+logging.info("load files")
 training_pairs = open("Stimuli/" + args.train_file + ".txt", 'r').readlines()
 training_pairs = [line.strip('\n').split('\t') for line in training_pairs]
 training_pairs = random.choices(training_pairs, k = NUM_TRAINING)
 
 testing_pairs = open("Stimuli/" + args.test_file + ".txt", 'r').readlines()
 testing_pairs = [line.strip('\n').split('\t') for line in testing_pairs]
+testing_pairs = random.choices(testing_pairs, k = NUM_TESTING)
 
 vocab = open("Stimuli/" + args.vocab_file + ".txt", 'r').readlines()
 vocab = [line.strip('\n').split('\t') for line in vocab]
@@ -125,7 +128,6 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
             decoder_optimizer, criterion, max_length=MAX_LENGTH):
     with torch.no_grad():
         target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
-        target_length = target_tensor.size(0)
 
         loss = 0
         predicted_string = ""
@@ -139,13 +141,12 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
         with torch.no_grad():
             encoded_layers, _ = model(tokens_tensor)
         encoder_outputs = encoded_layers
+        target_length = encoder_outputs.size(0)
 
         # decoder_input = torch.tensor([[SOS_token]], device=device)
 
         decoder_hidden = decoder.initHidden()
 
-        # if use_teacher_forcing:
-        # Teacher forcing: Feed the target as the next input
         for i in range(target_length):
             decoder_output, decoder_hidden = decoder(
                 encoder_outputs[:,i,:].unsqueeze(0), decoder_hidden)
@@ -174,6 +175,7 @@ decoder_optimizer = optim.SGD(decoder.parameters(), lr=LEARNING_RATE)
 criterion = nn.NLLLoss()
 
 # training
+logging.info("start training")
 training_losses = []
 for training_pair in training_pairs:
     input_text = training_pair[0]
@@ -186,6 +188,7 @@ for training_pair in training_pairs:
 # torch.save(decoder.state_dict(), "Models/current_decoder")
 
 # testing
+logging.info("start testing")
 testing_accuracy = []
 for testing_pair in testing_pairs:
     input_text = testing_pair[0]
