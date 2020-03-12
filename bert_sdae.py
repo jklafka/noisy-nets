@@ -4,8 +4,8 @@ import torch.nn.functional as F
 from torch import optim
 from transformers import BertTokenizer, BertModel
 
-NUM_TRAINING = 100000#120000
-NUM_TESTING = 1000
+NUM_TRAINING = 1000#120000
+NUM_TESTING = 100
 MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as BERT embedding
 BERT_LAYER = 11
@@ -98,7 +98,7 @@ def train(vocab, input_text, target_text, model, tokenizer, decoder, \
     with torch.no_grad():
         encoded_layers, _ = model(tokens_tensor)
     encoder_outputs = encoded_layers
-    target_length = encoder_outputs.size(0)
+    target_length = encoder_outputs.size(1)
 
     # decoder_input = torch.tensor([[SOS_token]], device=device)
 
@@ -141,7 +141,7 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
         with torch.no_grad():
             encoded_layers, _ = model(tokens_tensor)
         encoder_outputs = encoded_layers
-        target_length = encoder_outputs.size(0)
+        target_length = encoder_outputs.size(1)
 
         # decoder_input = torch.tensor([[SOS_token]], device=device)
 
