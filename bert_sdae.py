@@ -4,8 +4,8 @@ import torch.nn.functional as F
 from torch import optim
 from transformers import BertTokenizer, BertModel
 
-NUM_TRAINING = 1000#120000
-NUM_TESTING = 100
+NUM_TRAINING = 100000#120000
+NUM_TESTING = 10000
 MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as BERT embedding
 BERT_LAYER = 11
@@ -33,7 +33,7 @@ logging.basicConfig(filename = "Results/noisy-results.csv", format="%(message)s"
                     level=logging.INFO)
 
 # read in training and testing pairs and vocab
-logging.info("load files")
+# logging.info("load files")
 training_pairs = open("Stimuli/" + args.train_file + ".txt", 'r').readlines()
 training_pairs = [line.strip('\n').split('\t') for line in training_pairs]
 training_pairs = random.choices(training_pairs, k = NUM_TRAINING)
@@ -98,7 +98,7 @@ def train(vocab, input_text, target_text, model, tokenizer, decoder, \
     with torch.no_grad():
         encoded_layers, _ = model(tokens_tensor)
     encoder_outputs = encoded_layers
-    target_length = encoder_outputs.size(1)
+    target_length = min(encoder_outputs.size(1), target_tensor.size(0))
 
     # decoder_input = torch.tensor([[SOS_token]], device=device)
 
@@ -141,7 +141,7 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
         with torch.no_grad():
             encoded_layers, _ = model(tokens_tensor)
         encoder_outputs = encoded_layers
-        target_length = encoder_outputs.size(1)
+        target_length = min(encoder_outputs.size(1), target_tensor.size(0))
 
         # decoder_input = torch.tensor([[SOS_token]], device=device)
 
@@ -175,7 +175,7 @@ decoder_optimizer = optim.SGD(decoder.parameters(), lr=LEARNING_RATE)
 criterion = nn.NLLLoss()
 
 # training
-logging.info("start training")
+# logging.info("start training")
 training_losses = []
 for training_pair in training_pairs:
     input_text = training_pair[0]
@@ -188,7 +188,7 @@ for training_pair in training_pairs:
 # torch.save(decoder.state_dict(), "Models/current_decoder")
 
 # testing
-logging.info("start testing")
+# logging.info("start testing")
 testing_accuracy = []
 for testing_pair in testing_pairs:
     input_text = testing_pair[0]
