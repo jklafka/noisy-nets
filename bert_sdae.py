@@ -26,7 +26,7 @@ args = parser.parse_args()
 bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 # Load pre-trained model (weights)
 bert_model = BertModel.from_pretrained('bert-base-uncased')
-bert_model.to("cuda")
+bert_model.to(device)
 bert_model.eval()
 
 logging.basicConfig(filename = "Results/noisy-results.csv", format="%(message)s", \
@@ -51,8 +51,8 @@ def sentence_to_tensor(tokenizer, vocab, sentence):
     '''
     Get list of vocabulary indices for each token in sentence from vocab.
     '''
-    # indexes = [SOS_token]
-    indexes = [vocab[token] for token in tokenizer.tokenize(sentence)]
+    indexes = [] # [SOS_token]
+    indexes.append(vocab[token] for token in tokenizer.tokenize(sentence))
     # indexes.append(EOS_token)
     return torch.tensor(indexes, dtype=torch.long, device=device).view(-1, 1)
 
@@ -65,13 +65,15 @@ class DecoderRNN(nn.Module):
     def __init__(self, hidden_size, output_size):
         super(DecoderRNN, self).__init__()
         self.hidden_size = hidden_size
+        self.embedding = nn.Embedding(output_size, hidden_size)
         self.gru = nn.GRU(hidden_size, hidden_size)
         self.out = nn.Linear(hidden_size, output_size)
         self.softmax = nn.LogSoftmax(dim=1)
 
     def forward(self, input, hidden):
-        output = F.relu(input)
-        output, hidden = self.gru(output.to("cuda"), hidden.to("cuda"))
+        output = self.embedding(input).view(1, 1, -1).to(device)
+        output = F.relu(output)
+        output, hidden = self.gru(output, hidden.to(device))
         output = self.softmax(self.out(output[0]))
         return output, hidden
 
@@ -82,35 +84,39 @@ class DecoderRNN(nn.Module):
 def train(vocab, input_text, target_text, model, tokenizer, decoder, \
             decoder_optimizer, criterion, max_length=MAX_LENGTH):
     '''
-    One training iteration for the decoder on BERT embeddings.
+    One training iteration for the autoencoder.
     '''
-    decoder_optimizer.zero_grad()
-    target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
-
+    ## separate input and target tensor lengths
+    ## DONE: Put SOS and EOS tokens in each target tensor
+    ## Encode SOS and EOS tokens in transformer embeddings
+    ## Test comparison between
+    ## SOS and EOS tokens
+    ## begin with SOS token
+    ## break if EOS token
     loss = 0
+    decoder_optimizer.zero_grad()
 
+    target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
+    target_length = target_tensor.size(0)
+
+    ## convert to vocabulary indices tensor
     tokenized_text = tokenizer.tokenize(input_text)
-    #convert to vocabulary indices tensor
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
     tokens_tensor = torch.tensor([indexed_tokens])
 
-    tokens_tensor = tokens_tensor.to("cuda")
+    tokens_tensor = tokens_tensor.to(device)
     with torch.no_grad():
         encoded_layers, _ = model(tokens_tensor)
     encoder_outputs = encoded_layers
-    target_length = min(encoder_outputs.size(1), target_tensor.size(0))
 
-    # decoder_input = torch.tensor([[SOS_token]], device=device)
-
+    decoder_input = torch.tensor([[SOS_token]], device=device)
     decoder_hidden = decoder.initHidden()
 
-    # if use_teacher_forcing:
-    # Teacher forcing: Feed the target as the next input
     for i in range(target_length):
         decoder_output, decoder_hidden = decoder(
-            encoder_outputs[:,i,:].unsqueeze(0), decoder_hidden)
-        # decoder_output, decoder_hidden, decoder_attention = decoder(
-        #     decoder_input, decoder_hidden, encoder_outputs)
+            decoder_input, decoder_hidden)
+        # decoder_output, decoder_hidden = decoder(
+        #     encoder_outputs[:,i,:].unsqueeze(0), decoder_hidden)
 
         topv, topi = decoder_output.topk(1) #which
         decoder_input = topi.squeeze().detach()
@@ -126,6 +132,9 @@ def train(vocab, input_text, target_text, model, tokenizer, decoder, \
 
 def test(vocab, input_text, target_text, model, tokenizer, decoder, \
             decoder_optimizer, criterion, max_length=MAX_LENGTH):
+    '''
+    One testing iteration on BERT-decoder.
+    '''
     with torch.no_grad():
         target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
 
@@ -137,7 +146,7 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
         indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
         tokens_tensor = torch.tensor([indexed_tokens])
 
-        tokens_tensor = tokens_tensor.to("cuda")
+        tokens_tensor = tokens_tensor.to(device)
         with torch.no_grad():
             encoded_layers, _ = model(tokens_tensor)
         encoder_outputs = encoded_layers
@@ -165,11 +174,12 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
             predicted_string += ' ' + predicted_word
 
     # return loss.item() / target_length
-    return loss / target_length, predicted_string
+    return loss / target_length, predicted_string, ' '.join(tokenized_text), \
+
 
 
 # initialize decoder, optimizer and loss function
-decoder = DecoderRNN(HIDDEN_SIZE, len(vocab)).to("cuda")
+decoder = DecoderRNN(HIDDEN_SIZE, len(vocab)).to(device)
 # decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
 decoder_optimizer = optim.SGD(decoder.parameters(), lr=LEARNING_RATE)
 criterion = nn.NLLLoss()
@@ -194,10 +204,11 @@ for testing_pair in testing_pairs:
     input_text = testing_pair[0]
     target_text = testing_pair[1]
 
-    loss, prediction = test(vocab, input_text, target_text, bert_model, bert_tokenizer,
+    loss, prediction, input_tokens, target_tokens = \
+                test(vocab, input_text, target_text, bert_model, bert_tokenizer,
                  decoder, decoder_optimizer, criterion)
     testing_accuracy.append(loss)
-    logging.info(input_text + ',' + prediction + ',' + target_text + ',' + str(loss))
+    logging.info(input_tokens + ',' + prediction + ',' + target_tokens + ',' + str(loss))
 
 total_accuracy = statistics.mean(testing_accuracy)
 logging.info(str(total_accuracy) + ',' + str(NUM_TRAINING))
