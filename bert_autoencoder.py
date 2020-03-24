@@ -57,6 +57,21 @@ def sentence_to_tensor(tokenizer, vocab, sentence):
     return torch.tensor(indexes, dtype=torch.long, device=device).view(-1, 1)
 
 
+class EncoderRNN(nn.Module):
+    def __init__(self, hidden_size):
+        super(EncoderRNN, self).__init__()
+        self.hidden_size = hidden_size
+        self.gru = nn.GRU(hidden_size, hidden_size)
+
+    def forward(self, input, hidden):
+        embedded = input.view(1, 1, -1)
+        output, hidden = self.gru(embedded, hidden)
+        return output, hidden
+
+    def initHidden(self):
+        return torch.zeros(1, 1, self.hidden_size, device=device)
+
+
 class DecoderRNN(nn.Module):
     '''
     Gated recurrent unit neural network. Takes in a BERT or GLoVe embedding and
@@ -81,19 +96,17 @@ class DecoderRNN(nn.Module):
         return torch.zeros(1, 1, self.hidden_size, device=device)
 
 
-def train(vocab, input_text, target_text, model, tokenizer, decoder, \
-            decoder_optimizer, criterion, max_length=MAX_LENGTH):
+def train(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
+            encoder_optimizer, decoder_optimizer, criterion, max_length=MAX_LENGTH):
     '''
     One training iteration for the autoencoder.
     '''
-    ## separate input and target tensor lengths
-    ## Test comparison between
-    ## Put SOS and EOS tokens
-    ## SOS and EOS tokens
-    ## begin with SOS token
-    ## break if EOS token
     loss = 0
     decoder_optimizer.zero_grad()
+    encoder_optimizer.zero_grad()
+    encoder_hidden = encoder.initHidden()
+
+    encoder_outputs = torch.zeros(max_length, encoder.hidden_size, device=device)
 
     target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
     target_length = target_tensor.size(0)
@@ -106,31 +119,49 @@ def train(vocab, input_text, target_text, model, tokenizer, decoder, \
     tokens_tensor = tokens_tensor.to(device)
     with torch.no_grad():
         encoded_layers, _ = model(tokens_tensor)
-    encoder_outputs = encoded_layers
+
+    for ei in range(input_length):
+        encoder_output, encoder_hidden = encoder(
+            encoded_layers[:, ei, :], encoder_hidden)
+        encoder_outputs[ei] = encoder_output[0, 0]
 
     decoder_input = torch.tensor([[SOS_token]], device=device)
-    decoder_hidden = decoder.initHidden()
+    decoder_hidden = encoder_hidden
 
-    for i in range(target_length):
-        decoder_output, decoder_hidden = decoder(
-            decoder_input, decoder_hidden)
-        # decoder_output, decoder_hidden = decoder(
-        #     encoder_outputs[:,i,:].unsqueeze(0), decoder_hidden)
+    if use_teacher_forcing:
+        # Teacher forcing: Feed the target as the next input
+        for di in range(target_length):
+            # decoder_output, decoder_hidden = decoder(
+            #     decoder_input.unsqueeze(0), decoder_hidden)
+            decoder_output, decoder_hidden = decoder(
+                decoder_input, decoder_hidden)
+            loss += criterion(decoder_output, target_tensor[di])
+            decoder_input = target_tensor[di]  # Teacher forcing
 
-        topv, topi = decoder_output.topk(1) #which
-        decoder_input = topi.squeeze().detach()
+    else:
+        # Without teacher forcing: use its own predictions as the next input
+        for di in range(target_length):
+            # decoder_output, decoder_hidden = decoder(
+            #     decoder_input.unsqueeze(0), decoder_hidden)
+            decoder_output, decoder_hidden = decoder(
+                decoder_input, decoder_hidden)
+            topv, topi = decoder_output.topk(1)
+            decoder_input = topi.squeeze().detach()  # detach from history as input
 
-        loss += criterion(decoder_output, target_tensor[i])
+            loss += criterion(decoder_output, target_tensor[di])
+            if decoder_input.item() == EOS_token:
+                break
 
     loss.backward()
 
+    encoder_optimizer.step()
     decoder_optimizer.step()
 
     return loss.item() / target_length
 
 
-def test(vocab, input_text, target_text, model, tokenizer, decoder, \
-            decoder_optimizer, criterion, max_length=MAX_LENGTH):
+def test(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
+            max_length=MAX_LENGTH):
     '''
     One testing iteration on BERT-decoder.
     '''
@@ -176,10 +207,11 @@ def test(vocab, input_text, target_text, model, tokenizer, decoder, \
     return loss / target_length, predicted_string, ' '.join(tokenized_text), \
 
 
-
 # initialize decoder, optimizer and loss function
+encoder_rnn = EncoderRNN(HIDDEN_SIZE).to(device)
 decoder = DecoderRNN(HIDDEN_SIZE, len(vocab)).to(device)
 # decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
+encoder_optimizer = optim.SGD(encoder.parameters(), lr=LEARNING_RATE)
 decoder_optimizer = optim.SGD(decoder.parameters(), lr=LEARNING_RATE)
 criterion = nn.NLLLoss()
 
@@ -191,7 +223,7 @@ for training_pair in training_pairs:
     target_text = training_pair[1]
 
     loss = train(vocab, input_text, target_text, bert_model, bert_tokenizer,
-                 decoder, decoder_optimizer, criterion)
+                 decoder, encoder_optimizer, decoder_optimizer, criterion)
     training_losses.append(loss)
 
 # torch.save(decoder.state_dict(), "Models/current_decoder")
@@ -205,7 +237,7 @@ for testing_pair in testing_pairs:
 
     loss, prediction, input_tokens, target_tokens = \
                 test(vocab, input_text, target_text, bert_model, bert_tokenizer,
-                 decoder, decoder_optimizer, criterion)
+                 encoder_rnn, decoder)
     testing_accuracy.append(loss)
     logging.info(input_tokens + ',' + prediction + ',' + target_tokens + ',' + str(loss))
 

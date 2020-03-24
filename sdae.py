@@ -1,7 +1,7 @@
 import torch, random, unicodedata, re, logging, argparse
 import torch.nn as nn
 import torch.nn.functional as F
-from pytorch_pretrained_bert import BertTokenizer, BertModel
+from transformers import BertTokenizer, BertModel
 from torch import optim
 
 MAX_LENGTH = 6
