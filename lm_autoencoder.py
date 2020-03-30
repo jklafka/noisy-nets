@@ -3,9 +3,7 @@
 # @Email:  jlklafka@gmail.com
 # @Project: Noisy-nets
 # @Last modified by:   academic
-# @Last modified time: 2020-03-30T14:05:21-04:00
-
-
+# @Last modified time: 2020-03-30T14:50:13-04:00
 
 import torch, random, logging, argparse, statistics
 import torch.nn as nn
@@ -13,18 +11,17 @@ import torch.nn.functional as F
 from torch import optim
 from transformers import BertTokenizer, BertModel
 
-NUM_TRAINING = 100#120000
-NUM_TESTING = 10#10000
+NUM_TRAINING = 120000
+NUM_TESTING = 2000
 MAX_LENGTH = 10
-HIDDEN_SIZE = 768 # same as BERT embedding
-BERT_LAYER = 11
+HIDDEN_SIZE = 768 # same as LM embedding
 LEARNING_RATE = .01
 SOS_token = 0
 EOS_token = 1
 TEACHER_FORCING_RATIO = 0.5
 
-# device = torch.device("cuda:0")
-device = torch.device("cpu")
+device = torch.device("cuda:0")
+# device = torch.device("cpu")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("train_file", help="Where to read the training pairs")
@@ -33,11 +30,11 @@ parser.add_argument("vocab_file", help="Where to read the vocab file")
 args = parser.parse_args()
 
 # Load pre-trained model tokenizer (vocabulary)
-bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+lm_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 # Load pre-trained model (weights)
-bert_model = BertModel.from_pretrained('bert-base-uncased')
-bert_model.to(device)
-bert_model.eval()
+lm_model = BertModel.from_pretrained('bert-base-uncased')
+lm_model.to(device)
+lm_model.eval()
 
 logging.basicConfig(filename = "Results/noisy-test.csv", format="%(message)s", \
                     level=logging.INFO)
@@ -85,7 +82,7 @@ class EncoderRNN(nn.Module):
 
 class DecoderRNN(nn.Module):
     '''
-    Gated recurrent unit neural network. Takes in a BERT or GLoVe embedding and
+    Gated recurrent unit neural network. Takes in an LM embedding and
     returns a vocabulary index and hidden state on its forward pass.
     '''
     def __init__(self, hidden_size, output_size):
@@ -126,26 +123,26 @@ def train(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
     tokens_tensor = torch.tensor([indexed_tokens])
     input_length = tokens_tensor.size(0)
-
+    ## Encoder input sequence via LM encoder
     tokens_tensor = tokens_tensor.to(device)
     with torch.no_grad():
         encoded_layers, _ = model(tokens_tensor)
 
+    ## Encoder half of the autoencoder
     for ei in range(input_length):
         encoder_output, encoder_hidden = encoder(
             encoded_layers[:, ei, :], encoder_hidden)
         encoder_outputs[ei] = encoder_output[0, 0]
 
+    ## Decoder half of the autoencoder
     decoder_input = torch.tensor([[SOS_token]], device=device)
     decoder_hidden = encoder_hidden
 
+    ## handles variable-length input
     use_teacher_forcing = True if random.random() < TEACHER_FORCING_RATIO else False
-
     if use_teacher_forcing:
         # Teacher forcing: Feed the target as the next input
         for di in range(target_length):
-            # decoder_output, decoder_hidden = decoder(
-            #     decoder_input.unsqueeze(0), decoder_hidden)
             decoder_output, decoder_hidden = decoder(
                 decoder_input, decoder_hidden)
             loss += criterion(decoder_output, target_tensor[di])
@@ -154,8 +151,6 @@ def train(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
     else:
         # Without teacher forcing: use its own predictions as the next input
         for di in range(target_length):
-            # decoder_output, decoder_hidden = decoder(
-            #     decoder_input.unsqueeze(0), decoder_hidden)
             decoder_output, decoder_hidden = decoder(
                 decoder_input, decoder_hidden)
             topv, topi = decoder_output.topk(1)
@@ -179,46 +174,57 @@ def test(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
     One testing iteration on LM-decoder.
     '''
     with torch.no_grad():
+        encoder_hidden = encoder.initHidden()
+        encoder_outputs = torch.zeros(max_length, encoder.hidden_size, device=device)
+
         target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
+        target_length = target_tensor.size(0)
 
         loss = 0
         predicted_string = ""
+        target_string = ""
 
+        ## convert to vocabulary indices tensor
         tokenized_text = tokenizer.tokenize(input_text)
-        #convert to vocabulary indices tensor
         indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
         tokens_tensor = torch.tensor([indexed_tokens])
-
+        input_length = tokens_tensor.size(0)
+        ## Encoder input sequence via LM encoder
         tokens_tensor = tokens_tensor.to(device)
         with torch.no_grad():
             encoded_layers, _ = model(tokens_tensor)
-        encoder_outputs = encoded_layers
-        target_length = min(encoder_outputs.size(1), target_tensor.size(0))
 
-        # decoder_input = torch.tensor([[SOS_token]], device=device)
+        ## Encoder half of the autoencoder
+        for ei in range(input_length):
+            encoder_output, encoder_hidden = encoder(
+                encoded_layers[:, ei, :], encoder_hidden)
+            encoder_outputs[ei] = encoder_output[0, 0]
 
-        decoder_hidden = decoder.initHidden()
+        ## Decoder half of the autoencoder
+        decoder_input = torch.tensor([[SOS_token]], device=device)
+        decoder_hidden = encoder_hidden
 
+        ## handles variable-length input
         for i in range(target_length):
             decoder_output, decoder_hidden = decoder(
-                encoder_outputs[:,i,:].unsqueeze(0), decoder_hidden)
-            # decoder_output, decoder_hidden, decoder_attention = decoder(
-            #     decoder_input, decoder_hidden, encoder_outputs)
+                decoder_input, decoder_hidden)
+            topv, topi = decoder_output.topk(1)
+            decoder_input = topi.squeeze().detach()  # detach from history as input
 
-            topv, topi = decoder_output.topk(1) #which
-            decoder_input = topi.squeeze().detach()
-
-            # loss += criterion(decoder_output, target_tensor[i])
-            loss += int(decoder_input == target_tensor[i])
-
-            # get each predicted word
+            # get each predicted word and target word
             predicted_word = [key for key, value in vocab.items() \
                                 if value == decoder_input.item()][0]
-            predicted_string += ' ' + predicted_word
+            predicted_string += predicted_word
 
-    # return loss.item() / target_length
-    return loss / target_length, predicted_string, ' '.join(tokenized_text), \
+            loss += int(decoder_input == target_tensor[i])
 
+            if decoder_input.item() == EOS_token:
+                break
+
+            # add space if more words forthcoming
+            predicted_string += ' '
+
+    return loss / target_length, predicted_string
 
 # initialize decoder, optimizer and loss function
 encoder_rnn = EncoderRNN(HIDDEN_SIZE).to(device)
@@ -229,13 +235,12 @@ decoder_optimizer = optim.SGD(decoder_rnn.parameters(), lr=LEARNING_RATE)
 criterion = nn.NLLLoss()
 
 # training
-# logging.info("start training")
 training_losses = []
 for training_pair in training_pairs:
     input_text = training_pair[0]
     target_text = training_pair[1]
 
-    loss = train(vocab, input_text, target_text, bert_model, bert_tokenizer,
+    loss = train(vocab, input_text, target_text, lm_model, lm_tokenizer,
                  encoder_rnn, decoder_rnn, encoder_optimizer, decoder_optimizer,
                  criterion)
     training_losses.append(loss)
@@ -243,16 +248,15 @@ for training_pair in training_pairs:
 # torch.save(decoder.state_dict(), "Models/current_decoder")
 
 # testing
-# logging.info("start testing")
 testing_accuracy = []
 for testing_pair in testing_pairs:
     input_text = testing_pair[0]
     target_text = testing_pair[1]
 
-    loss, prediction, input_tokens, target_tokens = test(vocab, input_text,
-                target_text, bert_model, bert_tokenizer, encoder_rnn, decoder_rnn)
+    loss, prediction = test(vocab, input_text, target_text, lm_model,
+                            lm_tokenizer, encoder_rnn, decoder_rnn)
     testing_accuracy.append(loss)
-    logging.info(input_tokens + ',' + prediction + ',' + target_tokens + ',' + str(loss))
+    logging.info(input_text + ',' + prediction + ',' + target_text + ',' + str(loss))
 
 total_accuracy = statistics.mean(testing_accuracy)
 logging.info(str(total_accuracy) + ',' + str(NUM_TRAINING))
