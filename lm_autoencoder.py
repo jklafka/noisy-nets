@@ -1,20 +1,30 @@
+# @Author: Josef Klafka <academic>
+# @Date:   2020-03-27T17:41:16-04:00
+# @Email:  jlklafka@gmail.com
+# @Project: Noisy-nets
+# @Last modified by:   academic
+# @Last modified time: 2020-03-30T14:05:21-04:00
+
+
+
 import torch, random, logging, argparse, statistics
 import torch.nn as nn
 import torch.nn.functional as F
 from torch import optim
 from transformers import BertTokenizer, BertModel
 
-NUM_TRAINING = 100000#120000
-NUM_TESTING = 10000
+NUM_TRAINING = 100#120000
+NUM_TESTING = 10#10000
 MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as BERT embedding
 BERT_LAYER = 11
 LEARNING_RATE = .01
 SOS_token = 0
 EOS_token = 1
+TEACHER_FORCING_RATIO = 0.5
 
-device = torch.device("cuda:0")
-# device = torch.device("cpu")
+# device = torch.device("cuda:0")
+device = torch.device("cpu")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("train_file", help="Where to read the training pairs")
@@ -29,7 +39,7 @@ bert_model = BertModel.from_pretrained('bert-base-uncased')
 bert_model.to(device)
 bert_model.eval()
 
-logging.basicConfig(filename = "Results/noisy-results.csv", format="%(message)s", \
+logging.basicConfig(filename = "Results/noisy-test.csv", format="%(message)s", \
                     level=logging.INFO)
 
 # read in training and testing pairs and vocab
@@ -52,7 +62,8 @@ def sentence_to_tensor(tokenizer, vocab, sentence):
     Get list of vocabulary indices for each token in sentence from vocab.
     '''
     indexes = [] # [SOS_token]
-    indexes.append(vocab[token] for token in tokenizer.tokenize(sentence))
+    for token in tokenizer.tokenize(sentence):
+        indexes.append(vocab[token])
     # indexes.append(EOS_token)
     return torch.tensor(indexes, dtype=torch.long, device=device).view(-1, 1)
 
@@ -99,13 +110,12 @@ class DecoderRNN(nn.Module):
 def train(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
             encoder_optimizer, decoder_optimizer, criterion, max_length=MAX_LENGTH):
     '''
-    One training iteration for the autoencoder.
+    One training iteration for the LM-autoencoder.
     '''
     loss = 0
     decoder_optimizer.zero_grad()
     encoder_optimizer.zero_grad()
     encoder_hidden = encoder.initHidden()
-
     encoder_outputs = torch.zeros(max_length, encoder.hidden_size, device=device)
 
     target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
@@ -115,6 +125,7 @@ def train(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
     tokenized_text = tokenizer.tokenize(input_text)
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
     tokens_tensor = torch.tensor([indexed_tokens])
+    input_length = tokens_tensor.size(0)
 
     tokens_tensor = tokens_tensor.to(device)
     with torch.no_grad():
@@ -127,6 +138,8 @@ def train(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
 
     decoder_input = torch.tensor([[SOS_token]], device=device)
     decoder_hidden = encoder_hidden
+
+    use_teacher_forcing = True if random.random() < TEACHER_FORCING_RATIO else False
 
     if use_teacher_forcing:
         # Teacher forcing: Feed the target as the next input
@@ -163,7 +176,7 @@ def train(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
 def test(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
             max_length=MAX_LENGTH):
     '''
-    One testing iteration on BERT-decoder.
+    One testing iteration on LM-decoder.
     '''
     with torch.no_grad():
         target_tensor = sentence_to_tensor(tokenizer, vocab, target_text)
@@ -209,10 +222,10 @@ def test(vocab, input_text, target_text, model, tokenizer, encoder, decoder, \
 
 # initialize decoder, optimizer and loss function
 encoder_rnn = EncoderRNN(HIDDEN_SIZE).to(device)
-decoder = DecoderRNN(HIDDEN_SIZE, len(vocab)).to(device)
+decoder_rnn = DecoderRNN(HIDDEN_SIZE, len(vocab)).to(device)
 # decoder = AttnDecoderRNN(HIDDEN_SIZE, lang.n_words, dropout_p=0.1).to(device)
-encoder_optimizer = optim.SGD(encoder.parameters(), lr=LEARNING_RATE)
-decoder_optimizer = optim.SGD(decoder.parameters(), lr=LEARNING_RATE)
+encoder_optimizer = optim.SGD(encoder_rnn.parameters(), lr=LEARNING_RATE)
+decoder_optimizer = optim.SGD(decoder_rnn.parameters(), lr=LEARNING_RATE)
 criterion = nn.NLLLoss()
 
 # training
@@ -223,7 +236,8 @@ for training_pair in training_pairs:
     target_text = training_pair[1]
 
     loss = train(vocab, input_text, target_text, bert_model, bert_tokenizer,
-                 decoder, encoder_optimizer, decoder_optimizer, criterion)
+                 encoder_rnn, decoder_rnn, encoder_optimizer, decoder_optimizer,
+                 criterion)
     training_losses.append(loss)
 
 # torch.save(decoder.state_dict(), "Models/current_decoder")
@@ -235,9 +249,8 @@ for testing_pair in testing_pairs:
     input_text = testing_pair[0]
     target_text = testing_pair[1]
 
-    loss, prediction, input_tokens, target_tokens = \
-                test(vocab, input_text, target_text, bert_model, bert_tokenizer,
-                 encoder_rnn, decoder)
+    loss, prediction, input_tokens, target_tokens = test(vocab, input_text,
+                target_text, bert_model, bert_tokenizer, encoder_rnn, decoder_rnn)
     testing_accuracy.append(loss)
     logging.info(input_tokens + ',' + prediction + ',' + target_tokens + ',' + str(loss))
 
