@@ -3,7 +3,7 @@
 # @Email:  jlklafka@gmail.com
 # @Project: Noisy-nets
 # @Last modified by:   academic
-# @Last modified time: 2020-03-31T15:44:42-04:00
+# @Last modified time: 2020-04-03T13:36:20-04:00
 
 import torch, random, logging, argparse, statistics
 import torch.nn as nn
@@ -12,8 +12,8 @@ from torch import optim
 from transformers import BertTokenizer, BertModel
 from transformers import pipeline
 
-NUM_TRAINING = 10#120000
-NUM_TESTING = 10#2000
+NUM_TRAINING = 120000
+NUM_TESTING = 2000
 MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as LM embedding
 LEARNING_RATE = .01
@@ -40,23 +40,6 @@ args = parser.parse_args()
 logging.basicConfig(filename = "Results/noisy-test.csv", format="%(message)s", \
                     level=logging.INFO)
 
-# read in training and testing pairs and vocab
-# logging.info("load files")
-training_pairs = open("Stimuli/" + args.train_file + ".txt", 'r').readlines()
-training_pairs = [line.strip('\n').split('\t') for line in training_pairs]
-training_pairs = random.choices(training_pairs, k = NUM_TRAINING)
-
-testing_pairs = open("Stimuli/" + args.test_file + ".txt", 'r').readlines()
-testing_pairs = [line.strip('\n').split('\t') for line in testing_pairs]
-testing_pairs = random.choices(testing_pairs, k = NUM_TESTING)
-
-if args.vocab_file is None:
-    vocab = create_vocab(training_pairs, testing_pairs)
-else:
-    vocab = open("Stimuli/" + args.vocab_file + ".txt", 'r').readlines()
-    vocab = [line.strip('\n').split('\t') for line in vocab]
-    vocab = {word : int(index) for word, index in vocab}
-
 
 def create_vocab(training_pairs, testing_pairs):
     '''
@@ -67,10 +50,10 @@ def create_vocab(training_pairs, testing_pairs):
     vocab = set()
     for pair in pairs:
         for line in pair:
-            tokens = line[0].split(' ')
+            tokens = line.split(' ')
             vocab = vocab | set(tokens)
     vocab = {"SOS", "EOS"} | vocab # insert SOS and EOS tokens
-    vocab = {word : int for index, word in enumerate(vocab)}
+    vocab = {word : index for index, word in enumerate(list(vocab))}
     return vocab
 
 
@@ -125,7 +108,7 @@ class DecoderRNN(nn.Module):
 
 
 def train(vocab, input_text, target_text, lm_encoder, encoder, decoder, \
-            encoder_optimizer, decoder_optimizer, criterion, max_length=MAX_LENGTH):
+            encoder_optimizer, decoder_optimizer, criterion):
     '''
     One training iteration for the LM-autoencoder.
     '''
@@ -133,23 +116,16 @@ def train(vocab, input_text, target_text, lm_encoder, encoder, decoder, \
     decoder_optimizer.zero_grad()
     encoder_optimizer.zero_grad()
     encoder_hidden = encoder.initHidden()
-    encoder_outputs = torch.zeros(max_length, encoder.hidden_size, device=device)
 
     target_tensor = sentence_to_tensor(vocab, target_text)
     target_length = target_tensor.size(0)
 
     with torch.no_grad():
         encoded_layers = lm(input_text)
+    encoded_layers = torch.tensor(encoded_layers).to(device)
     input_length = encoded_layers.size(1)
-    # ## convert to vocabulary indices tensor
-    # tokenized_text = tokenizer.tokenize(input_text)
-    # indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
-    # tokens_tensor = torch.tensor([indexed_tokens])
-    # input_length = tokens_tensor.size(0)
-    # ## Encoder input sequence via LM encoder
-    # tokens_tensor = tokens_tensor.to(device)
-    # with torch.no_grad():
-    #     encoded_layers, _ = model(tokens_tensor)
+
+    encoder_outputs = torch.zeros(input_length, encoder.hidden_size, device=device)
 
     ## Encoder half of the autoencoder
     for ei in range(input_length):
@@ -191,14 +167,12 @@ def train(vocab, input_text, target_text, lm_encoder, encoder, decoder, \
     return loss.item() / target_length
 
 
-def test(vocab, input_text, target_text, lm_encoder, encoder, decoder, \
-            max_length=MAX_LENGTH):
+def test(vocab, input_text, target_text, lm_encoder, encoder, decoder):
     '''
     One testing iteration on LM-decoder.
     '''
     with torch.no_grad():
         encoder_hidden = encoder.initHidden()
-        encoder_outputs = torch.zeros(max_length, encoder.hidden_size, device=device)
 
         target_tensor = sentence_to_tensor(vocab, target_text)
         target_length = target_tensor.size(0)
@@ -208,16 +182,9 @@ def test(vocab, input_text, target_text, lm_encoder, encoder, decoder, \
         target_string = ""
 
         encoded_layers = lm(input_text)
+        encoded_layers = torch.tensor(encoded_layers).to(device)
         input_length = encoded_layers.size(1)
-        # ## convert to vocabulary indices tensor
-        # tokenized_text = tokenizer.tokenize(input_text)
-        # indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
-        # tokens_tensor = torch.tensor([indexed_tokens])
-        # input_length = tokens_tensor.size(0)
-        # ## Encoder input sequence via LM encoder
-        # tokens_tensor = tokens_tensor.to(device)
-        # with torch.no_grad():
-        #     encoded_layers, _ = model(tokens_tensor)
+        encoder_outputs = torch.zeros(input_length, encoder.hidden_size, device=device)
 
         ## Encoder half of the autoencoder
         for ei in range(input_length):
@@ -252,6 +219,24 @@ def test(vocab, input_text, target_text, lm_encoder, encoder, decoder, \
     return loss / target_length, predicted_string
 
 
+# read in training and testing pairs and vocab
+# logging.info("load files")
+training_pairs = open("Stimuli/" + args.train_file + ".txt", 'r').readlines()
+training_pairs = [line.strip('\n').split('\t') for line in training_pairs]
+training_pairs = random.choices(training_pairs, k = NUM_TRAINING)
+
+testing_pairs = open("Stimuli/" + args.test_file + ".txt", 'r').readlines()
+testing_pairs = [line.strip('\n').split('\t') for line in testing_pairs]
+testing_pairs = random.choices(testing_pairs, k = NUM_TESTING)
+
+
+if args.vocab_file is None:
+    vocab = create_vocab(training_pairs, testing_pairs)
+else:
+    vocab = open("Stimuli/" + args.vocab_file + ".txt", 'r').readlines()
+    vocab = [line.strip('\n').split('\t') for line in vocab]
+    vocab = {word : int(index) for word, index in vocab}
+
 # initialize lm encoder
 lm = pipeline("feature-extraction", model = "bert-base-uncased",
                 device=-1)
@@ -269,9 +254,8 @@ for training_pair in training_pairs:
     input_text = training_pair[0]
     target_text = training_pair[1]
 
-    loss = train(vocab, input_text, target_text, lm,
-                 encoder_rnn, decoder_rnn, encoder_optimizer, decoder_optimizer,
-                 criterion)
+    loss = train(vocab, input_text, target_text, lm, encoder_rnn, decoder_rnn,
+                    encoder_optimizer, decoder_optimizer, criterion)
     training_losses.append(loss)
 
 # torch.save(decoder.state_dict(), "Models/current_decoder")
