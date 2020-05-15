@@ -20,15 +20,18 @@ for pair in source_pairs:
     if len(seq1s) >= 5:
         vocabulary = vocabulary | set(seq1s)
         if random.random() < NOISE_RATIO: # make edit with prob < NOISE_RATIO
+            edit = "none"
             j = random.randint(0, len(seq1s) - 1)
             p = random.random()
-            if p < .33: # 50% chance insert, 50% chance removes
+            if p < .33: # 1/3 insert, 1/3 deletion, 1/3 swap
                 # remove word at index j
                 seq1s.pop(j)
+                edit = "deletion"
             elif p >= .33 and p < .66:
                 # insert random word at index j
                 random_word = random.choice(tuple(vocabulary))
                 seq1s.insert(j, random_word)
+                edit = "insertion"
             else:
                 # swap words
                 # choose a random word from seq1 that isn't at position j
@@ -36,8 +39,11 @@ for pair in source_pairs:
                 indices.pop(j)
                 i = random.choice(indices)
                 seq1s[i], seq1s[j] = seq1s[j], seq1s[i]
+                edit = "swap"
             seq1 = ' '.join(seq1s)
-        noisy_pairs.append(seq1 + '\t' + seq2)
+        else:
+            j = 'na'
+        noisy_pairs.append(seq1 + '\t' + seq2 + '\t' + edit + '\t' + j)
 
 # write to output
 with open("Stimuli/noisy-" + args.language_file + ".txt", 'w') as f:

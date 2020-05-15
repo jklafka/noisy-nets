@@ -1,10 +1,3 @@
-# @Author: Josef Klafka <academic>
-# @Date:   2020-03-27T17:41:16-04:00
-# @Email:  jlklafka@gmail.com
-# @Project: Noisy-nets
-# @Last modified by:   academic
-# @Last modified time: 2020-04-03T13:36:20-04:00
-
 import torch, random, logging, argparse, statistics
 import torch.nn as nn
 import torch.nn.functional as F
