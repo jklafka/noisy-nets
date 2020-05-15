@@ -36,6 +36,11 @@ noisy_results %>%
 
 noisy_results %>% pull(Correct) %>% mean()
 (noisy_results %>% filter(Correct == 1.0) %>% nrow()) / (noisy_results %>% nrow())
+
+only_noise <- noisy_results %>% 
+  filter(Input != Output) 
+only_noise %>% pull(Correct) %>% mean()
+(only_noise %>% filter(Correct == 1.0) %>% nrow()) / (only_noise %>% nrow())
 ```
 
 ```{r how did sdae do on the clean sentences}
