@@ -1,4 +1,4 @@
-import random, argparse
+import random, argparse, csv
 
 NOISE_RATIO = 0.5
 
@@ -11,7 +11,7 @@ source_pairs = open("Stimuli/" + args.language_file + ".txt", 'r').readlines()
 # get vocabulary
 
 
-noisy_pairs = []
+noisy_data = []
 vocabulary = set()
 
 for pair in source_pairs:
@@ -20,7 +20,6 @@ for pair in source_pairs:
     if len(seq1s) >= 5:
         vocabulary = vocabulary | set(seq1s)
         if random.random() < NOISE_RATIO: # make edit with prob < NOISE_RATIO
-            edit = "none"
             j = random.randint(0, len(seq1s) - 1)
             p = random.random()
             if p < .33: # 1/3 insert, 1/3 deletion, 1/3 swap
@@ -42,10 +41,12 @@ for pair in source_pairs:
                 edit = "swap"
             seq1 = ' '.join(seq1s)
         else:
-            j = 'na'
-        noisy_pairs.append(seq1 + '\t' + seq2 + '\t' + edit + '\t' + j)
+            j = -1
+            edit = "none"
+        # noisy_data.append(seq1 + ',' + seq2 + ',' + edit + ',' + str(j))
+        noisy_data.append([seq1, seq2.strip('\n'), edit, str(j)])
 
 # write to output
-with open("Stimuli/noisy-" + args.language_file + ".txt", 'w') as f:
-    for pair in noisy_pairs:
-        f.write("%s" % pair)
+with open("Stimuli/noisy-" + args.language_file + ".csv", 'w', newline = '') as f:
+    writer = csv.writer(f)
+    writer.writerows(noisy_data)
