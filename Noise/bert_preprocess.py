@@ -1,4 +1,4 @@
-import argparse, random
+import argparse, random, csv
 from collections import Counter
 from transformers import BertTokenizer
 from sklearn.model_selection import train_test_split
@@ -18,15 +18,21 @@ def get_BERT_vocab(tokenizer, pairs):
     '''
     vocab = set()
     for pair in pairs:
-        for line in pair:
+        for line in pair[:2]:
             tokens = tokenizer.tokenize(line)
             vocab = vocab | set(tokens)
     vocab = ["SOS", "EOS"] + list(vocab) # insert SOS and EOS tokens
     return vocab
 
 # set up training and testing data
-pairs = open("Stimuli/" + args.language_file + ".txt", 'r').readlines()
-pairs = [line.strip('\n').split('\t') for line in pairs]
+pairs = []
+with open("Stimuli/" + args.language_file + ".csv", 'r') as language_file:
+    reader = csv.reader(language_file)
+    for row in reader:
+        pairs.append(row)
+
+# pairs = open("Stimuli/" + args.language_file + ".txt", 'r').readlines()
+pairs = [[line[0], line[1].strip('\n')] + line[2:] for line in pairs]
 random.shuffle(pairs)
 
 # get all pairs and lengths where target does not have a unique length
@@ -39,11 +45,19 @@ lengths = [length for length in lengths if length not in unique_lengths]
 pairs_train, pairs_test = train_test_split(pairs, test_size = 0.1, \
                                             stratify = lengths)
 # write training and testing pairs to separate files
-with open("Stimuli/" + args.train_file + ".txt", 'w') as filename:
-        filename.writelines("%s\t%s\n" % (pair[0], pair[1]) for pair in pairs_train)
+with open("Stimuli/" + args.train_file + ".csv", 'w') as train_file:
+    writer = csv.writer(train_file)
+    writer.writerows(pairs_train)
 
-with open("Stimuli/" + args.test_file + ".txt", 'w') as filename:
-        filename.writelines("%s\t%s\n" % (pair[0], pair[1]) for pair in pairs_test)
+with open("Stimuli/" + args.test_file + ".csv", 'w') as test_file:
+    writer = csv.writer(test_file)
+    writer.writerows(pairs_test)
+
+# with open("Stimuli/" + args.train_file + ".txt", 'w') as filename:
+#         filename.writelines("%s\t%s\n" % (pair[0], pair[1]) for pair in pairs_train)
+#
+# with open("Stimuli/" + args.test_file + ".txt", 'w') as filename:
+#         filename.writelines("%s\t%s\n" % (pair[0], pair[1]) for pair in pairs_test)
 
 
 # get vocabulary and print to external file

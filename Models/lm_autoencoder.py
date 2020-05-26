@@ -1,4 +1,4 @@
-import torch, random, logging, argparse, statistics
+import torch, random, logging, argparse, statistics, csv
 import torch.nn as nn
 import torch.nn.functional as F
 from torch import optim
@@ -14,8 +14,8 @@ SOS_token = 0
 EOS_token = 1
 TEACHER_FORCING_RATIO = 0.5
 
-# device = torch.device("cuda:0")
-device = torch.device("cpu")
+device = torch.device("cuda:0")
+# device = torch.device("cpu")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("train_file", help="Where to read the training pairs")
@@ -42,7 +42,7 @@ def create_vocab(training_pairs, testing_pairs):
     pairs = training_pairs + testing_pairs
     vocab = set()
     for pair in pairs:
-        for line in pair:
+        for line in pair[:2]:
             tokens = line.split(' ')
             vocab = vocab | set(tokens)
     vocab = {"SOS", "EOS"} | vocab # insert SOS and EOS tokens
@@ -214,13 +214,19 @@ def test(vocab, input_text, target_text, lm_encoder, encoder, decoder):
 
 # read in training and testing pairs and vocab
 # logging.info("load files")
-training_pairs = open("Stimuli/" + args.train_file + ".txt", 'r').readlines()
-training_pairs = [line.strip('\n').split('\t') for line in training_pairs]
-training_pairs = random.choices(training_pairs, k = NUM_TRAINING)
+training_pairs = []
+testing_pairs = []
+with open("Stimuli/" + args.train_file + ".csv", 'r') as train_file:
+    reader = csv.reader(train_file)
+    for row in reader:
+        training_pairs.append(row)
+# training_pairs = random.sample(population = training_pairs, k = NUM_TRAINING)
 
-testing_pairs = open("Stimuli/" + args.test_file + ".txt", 'r').readlines()
-testing_pairs = [line.strip('\n').split('\t') for line in testing_pairs]
-testing_pairs = random.choices(testing_pairs, k = NUM_TESTING)
+with open("Stimuli/" + args.test_file + ".csv", 'r') as test_file:
+    reader = csv.reader(test_file)
+    for row in reader:
+        testing_pairs.append(row)
+testing_pairs = random.sample(population = testing_pairs, k = NUM_TESTING)
 
 
 if args.vocab_file is None:
@@ -261,8 +267,9 @@ for testing_pair in testing_pairs:
 
     loss, prediction = test(vocab, input_text, target_text, lm,
                             encoder_rnn, decoder_rnn)
-    testing_accuracy.append(loss)
-    logging.info(input_text + ',' + prediction + ',' + target_text + ',' + str(loss))
+    # testing_accuracy.append(loss)
+    logging.info(','.join([input_text, prediction, target_text, str(loss),
+                str(testing_pair[2]), str(testing_pair[3])]))
 
-total_accuracy = statistics.mean(testing_accuracy)
-logging.info(str(total_accuracy) + ',' + str(NUM_TRAINING))
+# total_accuracy = statistics.mean(testing_accuracy)
+# logging.info(str(total_accuracy) + ',' + str(NUM_TRAINING))

@@ -3,7 +3,7 @@ import random, argparse, csv
 NOISE_RATIO = 0.5
 
 parser = argparse.ArgumentParser()
-parser.add_argument("language_file", help="Name of the (noised) .tsv to use")
+parser.add_argument("language_file", help="Name of the (un-noised) .txt to use")
 args = parser.parse_args()
 
 # read in stimuli

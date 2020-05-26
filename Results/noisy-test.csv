@@ -1919,3 +1919,490 @@ If you don't have enough money, I'll lend you some.,I I I I was I I to that I ,I
 We saw the film and had dinner together.,I I I I was I I to ,We saw the film and had dinner together.,0.0
 I'd like to think about it expenses. a little longer before I make a decision.,I I I I was I I to that I I to that I ,I'd like to think about it a little longer before I make a decision.,0.07142857142857142
 0.050595238095238096,10
+Lock 4732629064 acquired on /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517.lock
+https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json not found in cache or force_download set to True, downloading to /Users/academic/.cache/torch/transformers/tmpi9igzs6m
+storing https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json in cache at /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+creating metadata file for /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Lock 4732629064 released on /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517.lock
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "do_sample": false,
+  "eos_token_ids": 0,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /Users/academic/.cache/torch/transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+Lock 4664355304 acquired on /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json not found in cache or force_download set to True, downloading to /Users/academic/.cache/torch/transformers/tmp3hfxpge7
+storing https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json in cache at /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+creating metadata file for /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Lock 4664355304 released on /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+loading model card file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json from cache at /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Model card: {
+  "caveats_and_recommendations": {},
+  "ethical_considerations": {},
+  "evaluation_data": {},
+  "factors": {},
+  "intended_use": {},
+  "metrics": {},
+  "model_details": {},
+  "quantitative_analyses": {},
+  "training_data": {}
+}
+
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "do_sample": false,
+  "eos_token_ids": 0,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at /Users/academic/.cache/torch/transformers/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "do_sample": false,
+  "eos_token_ids": 0,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /Users/academic/.cache/torch/transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+Lock 4773898504 acquired on /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json not found in cache or force_download set to True, downloading to /Users/academic/.cache/torch/transformers/tmp7f5t49sj
+storing https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json in cache at /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+creating metadata file for /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Lock 4773898504 released on /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+loading model card file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json from cache at /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Model card: {
+  "caveats_and_recommendations": {},
+  "ethical_considerations": {},
+  "evaluation_data": {},
+  "factors": {},
+  "intended_use": {},
+  "metrics": {},
+  "model_details": {},
+  "quantitative_analyses": {},
+  "training_data": {}
+}
+
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "do_sample": false,
+  "eos_token_ids": 0,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at /Users/academic/.cache/torch/transformers/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "do_sample": false,
+  "eos_token_ids": 0,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /Users/academic/.cache/torch/transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+Lock 4847099976 acquired on /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json not found in cache or force_download set to True, downloading to /Users/academic/.cache/torch/transformers/tmp5q5qnr41
+storing https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json in cache at /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+creating metadata file for /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Lock 4847099976 released on /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+loading model card file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json from cache at /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Model card: {
+  "caveats_and_recommendations": {},
+  "ethical_considerations": {},
+  "evaluation_data": {},
+  "factors": {},
+  "intended_use": {},
+  "metrics": {},
+  "model_details": {},
+  "quantitative_analyses": {},
+  "training_data": {}
+}
+
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "do_sample": false,
+  "eos_token_ids": 0,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at /Users/academic/.cache/torch/transformers/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "do_sample": false,
+  "eos_token_ids": 0,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /Users/academic/.cache/torch/transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+Lock 4786619336 acquired on /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json not found in cache or force_download set to True, downloading to /Users/academic/.cache/torch/transformers/tmp0qc6chnb
+storing https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json in cache at /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+creating metadata file for /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Lock 4786619336 released on /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+loading model card file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json from cache at /Users/academic/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Model card: {
+  "caveats_and_recommendations": {},
+  "ethical_considerations": {},
+  "evaluation_data": {},
+  "factors": {},
+  "intended_use": {},
+  "metrics": {},
+  "model_details": {},
+  "quantitative_analyses": {},
+  "training_data": {}
+}
+
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /Users/academic/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "do_sample": false,
+  "eos_token_ids": 0,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at /Users/academic/.cache/torch/transformers/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+i've we're never seen a real cow,i i was is is my ,i've never seen a real cow,0.0,insertion,1
+he had never seen such a bad,i i was is is my i is ,he had never seen such a bad boy,0.0,deletion,7
+i want the other one,i i was is is ,i want the other one,0.2,none,-1
+tom behind asked mary to lend him some money,i i was is is my i is ,tom asked mary to lend him some money,0.0,insertion,1
+time have a rough you'll,i i was is is ,you'll have a rough time,0.0,swap,4
+it's not what we want,i i was is is ,it's not what we want,0.0,none,-1
+i walked toward pride the park,i i was is is ,i walked toward the park,0.2,insertion,3
+it should be like this,i i was is is ,it should be like this,0.0,none,-1
+why do our schools look like prisons,i i was is is my i ,why do our schools look like prisons,0.0,none,-1
+buy it me, please,i i was is is ,buy it for me, please,0.0,deletion,2
