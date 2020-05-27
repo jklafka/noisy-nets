@@ -1,12 +1,11 @@
-import torch, random, logging, argparse, statistics, csv
+import torch, random, logging, argparse, csv
 import torch.nn as nn
 import torch.nn.functional as F
 from torch import optim
-from transformers import BertTokenizer, BertModel
 from transformers import pipeline
 
-NUM_TRAINING = 120000
-NUM_TESTING = 2000
+NUM_TRAINING = 50000
+NUM_TESTING = 1000
 MAX_LENGTH = 10
 HIDDEN_SIZE = 768 # same as LM embedding
 LEARNING_RATE = .01
@@ -20,34 +19,13 @@ device = torch.device("cuda:0")
 parser = argparse.ArgumentParser()
 parser.add_argument("train_file", help="Where to read the training pairs")
 parser.add_argument("test_file", help="Where to read the testing pairs")
-parser.add_argument("--vocab_file", help="Where to read the vocab file")
+parser.add_argument("vocab_file", help="Where to read the vocab file")
 args = parser.parse_args()
-
-# # Load pre-trained model tokenizer (vocabulary)
-# lm_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-# # Load pre-trained model (weights)
-# lm_model = BertModel.from_pretrained('bert-base-uncased')
-# lm_model.to(device)
-# lm_model.eval()
 
 logging.basicConfig(filename = "Results/noisy-test.csv", format="%(message)s", \
                     level=logging.INFO)
 
 
-def create_vocab(training_pairs, testing_pairs):
-    '''
-    Create a vocabulary mapping words to one-hot indices from the given training
-    and testing sentence pairs.
-    '''
-    pairs = training_pairs + testing_pairs
-    vocab = set()
-    for pair in pairs:
-        for line in pair[:2]:
-            tokens = line.split(' ')
-            vocab = vocab | set(tokens)
-    vocab = {"SOS", "EOS"} | vocab # insert SOS and EOS tokens
-    vocab = {word : index for index, word in enumerate(list(vocab))}
-    return vocab
 
 
 def sentence_to_tensor(vocab, sentence):
@@ -213,14 +191,13 @@ def test(vocab, input_text, target_text, lm_encoder, encoder, decoder):
 
 
 # read in training and testing pairs and vocab
-# logging.info("load files")
 training_pairs = []
 testing_pairs = []
 with open("Stimuli/" + args.train_file + ".csv", 'r') as train_file:
     reader = csv.reader(train_file)
     for row in reader:
         training_pairs.append(row)
-# training_pairs = random.sample(population = training_pairs, k = NUM_TRAINING)
+training_pairs = random.sample(population = training_pairs, k = NUM_TRAINING)
 
 with open("Stimuli/" + args.test_file + ".csv", 'r') as test_file:
     reader = csv.reader(test_file)
@@ -228,17 +205,14 @@ with open("Stimuli/" + args.test_file + ".csv", 'r') as test_file:
         testing_pairs.append(row)
 testing_pairs = random.sample(population = testing_pairs, k = NUM_TESTING)
 
-
-if args.vocab_file is None:
-    vocab = create_vocab(training_pairs, testing_pairs)
-else:
-    vocab = open("Stimuli/" + args.vocab_file + ".txt", 'r').readlines()
-    vocab = [line.strip('\n').split('\t') for line in vocab]
-    vocab = {word : int(index) for word, index in vocab}
+vocab = open("Stimuli/" + args.vocab_file + ".txt", 'r').readlines()
+vocab = [line.strip('\n').split('\t') for line in vocab]
+vocab = {word : int(index) for word, index in vocab}
 
 # initialize lm encoder
 lm = pipeline("feature-extraction", model = "bert-base-uncased",
                 device=-1)
+
 # initialize decoder, optimizer and loss function
 encoder_rnn = EncoderRNN(HIDDEN_SIZE).to(device)
 decoder_rnn = DecoderRNN(HIDDEN_SIZE, len(vocab)).to(device)
@@ -247,29 +221,22 @@ encoder_optimizer = optim.SGD(encoder_rnn.parameters(), lr=LEARNING_RATE)
 decoder_optimizer = optim.SGD(decoder_rnn.parameters(), lr=LEARNING_RATE)
 criterion = nn.NLLLoss()
 
-# training
-training_losses = []
+# ------ training --------
 for training_pair in training_pairs:
     input_text = training_pair[0]
     target_text = training_pair[1]
 
     loss = train(vocab, input_text, target_text, lm, encoder_rnn, decoder_rnn,
                     encoder_optimizer, decoder_optimizer, criterion)
-    training_losses.append(loss)
 
 # torch.save(decoder.state_dict(), "Models/current_decoder")
 
-# testing
-testing_accuracy = []
+# ------ testing --------
 for testing_pair in testing_pairs:
     input_text = testing_pair[0]
     target_text = testing_pair[1]
 
     loss, prediction = test(vocab, input_text, target_text, lm,
                             encoder_rnn, decoder_rnn)
-    # testing_accuracy.append(loss)
     logging.info(','.join([input_text, prediction, target_text, str(loss),
                 str(testing_pair[2]), str(testing_pair[3])]))
-
-# total_accuracy = statistics.mean(testing_accuracy)
-# logging.info(str(total_accuracy) + ',' + str(NUM_TRAINING))

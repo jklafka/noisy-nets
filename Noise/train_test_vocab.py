@@ -12,16 +12,19 @@ parser.add_argument("vocab_file", help="Where to print the vocab file")
 args = parser.parse_args()
 
 
-def get_BERT_vocab(tokenizer, pairs):
+def create_vocab(training_pairs, testing_pairs):
     '''
-    Get one-hot indices for each BERT-token in language_file.
+    Create a vocabulary mapping words to one-hot indices from the given training
+    and testing sentence pairs.
     '''
+    pairs = training_pairs + testing_pairs
     vocab = set()
     for pair in pairs:
         for line in pair[:2]:
-            tokens = tokenizer.tokenize(line)
+            tokens = line.split(' ')
             vocab = vocab | set(tokens)
-    vocab = ["SOS", "EOS"] + list(vocab) # insert SOS and EOS tokens
+    vocab = {"SOS", "EOS"} | vocab # insert SOS and EOS tokens
+    vocab = {word : index for index, word in enumerate(list(vocab))}
     return vocab
 
 # set up training and testing data
@@ -61,8 +64,7 @@ with open("Stimuli/" + args.test_file + ".csv", 'w') as test_file:
 
 
 # get vocabulary and print to external file
-bert_tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-vocab = get_BERT_vocab(bert_tokenizer, pairs)
+vocab = create_vocab(pairs_train, pairs_test)
 
 with open("Stimuli/" + args.vocab_file + ".txt", 'w') as filename:
         filename.writelines("%s\t%d\n" % (word, index) for index, word in enumerate(vocab))
