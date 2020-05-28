@@ -1,3 +1,5 @@
 .DS_Store
 .Rproj.user
 .ipynb_checkpoints/
+noisy-nets.err
+noisy-nets.out

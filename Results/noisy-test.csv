@@ -2406,3 +2406,1121 @@ i walked toward pride the park,i i was is is ,i walked toward the park,0.2,inser
 it should be like this,i i was is is ,it should be like this,0.0,none,-1
 why do our schools look like prisons,i i was is is my i ,why do our schools look like prisons,0.0,none,-1
 buy it me, please,i i was is is ,buy it for me, please,0.0,deletion,2
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /home-nfs/jklafka/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": null,
+  "do_sample": false,
+  "eos_token_ids": null,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /home-nfs/jklafka/.cache/torch/transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+Lock 140414607020240 acquired on /home-nfs/jklafka/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json not found in cache or force_download set to True, downloading to /home-nfs/jklafka/.cache/torch/transformers/tmpfs7vya27
+storing https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json in cache at /home-nfs/jklafka/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+creating metadata file for /home-nfs/jklafka/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Lock 140414607020240 released on /home-nfs/jklafka/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331.lock
+loading model card file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-modelcard.json from cache at /home-nfs/jklafka/.cache/torch/transformers/39825864733806032929a213f61cbcf4b3225c65984a79c693759fc443effec3.455d944f3d1572ab55ed579849f751cf37f303e3388980a42d94f7cd57a4e331
+Model card: {
+  "caveats_and_recommendations": {},
+  "ethical_considerations": {},
+  "evaluation_data": {},
+  "factors": {},
+  "intended_use": {},
+  "metrics": {},
+  "model_details": {},
+  "quantitative_analyses": {},
+  "training_data": {}
+}
+
+loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /home-nfs/jklafka/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": null,
+  "do_sample": false,
+  "eos_token_ids": null,
+  "finetuning_task": null,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "is_decoder": false,
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "layer_norm_eps": 1e-12,
+  "length_penalty": 1.0,
+  "max_length": 20,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_beams": 1,
+  "num_hidden_layers": 12,
+  "num_labels": 2,
+  "num_return_sequences": 1,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "output_past": true,
+  "pad_token_id": 0,
+  "pruned_heads": {},
+  "repetition_penalty": 1.0,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p": 1.0,
+  "torchscript": false,
+  "type_vocab_size": 2,
+  "use_bfloat16": false,
+  "vocab_size": 30522
+}
+
+loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-pytorch_model.bin from cache at /home-nfs/jklafka/.cache/torch/transformers/aa1ef1aede4482d0dbcd4d52baad8ae300e60902e88fcb0bebdec09afd232066.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+tom, i've got a online surprise for you,i i i a a a new ,tom, i've got a surprise for you,0.14285714285714285,insertion,4
+the children followed got lost in the woods,the children got in the the the ,the children got lost in the woods,0.5714285714285714,insertion,2
+the police the arrested suspect yesterday,the police is arrested the yesterday ,the police arrested the suspect yesterday,0.5,swap,2
+likes he maybe you, too,he likes like you you ,maybe he likes you, too,0.0,swap,2
+tom can't touch toes his,tom can't remember his eyes ,tom can't touch his toes,0.6,swap,4
+for do you want what breakfast,what do you want for for ,what do you want for breakfast,0.8333333333333334,swap,4
+that rock obvious band gives me a headache,that guy me me a a red ,that rock band gives me a headache,0.2857142857142857,insertion,2
+it must've happened that way,she happened that it happened ,it must've happened that way,0.0,none,-1
+i've got a bad case of darker jet lag,i've got a lot of of bad of ,i've got a bad case of jet lag,0.5,insertion,6
+he has a very good voice,he has a good voice voice ,he has a very good voice,0.6666666666666666,none,-1
+it is said that he knows renting the secret,it is that he knows that the key ,it is said that he knows the secret,0.375,insertion,6
+i'm surprised they didn't have anything to do,i'm surprised they didn't do anything to do ,i'm surprised they didn't have anything to do,0.875,none,-1
+i used to do that as a kid,i used to do that as kid as ,i used to do that as a kid,0.75,none,-1
+six of us are going on an excursion to the beach this weekend,of of are going are going to the the on the of the ,six of us are going on an excursion to the beach this weekend,0.07692307692307693,none,-1
+she herself in some lake,she is in in in in ,she drowned herself in some lake,0.3333333333333333,deletion,1
+you can't win time,you can't win you die ,you can't win every time,0.6,deletion,3
+i don't know what happened,i don't know what happened ,i don't know what happened,1.0,none,-1
+i asked myself that same question,i asked me the same question ,i asked myself that same question,0.6666666666666666,none,-1
+the money he’s we offered them was obviously not enough,the only enough enough enough enough enough enough enough ,the money we offered them was obviously not enough,0.2222222222222222,insertion,2
+i looking am at that,i am looking at that ,i am looking at that,1.0,swap,2
+i can't believe i'm stuck here in this room with you,i can't believe i'm here here with you here here you ,i can't believe i'm stuck here in this room with you,0.5454545454545454,none,-1
+i just didn't want you to go there by yourself,i just didn't want you to go there by myself ,i just didn't want you to go there by yourself,0.9,none,-1
+i do not like wearing clothes else's anybody,i do not like anything without a big ,i do not like wearing anybody else's clothes,0.5,swap,7
+the rabbit hid behind the tree,the tree hid the tree tree ,the rabbit hid behind the tree,0.5,none,-1
+we're going eat right now,we're going to eat now now ,we're going to eat right now,0.8333333333333334,deletion,2
+they went to the knees beach,they went to the the ,they went to the beach,0.8,insertion,4
+the world was on the very brink of nuclear war during the cuban missile crisis in october 1962,the sun was was in in the of the the the of the the of the election the ,the world was on the very brink of nuclear war during the cuban missile crisis in october 1962,0.16666666666666666,none,-1
+tom found a hundred dollar bill on the street,tom put a ticket in the street the street ,tom found a hundred dollar bill on the street,0.4444444444444444,none,-1
+how can you tell an englishman from an american,how can you tell an an from an from ,how can you tell an englishman from an american,0.7777777777777778,none,-1
+guess that's good for you,guess good good for you for ,i guess that's good for you,0.0,deletion,0
+why do all the cool you happen to things,why do you say the of people to you ,why do all the cool things happen to you,0.4444444444444444,swap,5
+the idea new not is,the idea is not the ,the idea is not new,0.8,swap,2
+the dog felt guilty about eating the homework,the dog was about the the the the ,the dog felt guilty about eating the homework,0.375,none,-1
+will she forgive him for forgetting her birthday,will she him him for for her birthday ,will she forgive him for forgetting her birthday,0.75,none,-1
+portugal has decriminalized the possession of drugs for personal use,she has use use of the of of the of ,portugal has decriminalized the possession of drugs for personal use,0.1,none,-1
+i don't need a girlfriend,i don't need a girlfriend ,i don't need a girlfriend,1.0,none,-1
+you visit have gone to shouldn't tom alone,you shouldn't come to leave alone yesterday yesterday ,you shouldn't have gone to visit tom alone,0.25,swap,1
+tom was having a bad day,tom was a a day day ,tom was having a bad day,0.6666666666666666,none,-1
+i was unable to go to his birthday,i was able to go to his birthday yesterday ,i was unable to go to his birthday party,0.7777777777777778,deletion,8
+what're you all underdog dressed up for,what're you dressed up for dressed ,what're you all dressed up for,0.3333333333333333,insertion,3
+i was blinded by the light,i was was the the the ,i was blinded by the light,0.5,none,-1
+i knew you weren't trigger really dead,i know you weren't you're weren't ,i knew you weren't really dead,0.5,insertion,4
+he used to at night,he used to at it night ,he used to read at night,0.6666666666666666,deletion,3
+the papers didn't print candidate this story,the didn't didn't tell the book ,the papers didn't print this story,0.3333333333333333,insertion,4
+i hate it when there elbows are a lot of people,i people people it people people people people people people ,i hate it when there are a lot of people,0.2,insertion,5
+i don't know any martial arts,i don't know any sports of ,i don't know any martial arts,0.6666666666666666,none,-1
+the storm developed into a typhoon,the storm fell like a gunshot ,the storm developed into a typhoon,0.5,none,-1
+she asserted that she was right,she thinks that she was right ,she asserted that she was right,0.8333333333333334,none,-1
+may i go now home,may i go home now ,may i go home now,1.0,swap,4
+there is no wine in that bottle,there is too wine in in that ,there is no wine in that bottle,0.5714285714285714,none,-1
+your you out of are minds,you are your of in your ,are you out of your minds,0.16666666666666666,swap,4
+come and see me tomorrow,go and see me tomorrow ,come and see me tomorrow,0.8,none,-1
+you have no right to oppose our plan,you have no idea to do our plan ,you have no right to oppose our plan,0.75,none,-1
+of all the films i rented, this is the only one worth seeing,one of the one of i i i i is one of the ,of all the films i rented, this is the only one worth seeing,0.15384615384615385,none,-1
+we're studying french and web design,we're french and and and french ,we're studying french and web design,0.3333333333333333,none,-1
+you can't be sure of that,you can't be sure of that ,you can't be sure of that,1.0,none,-1
+i'm assuming you have a plan,i'm sure you plan have a ,i'm assuming you have a plan,0.3333333333333333,none,-1
+i like to be with phoned my classmates,i like to be with my sister ,i like to be with my classmates,0.8571428571428571,insertion,5
+that coward might take too long,that would should too many ,that might take too long,0.4,insertion,1
+whether we win or lose, won't have any hard feelings,if we don't we we don't make without any without don't ,whether we win or lose, i won't have any hard feelings,0.18181818181818182,deletion,5
+this movie is frightening the children,the is is growing the children children ,this movie is frightening to the children,0.2857142857142857,deletion,4
+try to keep it short,keep keep to keep it a ,i'll try to keep it short,0.5,deletion,0
+i even get one letter from her,i get even one one letter from her ,i didn't even get one letter from her,0.75,deletion,1
+i just don't want you to get upset,i just don't want you to get upset ,i just don't want you to get upset,1.0,none,-1
+i wanted to talk to you about something,i wanted to talk about you something about ,i wanted to talk to you about something,0.625,none,-1
+i'm outlive not allowed to say anything,i'm not allowed anything to say ,i'm not allowed to say anything,0.5,insertion,1
+let's rains take a short cut,let's cut a walk break ,let's take a short cut,0.4,insertion,1
+she made me a cake,she made me a cake ,she made me a cake,1.0,none,-1
+you'd better hand that over,you'd better that that hand ,you'd better hand that over,0.6,none,-1
+translating this duty-free sentence will be very easy,this car will be very difficult easy ,translating this sentence will be very easy,0.14285714285714285,insertion,2
+tom has been helping me,tom has been help me ,tom has been helping me,0.8,none,-1
+i have all these apples to addict carry, not to mention this bag of potatoes,i have have all to to to this box of it to all this ,i have all these apples to carry, not to mention this bag of potatoes,0.21428571428571427,insertion,6
+can you into my office, please,can you get into my please please ,can you come into my office, please,0.7142857142857143,deletion,2
+did find your purse,did you find your keys ,did you find your purse,0.8,deletion,1
+i thought poor, you'd be here,i thought you'd be here ,i thought you'd be here,1.0,insertion,2
+she goes to market every day to buy things,she goes to buy to the store shopping shop ,she goes to market every day to buy things,0.3333333333333333,none,-1
+i'm sorry, i didn't recognize you,i'm sorry, i i didn't you ,i'm sorry, i didn't recognize you,0.6666666666666666,none,-1
+i to make people happy,i want to people people people ,i like to make people happy,0.5,deletion,1
+the installation is now complete,the is is still was ,the installation is now complete,0.4,none,-1
+why didn't you call me last night,why didn't you call me last night ,why didn't you call me last night,1.0,none,-1
+i may as well now,i may well now now now ,i may as well go now,0.5,deletion,4
+don't tell me to shut up,don't tell me to shut shut ,don't tell me to shut up,0.8333333333333334,none,-1
+i can't tell you how many times i've been there,i can't tell you you you you i you you ,i can't tell you how many times i've been there,0.4,none,-1
+do you lamps desk sell here,do you here here here here ,do you sell desk lamps here,0.5,swap,2
+he has to have an operation next week,he has to take an doctor next week ,he has to have an operation next week,0.75,none,-1
+you can use dictionary,you can use use dictionary ,you can use my dictionary,0.8,deletion,3
+he tried wooing mean, her with love poems,he tried with her with by her ,he tried wooing her with love poems,0.5714285714285714,insertion,3
+he told me to meet him at the restaurant,he asked me to meet me meet the airport ,he told me to meet him at the restaurant,0.5555555555555556,none,-1
+that may not necessary be,that may not necessary it ,that may not be necessary,0.6,swap,4
+the rainforests are disappearing at the rate of tens of thousands of hectares a day,the prices people are people of the of the of people of the of the ,the rainforests are disappearing at the rate of tens of thousands of hectares a day,0.26666666666666666,none,-1
+i'm a you must have sure lot of questions,i'm afraid you ask a of of of of ,i'm sure you must have a lot of questions,0.3333333333333333,swap,5
+band that pretty girl is my sister,that girl is girl girl girl ,that pretty girl is my sister,0.16666666666666666,insertion,0
+we sat lawn chairs and stared at the mountain,we sat down and the beach the beach the beach ,we sat in lawn chairs and stared at the mountain,0.3,deletion,2
+can i tell them visiting be you'll,i won't tell them if you won't ,can i tell them you'll be visiting,0.2857142857142857,swap,6
+i have nothing to do with this matter,i have nothing to do with do do ,i have nothing to do with this matter,0.75,none,-1
+sorry for not answering your question. i didn't it see,i wasn't not for not you i i i it ,sorry for not answering your question. i didn't see it,0.3,swap,8
+even are you why here,why are you you here ,why are you even here,0.8,swap,0
+he was demoted to the rank of lieutenant,he was forced to an a of of ,he was demoted to the rank of lieutenant,0.5,none,-1
+nothing has to happen until you're ready,nothing has to until until until until ,nothing has to happen until you're ready,0.5714285714285714,none,-1
+kids love pasta in tomato sauce,love love love in love in ,kids love pasta in tomato sauce,0.3333333333333333,none,-1
+why to you want do be a nurse,why do you want to be a doctor ,why do you want to be a nurse,0.875,swap,1
+do you have any plans for tomorrow,do you have plans for tomorrow tomorrow ,do you have any plans for tomorrow,0.5714285714285714,none,-1
+how on earth did get it,how could it could get it on ,how on earth did you get it,0.14285714285714285,deletion,4
+six percent home loans represent you’ll the industry average now,the price will cost the the price of the ,six percent home loans represent the industry average now,0.1111111111111111,insertion,5
+she appear to recognize me,she might to me me me ,she didn't appear to recognize me,0.3333333333333333,deletion,1
+he is afraid of making mistakes,he is making making mistakes of ,he is afraid of making mistakes,0.3333333333333333,none,-1
+he is employed in a bank,he is in in a bank ,he is employed in a bank,0.8333333333333334,none,-1
+i've had a lot on my mind lately,i've been a lot lot on mind on ,i've had a lot on my mind lately,0.5,none,-1
+he seems to have been ill,he seems to be ill ill ,he seems to have been ill,0.6666666666666666,none,-1
+his name is known throughout this,his name is not in here yesterday ,his name is known throughout this country,0.42857142857142855,deletion,6
+do you plan to buy that car,do you buy to buy that car ,do you plan to buy that car,0.8571428571428571,none,-1
+take many times a week do you how a bath,how much do a walk do do you do a ,how many times a week do you take a bath,0.3,swap,7
+she asked me her pass to the salt,she asked me to me the next bus ,she asked me to pass her the salt,0.5,swap,3
+i can't be without you,i can't be i without ,i can't be without you,0.6,none,-1
+horse down from your get,your dog down from from ,get down from your horse,0.0,swap,0
+that is my yourself, sister's camera,that is my own my ,that is my sister's camera,0.6,insertion,3
+this is for me,this is is for me ,this is impossible for me,0.8,deletion,2
+i want to tell my girlfriend,i want to tell my sister sister ,i don't want to tell my girlfriend,0.14285714285714285,deletion,1
+he ran to arriving in time,he arrived to arrive in in in ,he ran to school, arriving in time,0.42857142857142855,deletion,3
+that's a good thing to have,that's a good good to you ,that's a good thing to have,0.6666666666666666,none,-1
+he gave me a vague answer,he gave me a answer answer ,he gave me a vague answer,0.8333333333333334,none,-1
+cds tell him i'm not in,i'm him him in in ,tell him i'm not in,0.4,insertion,0
+which is your favorite team,which is your favorite color ,which is your favorite team,0.8,none,-1
+i really think you should leave,i really think you should leave ,i really think you should leave,1.0,none,-1
+i'd like to hear what your opinion is,i'd like to hear your opinion what your ,i'd like to hear what your opinion is,0.5,none,-1
+i believe you did all this without any help,i did you all without any without this without without ,i can't believe you did all this without any help,0.1,deletion,1
+they were caught in a blizzard,they were in in a traffic ,they were caught in a blizzard,0.6666666666666666,none,-1
+brushing is she her hair,she is she her hair ,she is brushing her hair,0.8,swap,2
+frankly speaking, i don't like you,i i i i don't don't ,frankly speaking, i don't like you,0.16666666666666666,none,-1
+don't you want something to eat,don't you want something to eat ,don't you want something to eat,1.0,none,-1
+i appreciate you trying to cheer me up,i appreciate me you to me me me ,i appreciate you trying to cheer me up,0.5,none,-1
+why don't you talk to him,why don't you talk to him ,why don't you talk to him,1.0,none,-1
+don't leave the water running,don't leave the water water ,don't leave the water running,0.8,none,-1
+i haven't made a decision yet,i haven't a a yet yet ,i haven't made a decision yet,0.6666666666666666,none,-1
+i'm busy to talk to you now,i'm busy to talk to you now now ,i'm too busy to talk to you now,0.25,deletion,1
+is there anything on the floor,is there anything else on the ,is there anything on the floor,0.5,none,-1
+i drunk take a bath every day,i could eat a big day ,i take a bath every day,0.3333333333333333,insertion,1
+can you come over and talk,can you come over and for ,can you come over and talk,0.8333333333333334,none,-1
+all teachers were young and loved teaching,the children were and and were young children ,all our teachers were young and loved teaching,0.0,deletion,1
+my business is slow unclog right now,my is is running right now ,my business is slow right now,0.6666666666666666,insertion,4
+what are the children doing in the garden,what are the children in the the the ,what are the children doing in the garden,0.625,none,-1
+i gave warning fair you,i gave you a late ,i gave you fair warning,0.6,swap,2
+she promised that she would meet him after school,she promised him that she would meet him at ,she promised that she would meet him after school,0.2222222222222222,none,-1
+the weather is getting,the weather is growing today ,the weather is getting worse,0.6,deletion,4
+tom took a lot of pictures,tom a a lot of of ,tom took a lot of pictures,0.6666666666666666,none,-1
+i caught a glimpse of him in the crowd,i caught a lot of the crowd of the ,i caught a glimpse of him in the crowd,0.4444444444444444,none,-1
+i tried to pretend i was something i wasn't,i tried to be i i i i i ,i tried to pretend i was something i wasn't,0.5555555555555556,none,-1
+i may be old, but i'm crazy not,i may be too but i'm not too ,i may be old, but i'm not crazy,0.75,swap,6
+i usually have dinner at seven,i usually eat lunch at seven ,i usually have dinner at seven,0.6666666666666666,none,-1
+like seemed to he that,he seems to that that ,he seemed to like that,0.6,swap,0
+i love going to the,i love going to the movies ,i love going to the beach,0.8333333333333334,deletion,5
+that's a horse of a different,that's a big of of a of ,that's a horse of a different color,0.42857142857142855,deletion,6
+if a porter carries your luggage, don't forget him tip to,if a taxi a you bring you to bring me a ,if a porter carries your luggage, don't forget to tip him,0.18181818181818182,swap,10
+if only i'd been a little more careful,maybe maybe i'd been a more a more ,if only i'd been a little more careful,0.375,none,-1
+we were all so busy then,we were so busy so busy ,we were all so busy then,0.3333333333333333,none,-1
+don't much to do too try,i don't really to do much ,don't try to do too much,0.16666666666666666,swap,5
+she is watered always complaining about something or other,she is always anything she anything she else ,she is always complaining about something or other,0.375,insertion,2
+that your not is knife,that you not your your ,that is not your knife,0.6,swap,3
+would you if i took a break,would you mind if i would mind a ,would you mind if i took a break,0.625,deletion,2
+as a matter of fact, i know nothing about him,as of i i i as i i i him ,as a matter of fact, i know nothing about him,0.2,none,-1
+don't disturb me while i'm,don't me while i'm while i'm ,don't disturb me while i'm studying,0.16666666666666666,deletion,5
+he sent me a birthday card,he gave me a birthday birthday ,he sent me a birthday card,0.6666666666666666,none,-1
+i don't know what i'm going to do with you,i don't know what you going to do with you ,i don't know what i'm going to do with you,0.9,none,-1
+i realized that even though i wanted to eat, i didn't have enough time,i thought enough enough to eat i i i i i i i i ,i realized that even though i wanted to eat, i didn't have enough time,0.14285714285714285,none,-1
+the number of is students dropping,the of of is is is ,the number of students is dropping,0.5,swap,3
+certainly he is handsome and intelligent, but there is something about him that edison i can't like,he is and and and and is and and i that i i can come and ,certainly he is handsome and intelligent, but there is something about him that i can't like,0.0625,insertion,13
+tom helped us push the car,tom put us us the car ,tom helped us push the car,0.6666666666666666,none,-1
+i screwdriver have no idea what that could be,i have idea idea idea idea it idea ,i have no idea what that could be,0.375,insertion,1
+i want to buy a more expensive watch,i want to buy a new of expensive ,i want to buy a more expensive watch,0.625,none,-1
+i don't write the rules,i don't write the rules ,i don't write the rules,1.0,none,-1
+i know i'm going to regret this,i know going going to know this ,i know i'm going to regret this,0.7142857142857143,none,-1
+i didn't even get one letter her,i didn't even even one letter letter letter ,i didn't even get one letter from her,0.625,deletion,6
+do you have a part time job,do you have a job job job ,do you have a part time job,0.7142857142857143,none,-1
+coffee you can't hurt my feelings,you can't hurt you my ,you can't hurt my feelings,0.6,insertion,0
+do it the way he tells you to,do it the same as you he to ,do it the way he tells you to,0.5,none,-1
+their marriage broke up last letting year,she broke up a year year ,their marriage broke up last year,0.16666666666666666,insertion,5
+you ever seen tom's mother,you saw anyone seen tom's mother ,have you ever seen tom's mother,0.5,deletion,0
+the air we breathe consists martial of oxygen and nitrogen,the air and we of the air of water ,the air we breathe consists of oxygen and nitrogen,0.2222222222222222,insertion,5
+it wasn't supposed to like this,it wasn't supposed to sit this this ,it wasn't supposed to happen like this,0.7142857142857143,deletion,4
+the doctor did a good job on my leg,the doctor did a good on the the on ,the doctor did a good job on my leg,0.5555555555555556,none,-1
+left my textbooks somewhere,i left my left left ,i left my textbooks somewhere,0.6,deletion,0
+where were you all night,what were you all night ,where were you all night,0.8,none,-1
+i wasn't busy last week,i wasn't busy last week ,i wasn't busy last week,1.0,none,-1
+how fifth long will the train stop here,how will will arrive arrive the train ,how long will the train stop here,0.2857142857142857,insertion,1
+it was all your gold imagination,it was all your own ,it was all your imagination,0.8,insertion,4
+that girl's eyes are our blue,those girl are she are ,that girl's eyes are blue,0.0,insertion,4
+volleyball we shouldn't leave anything to chance,we shouldn't leave anything to leave ,we shouldn't leave anything to chance,0.8333333333333334,insertion,0
+put the pot in the carrots,put the box in in in ,put the carrots in the pot,0.5,swap,2
+i didn't have a choice,i didn't have a choice ,i didn't have a choice,1.0,none,-1
+sweet i forgot how beautiful it was here,i love it was was here here ,i forgot how beautiful it was here,0.2857142857142857,insertion,0
+i didn't get the point of his speech,i didn't get the idea of his speech ,i didn't get the point of his speech,0.875,none,-1
+menu i'll tell you my story,i'll tell you story story ,i'll tell you my story,0.8,insertion,0
+let me do this for you,let me do for for you ,let me do this for you,0.8333333333333334,none,-1
+i don't have my glasses,i don't have my glasses ,i don't have my glasses,1.0,none,-1
+i'll snacks tell you only if you promise to keep it to yourself,i'll tell you tell you to you you you you it it ,i'll tell you only if you promise to keep it to yourself,0.25,insertion,1
+my mother doesn't know how to ride a bicycle,my mother doesn't ride to a ride a ride ,my mother doesn't know how to ride a bicycle,0.5555555555555556,none,-1
+how do i know you didn't do it,how do you know you i did it ,how do i know you didn't do it,0.625,none,-1
+it seems that there de-iced will be a storm soon,it is going there will come there a late ,it seems that there will be a storm soon,0.3333333333333333,insertion,4
+you can't this, doing keep tom,you can't keep this from from ,you can't keep doing this, tom,0.5,swap,2
+we're meant together be to,we're so to be there ,we're meant to be together,0.6,swap,2
+doorstep can you tell me the time, please,can you tell me the please please ,can you tell me the time, please,0.8571428571428571,insertion,0
+were we obliged to give up our plan,we we plan to give up their plan ,we were obliged to give up our plan,0.625,swap,0
+he knows secretive a lot about foreign affairs,he has a lot about about a ,he knows a lot about foreign affairs,0.5714285714285714,insertion,2
+i be you'd thought older,i thought you'd be better ,i thought you'd be older,0.8,swap,3
+please do not kill me,please do not kill me ,please do not kill me,1.0,none,-1
+we have more work to do,we have work to do do work ,we still have more work to do,0.14285714285714285,deletion,1
+he that admitted he was wrong,he he that he was wrong ,he admitted that he was wrong,0.8333333333333334,swap,1
+tom is in trouble,tom is in in trouble ,tom is in big trouble,0.8,deletion,3
+i'm see to dying you,i'm going to you you ,i'm dying to see you,0.6,swap,3
+it's at least three hundred miles from here,it's three three years three years three years ,it's at least three hundred miles from here,0.125,none,-1
+could parks you please do that for me,could you please do that for me ,could you please do that for me,1.0,insertion,1
+are you sure you don't want something canceled to eat,are you sure you don't want to eat something ,are you sure you don't want something to eat,0.6666666666666666,insertion,7
+don't forget to send that letter,don't forget to write letter letter ,don't forget to send that letter,0.6666666666666666,none,-1
+i don't know if that function means anything,i don't know if anything can say ,i don't know if that means anything,0.5714285714285714,insertion,5
+that boy speaks like an adult,that boy looks like as an ,that boy speaks like an adult,0.5,none,-1
+you're not who only one the feels that way,you're not one one one one the same thing ,you're not the only one who feels that way,0.3333333333333333,swap,5
+i given you like what i've just hope you,i haven't give you you you you you like ,i hope you like what i've just given you,0.1111111111111111,swap,1
+i just don't feel like it,i just don't feel it like ,i just don't feel like it,0.6666666666666666,none,-1
+i need to go into town,i need to get into town ,i need to go into town,0.8333333333333334,none,-1
+you didn't get very far,you didn't get very far ,you didn't get very far,1.0,none,-1
+have you notch been crying all night? your eyes are all puffy,you you been all your eyes all your eyes all eyes ,have you been crying all night? your eyes are all puffy,0.2727272727272727,insertion,2
+do you need to drink wine,do you need to drink drink ,do you need to drink wine,0.8333333333333334,none,-1
+i have been working since six this morning,i have been working this morning this morning ,i have been working since six this morning,0.75,none,-1
+i think tom wants mary's job,i think tom wants mary's a ,i think tom wants mary's job,0.8333333333333334,none,-1
+i believe don't any of this,i don't believe you this this ,i don't believe any of this,0.6666666666666666,swap,2
+as a matter of fact, he was convinced,as a of of he was was he ,as a matter of fact, he was convinced,0.5,none,-1
+i can't believe you'd be so stupid,i can't believe you such such a ,i can't believe you'd be so stupid,0.42857142857142855,none,-1
+i like being part of this group,i like being of this this of ,i like being part of this group,0.5714285714285714,none,-1
+i hope tom knows what equal he's doing,i think tom has doing what he's ,i hope tom knows what he's doing,0.2857142857142857,insertion,5
+do you want to spend the rest of your alone,do you want to do do the rest of your room ,do you want to spend the rest of your life alone,0.36363636363636365,deletion,9
+did anyone else feel bricks that,anyone anyone else anyone else ,did anyone else feel that,0.4,insertion,4
+you can smoke in this room,you can smoke in this room ,you can smoke in this room,1.0,none,-1
+she baked a cake,she bought a cake cake ,she baked me a cake,0.4,deletion,2
+i've been busy all week,i've been busy busy busy ,i've been busy all week,0.6,none,-1
+he loyalty reached kyoto on saturday,he arrived on on on ,he reached kyoto on saturday,0.4,insertion,1
+go ahead. i'll meet you downstairs,i'll i'll i'll you you you ,go ahead. i'll meet you downstairs,0.3333333333333333,none,-1
+cats are smarter than you think,you are smarter than you think ,cats are smarter than you think,0.8333333333333334,none,-1
+i thought she was 30 at today, most,i thought it was at a was ,i thought she was 30 at most,0.42857142857142855,insertion,6
+i met her by chance,i met her by by ,i met her by chance,0.8,none,-1
+have you finished your french homework yet,have you finished your homework yet yet ,have you finished your french homework yet,0.7142857142857143,none,-1
+of media blew the whole thing out the proportion,the whole gave out of the the of the ,the media blew the whole thing out of proportion,0.2222222222222222,swap,7
+first of all, let me speak about myself,one of me of myself myself me me ,first of all, let me speak about myself,0.125,none,-1
+the kid is a pain in the neck,the dog is a in in in the ,the kid is a pain in the neck,0.5,none,-1
+tom is drunk wasn't as a skunk,tom wasn't as a as as ,tom is drunk as a skunk,0.16666666666666666,insertion,3
+forgot i all about it,i forgot about it all ,i forgot all about it,0.4,swap,1
+tom sang better than mary did,tom better mary better than mary ,tom sang better than mary did,0.16666666666666666,none,-1
+i just wanted some advice from someone who's already been to boston,i just wanted to wanted some from from from a good wanted ,i just wanted some advice from someone who's already been to boston,0.25,none,-1
+banks open at nine o'clock,he'll set at six o'clock ,banks open at nine o'clock,0.4,none,-1
+i've got some stuff to do here,i've got some things to do here ,i've got some stuff to do here,0.8571428571428571,none,-1
+air, like food, is a basic human need,air is like a fish is necessary as ,air, like food, is a basic human need,0.0,none,-1
+to live without air is impossible,without to without without without without ,to live without air is impossible,0.16666666666666666,none,-1
+try to answer as many questions as possible,to to to to many as many as ,try to answer as many questions as possible,0.25,none,-1
+i'd hair to have my like trimmed,i've like to be my my own ,i'd like to have my hair trimmed,0.42857142857142855,swap,5
+do you think i'm long pretty,do you think i'm too ,do you think i'm pretty,0.8,insertion,4
+so, do you really want to craving do this,do you really want to do do this ,so, do you really want to do this,0.25,insertion,6
+how many times do i have to repeat that she isn't my friend,how many she i to have to my i that i she she ,how many times do i have to repeat that she isn't my friend,0.3076923076923077,none,-1
+he fluent is in chinese,he is in in in ,he is fluent in chinese,0.6,swap,1
+i don't take it personally,i don't take it it ,i don't take it personally,0.8,none,-1
+i don't really why,i don't really care why ,i don't really know why,0.8,deletion,3
+i think you ought to a while,i think you should stay a little longer ,i think you ought to rest a while,0.375,deletion,5
+it takes 10 minutes to get to the station,it is to to to station station train station ,it takes 10 minutes to get to the station,0.3333333333333333,none,-1
+tom has something in his hand,he has something in in hand ,tom has something in his hand,0.6666666666666666,none,-1
+is tom boring, isn't he,tom is he he he ,tom is boring, isn't he,0.6,swap,0
+they were put in prison,they were in in prison ,they were put in prison,0.8,none,-1
+how do we open this door,how do we open this this ,how do we open this door,0.8333333333333334,none,-1
+why is that of interest,why is that of that ,why is that of interest,0.8,none,-1
+tom told us about what he did in boston,tom told me about in boston boston boston boston ,tom told us about what he did in boston,0.4444444444444444,none,-1
+i hope i didn't make you feel uncomfortable,i hope you make you offended you you ,i hope i didn't make you feel uncomfortable,0.25,none,-1
+hope i you'll get well soon,i hope you'll you'll get well ,i hope you'll get well soon,0.5,swap,0
+all the leaves on the turned yellow,all the red on red red red red ,all the leaves on the tree turned yellow,0.375,deletion,5
+i didn't any want of that,i didn't want any of that ,i didn't want any of that,1.0,swap,3
+i don't know what you want spouse me to say,i don't know me say you say say me ,i don't know what you want me to say,0.3333333333333333,insertion,6
+can't just make everyone do what you want them to,you can't just want you to do you do you you ,you can't just make everyone do what you want them to,0.36363636363636365,deletion,0
+this mail will be delivered tomorrow,this will will be tomorrow tomorrow ,this mail will be delivered tomorrow,0.6666666666666666,none,-1
+is there anything you want to add to what i just said,is there anything there anything you to say anything i said i ,is there anything you want to add to what i just said,0.3333333333333333,none,-1
+i my find can't gloves,i can't find my yet ,i can't find my gloves,0.8,swap,1
+tom is much i than smarter am,tom is better than than than you ,tom is much smarter than i am,0.42857142857142855,swap,3
+you need to decide what kind of person you want to be,you need to be of of of what you want to be ,you need to decide what kind of person you want to be,0.6666666666666666,none,-1
+there is an urgent need for people to help clean up the environment,there is need need to need for the the for people need to ,there is an urgent need for people to help clean up the environment,0.15384615384615385,none,-1
+i have for been busy not two days,i have been busy for for three hours ,i have not been busy for two days,0.375,swap,5
+the difference between the right word and almost the right word is the difference between lightning and the lightning bug,the difference is between and the difference between the difference and the the difference of the the the same the ,the difference between the right word and almost the right word is the difference between lightning and the lightning bug,0.3,none,-1
+i have considered carefully very that,i have have thinking about that ,i have considered that very carefully,0.3333333333333333,swap,3
+a terrible fate awaited him,a big him him him ,a terrible fate awaited him,0.4,none,-1
+i know that i'm supposed to enjoy this class, but i don't,i don't know this i to to but i don't don't don't ,i know that i'm supposed to enjoy this class, but i don't,0.25,none,-1
+he came here me help to,he came here to help me ,he came here to help me,1.0,swap,3
+i about him in the newspaper,i heard him in the newspaper newspaper ,i read about him in the newspaper,0.2857142857142857,deletion,1
+grow we vegetables in our garden,we grow our in in in ,we grow vegetables in our garden,0.5,swap,0
+i'm hoping that shakespeare i can write two or three songs over the weekend,i'll write it that i can write the next of the next week ,i'm hoping that i can write two or three songs over the weekend,0.0,insertion,3
+they went on board the ship,they went on the ship ship ,they went on board the ship,0.6666666666666666,none,-1
+what did they hit you with,what did you hit with you ,what did they hit you with,0.5,none,-1
+my father goes to sydney twice a year on business,my father goes to a business on business for a ,my father goes to sydney twice a year on business,0.4,none,-1
+worry have bigger problems to we about,we have little problems to do about ,we have bigger problems to worry about,0.7142857142857143,swap,0
+making money is not the only goal in life,life is is not the only in in in ,making money is not the only goal in life,0.5555555555555556,none,-1
+we're counting on you to wake us up in time, don't fall asleep,we're in in in to you in in in in in in in in ,we're counting on you to wake us up in time, so don't fall asleep,0.21428571428571427,deletion,10
+i just listened and kept quiet,i just kept and a lie ,i just listened and kept quiet,0.5,none,-1
+he wants to be,he wants to be rich ,he wants to be different,0.8,deletion,4
+delivery is not included in the price,price is not necessary in the price ,delivery is not included in the price,0.7142857142857143,none,-1
+the phone rang for a long time,the telephone waited a for the time ,the phone rang for a long time,0.2857142857142857,none,-1
+he believes advance in the supernatural,he lives in the world ,he believes in the supernatural,0.6,insertion,2
+i make always it a point to paint things as they are,i always it a good as as as it are as to ,i always make it a point to paint things as they are,0.16666666666666666,swap,1
+a good sweat will finishing cure a cold,a good will will cold before you ,a good sweat will cure a cold,0.42857142857142855,insertion,4
+i will clerk side with you just this once,i will do you this this this this ,i will side with you just this once,0.375,insertion,2
+tom pretended that he didn't see it,tom didn't he didn't see he didn't ,tom pretended that he didn't see it,0.14285714285714285,none,-1
+i need to be alone for a while,i need to be a while for while ,i need to be alone for a while,0.625,none,-1
+we have a warrant to search your property,we have a to to to your your ,we have a warrant to search your property,0.625,none,-1
+emergency is it ok if i open a can,is it ok if i open it a ,is it ok if i open a can,0.75,insertion,0
+i've something interesting to tell you that you might find surprising,i've very something interesting to you you you you you you ,i've something interesting to tell you that you might find surprising,0.2727272727272727,none,-1
+only love can break your heart,only only love love love love ,only love can break your heart,0.16666666666666666,none,-1
+let to agree us disagree,let us agree us us ,let us agree to disagree,0.6,swap,3
+someday i accepted will buy a cotton candy machine,i will buy buy a a buy a ,someday i will buy a cotton candy machine,0.25,insertion,2
+you should marry someone you love,you should love someone you love ,you should marry someone you love,0.8333333333333334,none,-1
+she borrowed the book from him,she gave the book from from ,she borrowed the book from him,0.6666666666666666,none,-1
+i should've finished that sooner,i should've should've earlier that ,i should've finished that sooner,0.4,none,-1
+the thief got away the money,money got money the money money money ,the thief got away with the money,0.14285714285714285,deletion,4
+you've got to wake up,you've got to wake up ,you've got to wake up,1.0,none,-1
+i don't know how do it,i don't know how do it it ,i don't know how they do it,0.7142857142857143,deletion,4
+tom blamed mary for the project's failure,tom pretended for the loss for the ,tom blamed mary for the project's failure,0.14285714285714285,none,-1
+i can't eat any more,i can't eat any longer ,i can't eat any more,0.8,none,-1
+i want dance watch you to,i want to you you do ,i want to watch you dance,0.6666666666666666,swap,2
+tom is always to be cool,tom is always to be a friendly ,tom is always trying to be cool,0.42857142857142855,deletion,3
+do you have your driver's license,do you have a license license ,do you have your driver's license,0.6666666666666666,none,-1
+will you sell your house to him,will you leave your house house house ,will you sell your house to him,0.5714285714285714,none,-1
+i want the truth from you,i want the truth from you ,i want the truth from you,1.0,none,-1
+this is where i brought my girlfriend on our first date,this is is on on i i first on my first ,this is where i brought my girlfriend on our first date,0.18181818181818182,none,-1
+i will always be there for you,i will be there for for for ,i will always be there for you,0.42857142857142855,none,-1
+she gave him some food,she gave him some some ,she gave him some food,0.8,none,-1
+are you sure that you haven't forgotten anything,are you sure that you haven't anything you ,are you sure that you haven't forgotten anything,0.75,none,-1
+same always says the he thing,he is always the same thing ,he always says the same thing,0.6666666666666666,swap,0
+i found why him a job,i found him a a ,i found him a job,0.8,insertion,2
+it's even worse than it looks,it's better than it as than ,it's even worse than it looks,0.16666666666666666,none,-1
+how do you know that light travels faster than sound,how do you know you you you you you you ,how do you know that light travels faster than sound,0.4,none,-1
+tom is traveling himself,tom is growing of england ,tom is traveling by himself,0.4,deletion,3
+i really do have to go,i really really to go to ,i really do have to go,0.3333333333333333,none,-1
+i often spend my leisure time listening to the radio,i often spend the the the the the the the ,i often spend my leisure time listening to the radio,0.4,none,-1
+generally speaking, a woman will live longer than a man,long live live live live live live live live live ,generally speaking, a woman will live longer than a man,0.1,none,-1
+i'd like you to meet my wife,i'd like you to meet my sister ,i'd like you to meet my wife,0.8571428571428571,none,-1
+he's much younger than tom,he's much much much tom ,he's much younger than tom,0.6,none,-1
+i'm surprised to see you,i'm glad to see you ,i'm surprised to see you,0.8,none,-1
+doesn't he read many newspapers,he doesn't read many books ,he doesn't read many newspapers,0.8,swap,1
+i can't believe i finally managed to you meet,i can't believe you really to believe you you ,i can't believe i finally managed to meet you,0.4444444444444444,swap,8
+i met him just of he was coming out as school,i met him out as was was was he was he ,i met him just as he was coming out of school,0.45454545454545453,swap,9
+would you like go out for drink after work,would you mind to go for for a drink after ,would you like go out for a drink after work,0.3,deletion,6
+what brand of cigarettes do you smoke,which of of do you do smoke ,what brand of cigarettes do you smoke,0.2857142857142857,none,-1
+in the digital age, handwriting is slowly becoming a lost art,in the in a is a really a world in the ,in the digital age, handwriting is slowly becoming a lost art,0.18181818181818182,none,-1
+how far observe are you prepared to go,how far will you go to to ,how far are you prepared to go,0.5714285714285714,insertion,2
+my father has sell gone to china. he isn't here now,my father has gone to he here here he left ,my father has gone to china. he isn't here now,0.5,insertion,3
+will you please put the baby to exceed bed,will you please put the baby to the ,will you please put the baby to bed,0.875,insertion,7
+i wish you'd called first,i wish you'd come me ,i wish you'd called first,0.6,none,-1
+there is a chance that he will pass the exam,there is a sure will that he can the the ,there is a chance that he will pass the exam,0.4,none,-1
+he presented her a doll,he gave her a box dress ,he presented her with a doll,0.3333333333333333,deletion,3
+1954 they can't all be bad,everyone can't can't be all ,they can't all be bad,0.4,insertion,0
+isn't one daydream of you enough,isn't one one of you ,isn't one of you enough,0.4,insertion,2
+i took it for granted that you were on our side,i took it for for that you were a for for ,i took it for granted that you were on our side,0.6363636363636364,none,-1
+can have some tea,can i have some tea ,can i have some tea,1.0,deletion,1
+aren't you a young,aren't you a young young ,aren't you a little young,0.8,deletion,3
+he stole a kiss from 300 her,he gave a few from a ,he stole a kiss from her,0.5,insertion,5
+their way of thinking is behind the times,us of the way of the way of ,their way of thinking is behind the times,0.0,none,-1
+the reason for this is plain,the reason for is reason for ,the reason for this is plain,0.5,none,-1
+the cat seems extremely happy,the dog is very happy ,the cat seems extremely happy,0.4,none,-1
+guess i tom is right,i guess tom is right ,i guess tom is right,1.0,swap,0
+i know what to call you,i know know what you to call ,i don't know what to call you,0.42857142857142855,deletion,1
+can i go swimming, mother,can i go shopping a ,can i go swimming, mother,0.6,none,-1
+what did tom you get for christmas,what did you get for for christmas ,what did tom get you for christmas,0.7142857142857143,swap,4
+do you know to cook rice well,do you know how to cook well well ,do you know how to cook rice well,0.875,deletion,3
+he is too to go there alone,he is too to go there alone alone ,he is too young to go there alone,0.5,deletion,3
+i figured it out by myself,i figured it out by myself ,i figured it out by myself,1.0,none,-1
+you may take this book as long as you keep it clean,you may keep as as if you as it as as you ,you may take this book as long as you keep it clean,0.25,none,-1
+he price fought until the end,he will end the end ,he fought until the end,0.6,insertion,1
+i'm not a doctor, but a,i'm not a doctor but a doctor ,i'm not a doctor, but a teacher,0.7142857142857143,deletion,6
+i song an idea for a have,i had a big for a new ,i have an idea for a song,0.42857142857142855,swap,1
+i'm taking in exam an january,i'm in in a in in ,i'm taking an exam in january,0.3333333333333333,swap,2
+i'm tired of keeping secrets,i'm hiding of a of ,i'm tired of keeping secrets,0.4,none,-1
+i would like to thank you for your cooperation,i would like to thank you for your for ,i would like to thank you for your cooperation,0.8888888888888888,none,-1
+another's we're getting a lot of things done,we're doing a lot of things going ,we're getting a lot of things done,0.7142857142857143,insertion,0
+she did come, but didn't stay long,she did come stay she come come ,she did come, but didn't stay long,0.2857142857142857,none,-1
+the capital accomplish of ukraine is kyiv,the new of the of the ,the capital of ukraine is kyiv,0.3333333333333333,insertion,2
+this painting is worth a great deal of rid money,this is is a big of of money of ,this painting is worth a great deal of money,0.2222222222222222,insertion,8
+there is no knowing when a severe earthquake will happen tokyo,there is no a a when she can come a a fire ,there is no knowing when a severe earthquake will happen in tokyo,0.25,deletion,10
+health i have a mind to buy a new car,i have a new to buy a car car ,i have a mind to buy a new car,0.7777777777777778,insertion,0
+to be happy, you should spend parlor time with someone you love,to to you you to you you you you you you ,to be happy, you should spend time with someone you love,0.2727272727272727,insertion,6
+you thought i was an idiot,i thought you was an idiot idiot ,you must've thought i was an idiot,0.14285714285714285,deletion,1
+is thin book this mine,this is is too small ,this thin book is mine,0.2,swap,3
+i hurried in order firmly not to be late for school,i was in in to be late for not to ,i hurried in order not to be late for school,0.2,insertion,4
+maybe you can help us,maybe you can help you ,maybe you can help us,0.8,none,-1
+i just want happy to be you,i just want to be happy you ,i just want you to be happy,0.42857142857142855,swap,3
+the skin is the largest organ of the body,the is is the most of the the to ,the skin is the largest organ of the body,0.4444444444444444,none,-1
+school how old do you think i am,how old do you think i am ,how old do you think i am,1.0,insertion,0
+i felt bad about what i city did,i felt about about what i did ,i felt bad about what i did,0.8571428571428571,insertion,6
+chairperson has been associated with the organization for ten years,she is been with for the ten for the ten ten ,the chairperson has been associated with the organization for ten years,0.09090909090909091,deletion,0
+what was up he to,what was he he went ,what was he up to,0.6,swap,3
+i heard you majors,i heard you you you ,i heard you switched majors,0.6,deletion,3
+i think follow should we tom,we should think we should leave ,i think we should follow tom,0.0,swap,4
+you can't hate the guy,you can't the the the ,you can't hate the guy,0.6,none,-1
+who the pants in your family,who family in your family in the ,who wears the pants in your family,0.14285714285714285,deletion,1
+she spoke to me with a smile,she spoke me to me with me ,she spoke to me with a smile,0.2857142857142857,none,-1
+i hope your will come true,i hope your will come true true ,i hope your wish will come true,0.5714285714285714,deletion,3
+i can't see what you mean,i can't see you you do ,i can't see what you mean,0.6666666666666666,none,-1
+please wake me up at six battle tomorrow,please me me up early tomorrow tomorrow ,please wake me up at six tomorrow,0.5714285714285714,insertion,6
+mary told tom easy go to on the ice cream if he didn't want to get fat,tom asked mary to put on to the the if if he wouldn't want to put the ,mary told tom to go easy on the ice cream if he didn't want to get fat,0.35294117647058826,swap,3
+don't worry. you'll make it,don't make sure i'll make ,don't worry. you'll make it,0.2,none,-1
+this is by far the best seafood restaurant in this area,this is is far in this this this this this this ,this is by far the best seafood restaurant in this area,0.36363636363636365,none,-1
+mixing with people at a party can be terrifying for shy people,people people people people a party people people people with a party ,mixing with people at a party can be terrifying for shy people,0.25,none,-1
+if you are to know a nation, you must learn its history,if you to to you you you you you you you a ,if you are to know a nation, you must learn its history,0.3333333333333333,none,-1
+everyone had start working,everyone had started work work ,everyone had to start working,0.4,deletion,2
+all roads lead to ashamed rome,all people to to escape ,all roads lead to rome,0.4,insertion,4
+he climbed over the fence,he climbed over the tree ,he climbed over the fence,0.8,none,-1
+you deserve more than that,you deserve deserve than that ,you deserve more than that,0.8,none,-1
+i got acquainted with him drifted last year,i met with an first time yesterday ,i got acquainted with him last year,0.14285714285714285,insertion,5
+"you're a good guitarist." "i'd drowned like to think i am.",you're a good good person to be a good come ,"you're a good guitarist." "i'd like to think i am.",0.2,insertion,5
+you ticket have the don't,you don't have the the ,you don't have the ticket,0.8,swap,4
+did you notice that,did you see that yesterday ,when did you notice that,0.0,deletion,0
+tom left his dog at grinned home,tom left his dog at home ,tom left his dog at home,1.0,insertion,5
+wait i'll be back soon,i'll be back i back tomorrow ,wait here. i'll be back soon,0.16666666666666666,deletion,1
+he came to tokyo in search of employment,he came to in in in boston of ,he came to tokyo in search of employment,0.5,none,-1
+i've got to get home,i've got to get home ,i've got to get home,1.0,none,-1
+he bought a new pair of gloves,he bought a new of of of ,he bought a new pair of gloves,0.7142857142857143,none,-1
+it's very kind of you to invite me to birthday your party,it's very nice of you to be a party party my birthday ,it's very kind of you to invite me to your birthday party,0.4166666666666667,swap,10
+i wanted to go swimming,i wanted to go to ,i wanted to go swimming,0.8,none,-1
+tom understands what you don't,tom doesn't understand why you ,tom understands what you don't,0.2,none,-1
+our apartment is starting to look pretty cool,my is is pretty to pretty pretty pretty ,our apartment is starting to look pretty cool,0.375,none,-1
+we want to talk to,we want to talk you you ,we want to talk to you,0.8333333333333334,deletion,5
+i would do anything to get job,i would do anything to do anything you ,i would do anything to get a job,0.625,deletion,6
+i'm can certain we not get tickets tonight,i'm not sure we not sure we invited ,i'm not certain we can get tickets tonight,0.375,swap,1
+soon looking forward to seeing you i'm,i'm looking forward to seeing you seeing ,i'm looking forward to seeing you soon,0.8571428571428571,swap,6
+at least for now, i'm not going to say anything,for for for for for to say i'm not going ,at least for now, i'm not going to say anything,0.1,none,-1
+i think we're of out your size,i think we're of a of of ,i think we're out of your size,0.42857142857142855,swap,4
+tom is ill at ease among strangers,tom is at at others others others ,tom is ill at ease among strangers,0.42857142857142855,none,-1
+we were thoroughly satisfied with his work,we were very pleased with his work ,we were thoroughly satisfied with his work,0.7142857142857143,none,-1
+europeans to like drink wine,like like to eat wine ,europeans like to drink wine,0.6,swap,2
+you ought not to shocked call at this time of night,you should not to call this at this this this ,you ought not to call at this time of night,0.4,insertion,4
+your being here means a lot me,here here here you a little here here ,your being here means a lot to me,0.25,deletion,6
+i'm not privy to their obama decisions,i'm not allowed to their their ,i'm not privy to their decisions,0.6666666666666666,insertion,5
+what are your plans for the weekend,what are your plans for the the ,what are your plans for the weekend,0.8571428571428571,none,-1
+hey man, take it easy. sang i'm just messing with you,i could you get over with you you you you ,hey man, take it easy. i'm just messing with you,0.1,insertion,5
+my parents made me go there,my parents made me going go ,my parents made me go there,0.6666666666666666,none,-1
+feeling the house shake, i ran outside,the door the the door the door ,feeling the house shake, i ran outside,0.0,none,-1
+tom wanted me to meet him at the station,tom asked me to meet me at the station ,tom wanted me to meet him at the station,0.7777777777777778,none,-1
+you may stay here as long as you like,you may stay as if you like you stay ,you may stay here as long as you like,0.4444444444444444,none,-1
+tom did something very stupid,tom did very a very ,tom did something very stupid,0.4,none,-1
+you drive bargain hard a,you drive drive a hard ,you drive a hard bargain,0.4,swap,2
+room wants this tom spotless,tom left this room here ,tom wants this room spotless,0.6,swap,0
+does this medicine work quickly,does this medicine do it ,does this medicine work quickly,0.6,none,-1
+landing a problem with the plane's there's gear,the fire is a big with the the ,there's a problem with the plane's landing gear,0.0,swap,6
+me kept she waiting for a long time,she waited me for a long time time ,she kept me waiting for a long time,0.375,swap,2
+how could you not give me the gaze message,why could you not me the the the ,how could you not give me the message,0.5,insertion,7
+spent all day with my friend,i spent all my with my brother ,i spent all day with my friend,0.7142857142857143,deletion,0
+she wanted him to help her father,she wanted him to help her her ,she wanted him to help her father,0.8571428571428571,none,-1
+we will have lived here a year next march,we will have lived in a month next month year ,we will have lived here for a year next march,0.4,deletion,5
+why do you not believe sleepy in god,why do you not believe in in ,why do you not believe in god,0.8571428571428571,insertion,5
+do you want to go to the station with me,do you want to do me the the to me ,do you want to go to the station with me,0.6,none,-1
+has it occurred to you that you be the one with the problem,is it that you to be problem with that problem problem problem problem problem ,has it occurred to you that you might be the one with the problem,0.14285714285714285,deletion,7
+he is what is called a man of action,he is what he a a of a of ,he is what is called a man of action,0.4444444444444444,none,-1
+the didn't attend he meeting,we didn't attend the meeting ,he didn't attend the meeting,0.8,swap,0
+our streets flood when we dedicate have rain,we rain when we rain rain rain ,our streets flood when we have rain,0.14285714285714285,insertion,5
+i'm really concerned about your mystery future,i'm really about about your future ,i'm really concerned about your future,0.8333333333333334,insertion,5
+our car broke on our way there,our car broke on our car car car ,our car broke down on our way there,0.375,deletion,3
+coffee is brazil's main product,japan is is on germany ,coffee is brazil's main product,0.2,none,-1
+he disguised himself as a woman,he saw as a as as ,he disguised himself as a woman,0.16666666666666666,none,-1
+do come know where they you from,do you know where you come from ,do you know where they come from,0.8571428571428571,swap,1
+i knew who it,i knew who it was ,i knew who did it,0.6,deletion,3
+i don't want snows your legal advice,i don't want your your your ,i don't want your legal advice,0.6666666666666666,insertion,3
+tom allowed mary to leave early,tom left mary to leave early ,tom allowed mary to leave early,0.8333333333333334,none,-1
+look at all these flowers,look all all over flowers ,look at all these flowers,0.6,none,-1
+i work in a flower shop,i work in a shop shop ,i work in a flower shop,0.8333333333333334,none,-1
+have you told your favor parents,have you told your your ,have you told your parents,0.8,insertion,4
+you don't need to hurry. take your time,you don't need to time you time time ,you don't need to hurry. take your time,0.625,none,-1
+you're the only person i know who can probably answer this question,you're the only one i i can answer answer answer question answer ,you're the only person i know who can probably answer this question,0.4166666666666667,none,-1
+pain not in any i'm,i'm not in in in ,i'm not in any pain,0.6,swap,4
+the unique more each person is, the more he contributes to the wisdom of others,the one person is more to the other he and he other of the other ,the more unique each person is, the more he contributes to the wisdom of others,0.2,swap,1
+she was laughed at by her friends,she was laughed by by her friends ,she was laughed at by her friends,0.8571428571428571,none,-1
+i figured i might find you here,i figured i figured you find here ,i figured i might find you here,0.5714285714285714,none,-1
+the public bought it hook, line and sinker, didn't they,the the and the the the and the the and ,the public bought it hook, line and sinker, didn't they,0.2,none,-1
+i remember seeing her somewhere,i remember seeing her somewhere ,i remember seeing her somewhere,1.0,none,-1
+i didn't know you had hay fever,i didn't know you had a fire ,i didn't know you had hay fever,0.7142857142857143,none,-1
+did you hear what i,did you hear you you you ,did you hear what i said,0.5,deletion,5
+where are others the all,are they all the other ,where are all the others,0.4,swap,2
+i'm surprised you weren't praise invited,i'm glad you weren't surprised ,i'm surprised you weren't invited,0.6,insertion,4
+it is one of the biggest summer music festivals,it is the one of the party of the ,it is one of the biggest summer music festivals,0.2222222222222222,none,-1
+i have good news in store for you,i have something in in in for you ,i have good news in store for you,0.625,none,-1
+tom eventually joined the navy,tom lives the the as ,tom eventually joined the navy,0.4,none,-1
+he is a bad,he is a bad bad ,he is a bad boy,0.8,deletion,4
+he have might missed the last train,he might have missed train train train ,he might have missed the last train,0.7142857142857143,swap,2
+did i hurt your feelings,did i hurt your feelings ,did i hurt your feelings,1.0,none,-1
+was there a book on please the desk,there there a book was on the ,was there a book on the desk,0.42857142857142855,insertion,5
+i'll give you this camera,i'll give you this this ,i'll give you this camera,0.8,none,-1
+sapporo is the fifth largest city in japan,japan is the the in in in japan ,sapporo is the fifth largest city in japan,0.5,none,-1
+please remember to turn off the light before going to bed,please turn it turn to turn off the light off before ,please remember to turn off the light before going to bed,0.18181818181818182,none,-1
+i think we should talk about this now,i think we should talk about this now ,i think we should talk about this now,1.0,none,-1
+tom can bake really apple pies,tom can can cook cook milk cream ,tom can bake really good apple pies,0.2857142857142857,deletion,4
+you have professional experience,you have have an important ,do you have professional experience,0.2,deletion,0
+i want to help out figure this you,i want to help you do this this ,i want to help you figure this out,0.75,swap,7
+i just couldn't go through with it,i just couldn't do it it it ,i just couldn't go through with it,0.5714285714285714,none,-1
+how do you fields usually decide what to eat,what do you eat eat to eat eat ,how do you usually decide what to eat,0.375,insertion,3
+i haven't decided which job marketing to apply for,i haven't decided for new to choose for ,i haven't decided which job to apply for,0.625,insertion,5
+the wind blew her hat,the red dress the the red ,the wind blew her hat off,0.16666666666666666,deletion,5
+your problem is you're not patient enough,your problem is not enough enough enough ,your problem is you're not patient enough,0.5714285714285714,none,-1
+we need to do this right,we need to do this right ,we need to do this right,1.0,none,-1
+i'm no friend of yours,i'm no friend of mine ,i'm no friend of yours,0.8,none,-1
+i thought we could eat out on the patio,i thought we could eat out on the beach ,i thought we could eat out on the patio,0.8888888888888888,none,-1
+marriage is of main cause the all divorces,it is a of of the of the ,marriage is the main cause of all divorces,0.125,swap,2
+we off got on the wrong foot,we got on the wrong on the ,we got off on the wrong foot,0.2857142857142857,swap,2
+i got flat a tire,i got a big a ,i got a flat tire,0.6,swap,2
+she can play the piano,she can play the piano ,she can play the piano,1.0,none,-1
+we can't be more specific,we can't be more more ,we can't be more specific,0.8,none,-1
+how did the railway accident at tokyo station happen,how did the train train the train train train ,how did the railway accident at tokyo station happen,0.3333333333333333,none,-1
+whenever i that song, i think of my childhood,when i i remember when i i my of my ,whenever i hear that song, i think of my childhood,0.2,deletion,2
+i think there's something see you should here,i think there's something you should see you ,i think there's something here you should see,0.5,swap,4
+i just to have make a call,i just need to call a call ,i just have to make a call,0.7142857142857143,swap,3
+the man you see over there is my uncle,you can see the see is over my woman ,the man you see over there is my uncle,0.1111111111111111,none,-1
+i'm i sorry didn't answer sooner,i'm sorry, i didn't answer on ,i'm sorry i didn't answer sooner,0.6666666666666666,swap,2
+your handwriting is similar to mine,your letter is familiar to mine ,your handwriting is similar to mine,0.6666666666666666,none,-1
+did i tell you think you're pretty,i i say you say you're pretty pretty ,did i tell you i think you're pretty,0.375,deletion,4
+my vote father doesn't drink liquor,my drink doesn't drink drink ,my father doesn't drink liquor,0.6,insertion,1
+i can't do this work,i can't do this this anymore ,i can't do this work alone,0.6666666666666666,deletion,5
+the boy opened the window, although his mother told accompany him not to,the boy advised the the too told the the not too late ,the boy opened the window, although his mother told him not to,0.25,insertion,9
+i discouraged it from going swimming since it looked like him was going to rain,i advised it going to it it was going to it it was going to ,i discouraged him from going swimming since it looked like it was going to rain,0.13333333333333333,swap,2
+the new tunnel will link great britain and france,the new will will germany germany the germany germany ,the new tunnel will link great britain and france,0.3333333333333333,none,-1
+did how you become interested in studying languages,how did you learn interested in in in ,how did you become interested in studying languages,0.625,swap,0
+hundreds of people were waiting outside the ticket office,people of people were people were the the train ,hundreds of people were waiting outside the ticket office,0.4444444444444444,none,-1
+you should have seen it,you should have seen it ,you should have seen it,1.0,none,-1
+it looks like you've lost ten pounds,it looks like you've got a big ,it looks like you've lost ten pounds,0.5714285714285714,none,-1
+she advised him to go to the hospital, but he didn't follow her advice,she advised him to give the but but he refused to give the doctor ,she advised him to go to the hospital, but he didn't follow her advice,0.2857142857142857,none,-1
+they are in the teachers' room,they are in in the class ,they are in the teachers' room,0.5,none,-1
+we to the café that i told you about,i went to the the i i i you about ,we went to the café that i told you about,0.6,deletion,1
+i have no choice at all,i have no at at at ,i have no choice at all,0.6666666666666666,none,-1
+we are playing tennis this weekend,we are tennis tennis tennis this ,we are playing tennis this weekend,0.5,none,-1
+the doctor examined my,the doctor doctor me me ,the doctor examined my throat,0.4,deletion,4
+that's what i have to do,that's what i i to do ,that's what i have to do,0.8333333333333334,none,-1
+how did you solve the problem,how did you solve the problem ,how did you solve the problem,1.0,none,-1
+empty the out water of the bucket,bring the water of water water water ,empty the water out of the bucket,0.2857142857142857,swap,2
+he dropped me on in,he left me on on ,he dropped in on me,0.4,swap,2
+you may come in now,you may come in now ,you may come in now,1.0,none,-1
+you have a point there,you there there a there ,you have a point there,0.4,none,-1
+you are always doubting my word,you are not been my my ,you are always doubting my word,0.5,none,-1
+i want very much for you to understand,i want very little for you to you ,i want very much for you to understand,0.75,none,-1
+this is both good and inexpensive,this is is good and and and ,this bag is both good and inexpensive,0.42857142857142855,deletion,1
+i know you like chocolate,i know you know like ,i know you like chocolate,0.6,none,-1
+the birds were flying in a group,the were were in in a in ,the birds were flying in a group,0.5714285714285714,none,-1
+is there anything you want to add to what i just said,is there anything there anything you to say anything i said i ,is there anything you want to add to what i just said,0.3333333333333333,none,-1
+let me hear from eastern you very soon,let me me me you you you ,let me hear from you very soon,0.42857142857142855,insertion,4
+here's a photo of her,she's a picture of her ,here's a photo of her,0.6,none,-1
+i don't know circle how much time i've got,i don't know how i've got i i ,i don't know how much time i've got,0.5,insertion,3
+i out hanging love with you,i am love out with you ,i love hanging out with you,0.6666666666666666,swap,1
+talk to me like this,talk me to me like this ,don't talk to me like this,0.6666666666666666,deletion,0
+thirsty what did happen to all that money,what did it to do that all ,what did happen to all that money,0.5714285714285714,insertion,0
+we'll just have wait and see how things pan out,just just let we see can see out and see things ,we'll just have to wait and see how things pan out,0.18181818181818182,deletion,3
+i told her not to be late,i told her to be late late ,i told her not to be late,0.5714285714285714,none,-1
+i'd like you to of a friend meet mine,i'd like you to meet you a friend of ,i'd like you to meet a friend of mine,0.5555555555555556,swap,4
+how many of these things you made,how many of you were made of you ,how many of these things have you made,0.375,deletion,5
+i don't remember that at all,i don't remember at at all ,i don't remember that at all,0.8333333333333334,none,-1
+tom sees this in different way,tom makes this in this this way ,tom sees this in a different way,0.5714285714285714,deletion,4
+i hear what you're saying,i hear know what's talking ,i hear what you're saying,0.4,none,-1
+guess what i did poker last night,what did i last last night ,guess what i did last night,0.5,insertion,4
+i want to do it for you,i want to do it for you ,i want to do it for you,1.0,none,-1
+he tried to counting soothe the angry man,he tried to help the the people ,he tried to soothe the angry man,0.5714285714285714,insertion,3
+you knew i was married,i know you were married ,you knew i was married,0.2,none,-1
+i fell in the pool,i fell in the the ,i fell in the pool,0.8,none,-1
+what do you know about tom's girlfriend,what do you know about tom's girl ,what do you know about tom's girlfriend,0.8571428571428571,none,-1
+went he to the library,he went to the the ,he went to the library,0.8,swap,0
+absolutely he works in the car industry,he lives in the car office ,he works in the car industry,0.6666666666666666,insertion,0
+the farmer sowed with field his wheat,the tree cut with the the tree ,the farmer sowed his field with wheat,0.14285714285714285,swap,3
+you said is absolute nonsense,you said is saying is saying ,what you said is absolute nonsense,0.0,deletion,0
+how did we let things get to this point,how we we we we to put this this ,how did we let things get to this point,0.3333333333333333,none,-1
+tom found bedroom unlocked,tom left a room room ,tom found his bedroom unlocked,0.2,deletion,2
+my house shop faces the sea,my house is the the ,my house faces the sea,0.6,insertion,2
+she wants to marry a millionaire,she wants to marry a a ,she wants to marry a millionaire,0.8333333333333334,none,-1
+she needed someone who would depends understand her,she needed someone for someone who she ,she needed someone who would understand her,0.42857142857142855,insertion,5
+based i'm glad to be the one who tells you,i'm glad to be the one you you you ,i'm glad to be the one who tells you,0.7777777777777778,insertion,0
+wasn't i trying to hurt anybody,wasn't i wasn't to kill you ,i wasn't trying to hurt anybody,0.16666666666666666,swap,0
+i can lend you one if you want,i can give you one one you you ,i can lend you one if you want,0.625,none,-1
+took a taxi so we wouldn't be late,we made a taxi so late wouldn't be late ,we took a taxi so we wouldn't be late,0.7777777777777778,deletion,0
+they planned vacation first their,they left a first next ,they planned their first vacation,0.4,swap,4
+you will find the restaurant on your right,you will choose the next on the next ,you will find the restaurant on your right,0.5,none,-1
+i returned the knife which had borrowed,i had the coat had left me yesterday ,i returned the knife which i had borrowed,0.25,deletion,5
+does he a girlfriend,he he he a girlfriend ,does he have a girlfriend,0.6,deletion,2
+weight the what's of your suitcase,what's the the of your the ,what's the weight of your suitcase,0.6666666666666666,swap,0
+i have the feeling you had something else in mind,i have the idea you had something mind you mind ,i have the feeling you had something else in mind,0.7,none,-1
+you get you pay for,you get get got a money ,you get what you pay for,0.3333333333333333,deletion,2
+he beat the odds and was successful,he made the the and and is ,he beat the odds and was successful,0.42857142857142855,none,-1
+what do you we go for a swim,what do we go for a walk walk walk ,what do you say we go for a swim,0.2222222222222222,deletion,3
+he's got the new down pat,you've got the new off new new ,he's got the new technique down pat,0.42857142857142855,deletion,4
+there's nothing more i can tell you,there's nothing i i can tell you ,there's nothing more i can tell you,0.8571428571428571,none,-1
+people often complain about the weather,people people about the the weather ,people often complain about the weather,0.5,none,-1
+let me get my wallet,let me check my keys ,let me get my wallet,0.6,none,-1
+tom will be arriving hill, any moment,tom will be next next next ,tom will be arriving any moment,0.5,insertion,4
+my today made the company what it is grandfather,the job is as it as yesterday it was ,my grandfather made the company what it is today,0.0,swap,1
+this like to know what i'd is all about,i like to know what this is about about ,i'd like to know what this is all about,0.7777777777777778,swap,5
+may i have a class schedule,will i have a lunch of ,may i have a class schedule,0.5,none,-1
+do you think killed tom himself,do you think tom killed tom ,do you think tom killed himself,0.8333333333333334,swap,3
+he is promising a young businessman,he is a new young woman ,he is a promising young businessman,0.6666666666666666,swap,2
+do cakes you come here often,do you come here here ,do you come here often,0.8,insertion,1
+tom was here before i was,tom was here before i was ,tom was here before i was,1.0,none,-1
+what is a life worth living,what is a life life life ,what is a life worth living,0.6666666666666666,none,-1
+how come you know all this,how come you know all this ,how come you know all this,1.0,none,-1
+act they were afraid of the big dog,they were afraid of the the of ,they were afraid of the big dog,0.7142857142857143,insertion,0
+i think something may have happened to,i think something might have to there yesterday ,i think something may have happened to tom,0.5,deletion,7
+you can't fool me with a trick like that,you can't put me me that you you you ,you can't fool me with a trick like that,0.3333333333333333,none,-1
+i'm sorry. i'll do anything to make this right,i'm sorry i i really to do anything right ,i'm sorry. i'll do anything to make this right,0.3333333333333333,none,-1
+there was burn to nothing,she was nothing to there ,there was nothing to burn,0.6,swap,2
+imperative he lost hope and killed himself with poison,he and himself himself with him by himself ,he lost hope and killed himself with poison,0.125,insertion,0
+just do what you've got to do,just don't to to do what you ,just do what you've got to do,0.14285714285714285,none,-1
+she thought of a good solution,she thought a good idea of ,she thought of a good solution,0.3333333333333333,none,-1
+please take out the trash,please take out the dishes ,please take out the trash,0.8,none,-1
+i think we both know why i'm here,i think i think why i i here ,i think we both know why i'm here,0.375,none,-1
+and americans fought with bow native arrow,with and and us with with us ,native americans fought with bow and arrow,0.0,swap,5
+i don't ever want us hurting to be apart,i don't want never be happy to be ,i don't ever want us to be apart,0.25,insertion,5
+goals i'm sorry, i didn't catch that,i'm sorry, i i didn't catch ,i'm sorry, i didn't catch that,0.5,insertion,0
+i've never seen you so nervous,i've never seen you so so ,i've never seen you so nervous,0.8333333333333334,none,-1
+i think check you're going to survive,i think you're going to going ,i think you're going to survive,0.8333333333333334,insertion,2
+faze many people think that children don't spend enough time playing outside,some people people eat children spend many children people don't spend ,many people think that children don't spend enough time playing outside,0.18181818181818182,insertion,0
+i'd like to talk with you in private,i'd like to talk with you in in ,i'd like to talk with you in private,0.875,none,-1
+let's get out of place,let's get out of place of ,let's get out of this place,0.6666666666666666,deletion,4
+i wonder what that means,i wonder if that she ,i wonder what that means,0.6,none,-1
+how party did you stay at the long,how did you stay at the party party ,how long did you stay at the party,0.25,swap,1
+i am in your debt,i am in your your ,i am in your debt,0.8,none,-1
+i just bought these shoes,i just bought these here ,i just bought these shoes,0.8,none,-1
+he intimated that all is not in his marriage,he thinks that he is not in in love in ,he intimated that all is not well in his marriage,0.5,deletion,6
+i couldn't stand it any longer,i couldn't stand it any longer ,i couldn't stand it any longer,1.0,none,-1
+i want to the world,i want to the world world ,i want to change the world,0.6666666666666666,deletion,3
+you need to be more patient,you need to be more patient ,you need to be more patient,1.0,none,-1
+don't you want something to eat,don't you want something to eat ,don't you want something to eat,1.0,none,-1
+do you want me to skiing leave,do you want me to do ,do you want me to leave,0.8333333333333334,insertion,5
+i promise not to sing,i will not to to ,i promise not to sing,0.6,none,-1
+you go not should alone,you should go alone alone ,you should not go alone,0.6,swap,1
+i'm her this evening,i'm this this this this ,i'm seeing her this evening,0.4,deletion,1
+it's not an either-or situation,it's an an an or ,it's not an either-or situation,0.4,none,-1
+are you always that busy,are you busy busy busy ,are you always that busy,0.6,none,-1
+we heard the sound of gunshots,we heard the gunshot of gunshot ,we heard the sound of gunshots,0.6666666666666666,none,-1
+for longs she her husband to arrive,she is too for for her to ,she longs for her husband to arrive,0.14285714285714285,swap,0
+i hope good have a you time,i hope you time a good time ,i hope you have a good time,0.8571428571428571,swap,5
+when did you buy it,when did you buy it ,when did you buy it,1.0,none,-1
+i like being on my shower own,i like being on on my ,i like being on my own,0.6666666666666666,insertion,5
+you need to work fast,you need to work work ,you need to work fast,0.8,none,-1
+you must not hobby give up,you should give give up ,you must not give up,0.6,insertion,3
+do you think he's sensible,do you think he's a ,do you think he's sensible,0.8,none,-1
+as far as departed know, she hasn't i yet,as as i i she i i i i ,as far as i know, she hasn't departed yet,0.2222222222222222,swap,7
+no one knows what will happen in the future,no one will happen in the future future future ,no one knows what will happen in the future,0.3333333333333333,none,-1
+i can't get door to shut properly,i can't keep it to door door door ,i can't get the door to shut properly,0.25,deletion,3
+they a lovely time together,she had a nice together together ,they had a lovely time together,0.5,deletion,1
+we the delayed by were heavy traffic,we were stuck the train train the ,we were delayed by the heavy traffic,0.2857142857142857,swap,1
+what time it by your clock,what time it your watch by your ,what time is it by your clock,0.2857142857142857,deletion,2
+could you speak more slowly,could you speak speak more ,could you speak more slowly,0.6,none,-1
+a heavy snow kept us from going to school,a trip prevented going to walk from from from ,a heavy snow kept us from going to school,0.1111111111111111,none,-1
+i hate being alone on valentine's day,i feel being on being on sundays ,i hate being alone on valentine's day,0.2857142857142857,none,-1
+what are you going to do with,what are you going to do do do ,what are you going to do with that,0.75,deletion,7
+she got brief, her daughter a personal computer,she gave her a a a a ,she got her daughter a personal computer,0.42857142857142855,insertion,2
+she wasn't able to talk to him,she was able to talk to him ,she wasn't able to talk to him,0.8571428571428571,none,-1
+did i tell you about my party this friday,did you tell me about my birthday this weekend ,did i tell you about my party this friday,0.5555555555555556,none,-1
+tom is buddies working on your car,tom is working on your car ,tom is working on your car,1.0,insertion,2
+what do you think of the new teacher,what do you do the of the new ,what do you think of the new teacher,0.375,none,-1
+our company has long long, a history,our has has a long long time ,our company has a long, long history,0.5714285714285714,swap,5
+she told seen that she had him me there last week,she told me that she had there yesterday yesterday yesterday yesterday ,she told him that she had seen me there last week,0.45454545454545453,swap,2
+this is my favorite movie,my is favorite this movie ,this is my favorite movie,0.4,none,-1
+i don't know how to reach you,i don't know to you you you ,i don't know how to reach you,0.5714285714285714,none,-1
+my father loves tinkering some doing in the garage,my father is used in the the the the ,my father loves doing some tinkering in the garage,0.3333333333333333,swap,3
+could i borrow your eyeliner,could i use your your ,could i borrow your eyeliner,0.6,none,-1
+i regret to say he's gone for good,i wish to say for been for for ,i regret to say he's gone for good,0.5,none,-1
+they knew how much danger they'd be in,they knew in danger danger danger danger danger ,they knew how much danger they'd be in,0.375,none,-1
+mary for it did free,she did it for for ,mary did it for free,0.6,swap,1
+you weren't serious, were you,you were weren't weren't you ,you weren't serious, were you,0.4,none,-1
+did your mother make,mother did your mother mother ,did your mother make those,0.0,deletion,4
+our fence is made of iron,our is is a of of ,our fence is made of iron,0.5,none,-1
+he is also very good at playing violin,he is very a good tennis tennis ,he is very good at playing violin,0.42857142857142855,insertion,2
+tom used to love his,tom used to love his love ,tom used to love his job,0.8333333333333334,deletion,5
+i think we should look into it,i think we should it it into ,i think we should look into it,0.5714285714285714,none,-1
+i know you worshiped considered me a close friend,i know you you you you a friend ,i know you considered me a close friend,0.5,insertion,3
+we should advertising ban aimed towards children,we should at a child child children ,we should ban advertising aimed towards children,0.42857142857142855,swap,2
+they had a spat increase yesterday,they had a yesterday yesterday ,they had a spat yesterday,0.8,insertion,4
+store went to the he,she went to the airport ,he went to the store,0.6,swap,0
+i with deal can't that problem right now,i can't believe that problem right now now ,i can't deal with that problem right now,0.375,swap,1
+when you get to be my age, you'll understand what mean,when to to to get to to my when come when you ,when you get to be my age, you'll understand what i mean,0.16666666666666666,deletion,10
+the talks should begin soon,the should will start before ,the talks should begin soon,0.2,none,-1
+tom has no prior criminal record,tom has no a common memory ,tom has no prior criminal record,0.5,none,-1
+stop poking me on facebook,stop me on on on ,stop poking me on facebook,0.4,none,-1
+she is quite pretty, but looks unhealthy,she is quite quite but she she ,she is quite pretty, but looks unhealthy,0.5714285714285714,none,-1
+he used to read sweet a lot,he used to read a lot ,he used to read a lot,1.0,insertion,4
+i don't need you or anybody else,i don't you anything you any anything ,i don't need you or anybody else,0.2857142857142857,none,-1
+i think you did it,i think you did it ,i think you did it,1.0,none,-1
+i like your techno dance moves,i like your songs you dance ,i like your techno dance moves,0.5,none,-1
+sometimes it's better to just not say anything,it's just to say say say not talk ,sometimes it's better to just not say anything,0.0,none,-1
+i have red car,i have a car car ,i have a red car,0.8,deletion,2
+i didn't ask you a on date,i didn't ask you a on date ,i didn't ask you on a date,0.7142857142857143,swap,5
+may i disturb you just a moment,may i come you you a little ,may i disturb you just a moment,0.5714285714285714,none,-1
+a accomplished we've lot of things,we've got a lot of things ,we've accomplished a lot of things,0.8333333333333334,swap,2
+there should be more national hospitals for old people,there should be an for people people people people ,there should be more national hospitals for old people,0.4444444444444444,none,-1
+where did you have your suit made,where did you have your your your you ,where did you have your new suit made,0.625,deletion,5
+i have seen girl that before,i have seen seen before before ,i have seen that girl before,0.6666666666666666,swap,4
+i am out of work,i am work out of ,i am out of work,0.4,none,-1
+of about time you were independent it's your parents,when of time it were you a of of ,it's about time you were independent of your parents,0.2222222222222222,swap,0
+i'd like stay longer, but i to have leave,i like to stay but but i i i ,i'd like stay longer, but i have to leave,0.2222222222222222,swap,7
+don't ever say name,never never say anything name ,don't ever say her name,0.4,deletion,3
+tom mary were speaking in french, so i had no idea what they were talking about,they were talking talking in talking talking talking talking talking talking talking talking talking talking talking talking ,tom and mary were speaking in french, so i had no idea what they were talking about,0.058823529411764705,deletion,1
+i didn't understand what was happening,i didn't understand what happening happening ,i didn't understand what was happening,0.8333333333333334,none,-1
+do you deny that you went there,do you believe that you went there ,do you deny that you went there,0.8571428571428571,none,-1
+i've never been in love before,i've never been love love love ,i've never been in love before,0.6666666666666666,none,-1
+i just don't want you to catch my cold,i just don't want you to catch my cold ,i just don't want you to catch my cold,1.0,none,-1
+in many letters are there how the english alphabet,in in in in in in in in the ,how many letters are there in the english alphabet,0.1111111111111111,swap,5
+i want you beg for mercy,i want you for for for for ,i want you to beg for mercy,0.5714285714285714,deletion,3
+wouldn't rather you spend your time doing something you enjoy,you didn't spend spend your time doing you doing it ,wouldn't you rather spend your time doing something you enjoy,0.4,swap,2
+get fox some help, will you,get some help help you ,get some help, will you,0.6,insertion,1
+i don't suppose anything will pure happen,i don't think anything will happen ,i don't suppose anything will happen,0.8333333333333334,insertion,5
+tom is back in his apartment,tom is back in his office ,tom is back in his apartment,0.8333333333333334,none,-1
+what tomorrow you like to do would,what would do you do like to ,what would you like to do tomorrow,0.2857142857142857,swap,6
+the button on icicles your coat is coming off,your coat is off off off the off ,the button on your coat is coming off,0.125,insertion,3
+don't 4th touch anything without asking,don't anything anything anything without ,don't touch anything without asking,0.4,insertion,1
+can you imagine presumptuous what the 21st century will be like,can you be the least of it will be like ,can you imagine what the 21st century will be like,0.5,insertion,3
+we had better not mention it,we had better forget it it ,we had better not mention it,0.6666666666666666,none,-1
+a white car has been tailing me for the last two miles,the car has a walk walk for the the for me the ,a white car has been tailing me for the last two miles,0.08333333333333333,none,-1
+it's not worth reading any further,it not worth any further without ,it's not worth reading any further,0.3333333333333333,none,-1
+why did to listen you them,why did you listen to you ,why did you listen to them,0.8333333333333334,swap,2
+you should allow an hour to to get the airport,you should get an to to the airport for the ,you should allow an hour to get to the airport,0.4,swap,7
+i had intended to go abroad,i had decided going to travel ,i had intended to go abroad,0.3333333333333333,none,-1
+the yen is rising and the dollar is falling,the sun is and and is growing and the ,the yen is rising and the dollar is falling,0.3333333333333333,none,-1
+mr. we will someday make the world a better place,we will will make a a new world world ,we will someday make the world a better place,0.3333333333333333,insertion,0
+for my part, i have no objection,for my i i i i have ,for my part, i have no objection,0.42857142857142855,none,-1
+the dog bared its and fangs growled as i approached the gate,the dog and the as the as as as i tree the ,the dog bared its fangs and growled as i approached the gate,0.25,swap,5
+to all went they the restaurant,all to go to the the ,they all went to the restaurant,0.3333333333333333,swap,0
+i want all my children to go to college,i want my children want to go to college ,i want all my children to go to college,0.6666666666666666,none,-1
+if install you taste this sauce you'll find it a bit salty,if you eat you a a a you a it a ,if you taste this sauce you'll find it a bit salty,0.2727272727272727,insertion,1
+i asked tom why he wasn't jacksons planning to go to boston with us,i thought tom was going to going going to us going with us ,i asked tom why he wasn't planning to go to boston with us,0.3076923076923077,insertion,6
+have you ever been,have you ever been lonely ,have you ever been married,0.8,deletion,4
+he wants go to to america,he wants to to america country ,he wants to go to america,0.5,swap,3
+i met one of my friends on my way delayed home,i met an friend of my friend on a friend ,i met one of my friends on my way home,0.2,insertion,9
+i have to go home,i have to go home ,i have to go home,1.0,none,-1
+a bought two tickets for i concert,she bought a few for a few ,i bought two tickets for a concert,0.42857142857142855,swap,0
+he was writing a letter while whisper listening to music,he was a reading a letter reading he music ,he was writing a letter while listening to music,0.3333333333333333,insertion,6
+sweater gave him a she,she gave me a big ,she gave him a sweater,0.6,swap,4
+i am looking for a book about medieval spain,i am looking for a a about about a ,i am looking for a book about medieval spain,0.6666666666666666,none,-1
+she advised him not to eat meals,she advised him not to eat eat not ,she advised him not to eat between meals,0.75,deletion,6
+i feel like someone is watching us,i feel like being people you people ,i feel like someone is watching us,0.42857142857142855,none,-1
+are all of these people your friends,are all of people you people your ,are all of these people your friends,0.42857142857142855,none,-1
+was he accused of stealing money,he was accused of money a ,he was accused of stealing money,0.6666666666666666,swap,1
+if i could i it, afford would buy an electric car,if i could buy buy buy would would buy buy car ,if i could afford it, i would buy an electric car,0.45454545454545453,swap,3
+let's leave as soon as tom gets here,let's go as as as as tom as ,let's leave as soon as tom gets here,0.375,none,-1
+everything it as remains was,it is as she as ,everything remains as it was,0.2,swap,1
+real men go to the gym to pump iron, not to do aerobics,go to to go to the the to to to the the do ,real men go to the gym to pump iron, not to do aerobics,0.0,none,-1
+interesting beginning of the story was the,the first was was was was was ,the beginning of the story was interesting,0.2857142857142857,swap,6
+i like all of,i like all of of ,i like all of them,0.8,deletion,4
+are you all finished,are you all over all ,are you all finished here,0.6,deletion,4
+do you remember what tom was wearing yesterday,do you remember what yesterday yesterday yesterday yesterday ,do you remember what tom was wearing yesterday,0.625,none,-1
+i love the way you talk,i love the way you you ,i love the way you talk,0.8333333333333334,none,-1
+you're never going to believe this,you're never going to believe this ,you're never going to believe this,1.0,none,-1
+i wasn't listening to the radio,i wasn't listening to the radio ,i wasn't listening to the radio,1.0,none,-1
+i feel bad that i haven't paid you yet,i haven't sorry that i haven't you yet yet ,i feel bad that i haven't paid you yet,0.5555555555555556,none,-1
+no matter where i go, bogged i get lost,no one go wherever i went there went ,no matter where i go, i get lost,0.125,insertion,5
+carbon monoxide is a poisonous substance formed by the incomplete combustion of carbon compounds,it is a of of of the of the of the of the of ,carbon monoxide is a poisonous substance formed by the incomplete combustion of carbon compounds,0.14285714285714285,none,-1
+her a took condition turn for the worse last night,she took a big from a bad last night night ,her condition took a turn for the worse last night,0.1,swap,3
+do you want some help,do you want some help ,do you want some help,1.0,none,-1
+he does not seem to be very tired,he seems not to be very tired tired ,he does not seem to be very tired,0.375,none,-1
+make a wish and blow out the candles,bring a red a and the the of ,make a wish and blow out the candles,0.25,none,-1
+do you talk your dog,do you talk your dog dog ,do you talk to your dog,0.6666666666666666,deletion,3
+i can't put up with that loud noise,i can't put up with that noise noise ,i can't put up with that loud noise,0.875,none,-1
+the water flooded the streets,the river stopped the the ,the water flooded the streets,0.4,none,-1
+he disappeared into a dark corner at the back of the shop,he went into a crowd into of the crowd near the crowd ,he disappeared into a dark corner at the back of the shop,0.4166666666666667,none,-1
+real tom made friends with mary,tom made mary with a ,tom made friends with mary,0.6,insertion,0
+some animals can sense the coming of a right. storm,people can can come the the of of the ,some animals can sense the coming of a storm,0.3333333333333333,insertion,8
+would you like to be seated,would you be to be so ,would you like to be seated,0.6666666666666666,none,-1
+my parents made me go there,my parents made me going go ,my parents made me go there,0.6666666666666666,none,-1
+i knew back come you'd for me,i never come back for me me ,i knew you'd come back for me,0.2857142857142857,swap,4
+i down his phone number on a scrap of paper,i left his phone on a phone of paper of paper ,i wrote down his phone number on a scrap of paper,0.2727272727272727,deletion,1
+there is no advantage in staying here,there is no in in in in ,there is no advantage in staying here,0.5714285714285714,none,-1
+she me a postcard that said she hates the smell of animals,she is a lot of of the she that she of the of ,she sent me a postcard that said she hates the smell of animals,0.15384615384615385,deletion,1
+tom just told his wife that he was leaving her,tom told me why he was that from from from ,tom just told his wife that he was leaving her,0.1,none,-1
+she advised him to read those books,she advised him to read books books ,she advised him to read those books,0.8571428571428571,none,-1
+i've been thinking about you, too,i've been thinking about about you ,i've been thinking about you, too,0.6666666666666666,none,-1
+do think you tom can find it,do you think it can find it ,do you think tom can find it,0.8571428571428571,swap,1
+do you know the difference,do you know the difference ,do you know the difference,1.0,none,-1
+did anybody see what happened,did did see what happened ,did anybody see what happened,0.8,none,-1
+it was kind of you to help me,it kind kind of you to help me ,it was kind of you to help me,0.875,none,-1
+you need to hit the gym,you need to hit the the ,you need to hit the gym,0.8333333333333334,none,-1
+my internet connection was cut off,my phone was was was off ,my internet connection was cut off,0.5,none,-1
+you don't have to do that if really don't you want to,you really don't to want if you don't really want to do ,you don't have to do that if you don't really want to,0.16666666666666666,swap,7
+dream was only a it,it was a a not ,it was only a dream,0.6,swap,0
+tom doesn't have a worthwhile date for the saturday night,tom doesn't have a good for the for the ,tom doesn't have a date for the saturday night,0.6666666666666666,insertion,4
+i'm mood a better in now,i'm a better in in in ,i'm in a better mood now,0.16666666666666666,swap,1
+how do you make a box,how do you make a big ,how do you make a box,0.8333333333333334,none,-1
+i prefer history day's to geography,i prefer my french next ,i prefer history to geography,0.4,insertion,3
+she loved him with all her heart,she loved him with all his love ,she loved him with all her heart,0.7142857142857143,none,-1
+i am you and yours are mine,i am and and you are yours ,i am yours and you are mine,0.7142857142857143,swap,4
+i never thought i'd want to buy an ipad,i never thought i'd want to buy an new ,i never thought i'd want to buy an ipad,0.8888888888888888,none,-1
+the mailman emptied the mailbox,the telephone opened the the ,the mailman emptied the mailbox,0.4,none,-1
+i'm afraid it will rain,i'm afraid it will rain ,i'm afraid it will rain,1.0,none,-1
+could you type conclusion this letter for me,could you write write letter for me ,could you type this letter for me,0.7142857142857143,insertion,3
+you like to come in,you like to come come come ,would you like to come in,0.16666666666666666,deletion,0
+have the seen you uncensored version,have you seen the only the ,have you seen the uncensored version,0.6666666666666666,swap,3
+is that a bullet hole,is that a big tree ,is that a bullet hole,0.6,none,-1
+that's not what i'm afraid of,that's not what i'm afraid of ,that's not what i'm afraid of,1.0,none,-1
+exchange i don't want your apologies,i don't want your your ,i don't want your apologies,0.8,insertion,0
+i can't figure out why bored he said so,i can't believe he he he how he ,i can't figure out why he said so,0.375,insertion,5
+you must be at the station by 5 o'clock,you must be at the station at seven seven ,you must be at the station by 5 o'clock,0.6666666666666666,none,-1
+tom thought he was going to die,tom thought he was going to die ,tom thought he was going to die,1.0,none,-1
+tire the washing machine is out of order,my order is in order of the ,the washing machine is out of order,0.14285714285714285,insertion,0
+i know you want to make me happy,i know you want to make me happy ,i know you want to make me happy,1.0,none,-1
+something funny going on here,something is going on here here ,there's something funny going on here,0.16666666666666666,deletion,0
+hopefully the weather will be just like today,weather weather the weather like weather today today ,hopefully the weather will be just like today,0.125,none,-1
+come did you why home so late,did you come home late late late ,why did you come home so late,0.14285714285714285,swap,3
+it's someone there you can trust,there's someone people can you you ,it's there someone you can trust,0.0,swap,2
+have you exception asked if they want one,ask you asked one if they want ,have you asked if they want one,0.2857142857142857,insertion,2
+give me a ring if you find out anything,let me out a if you me me me ,give me a ring if you find out anything,0.3333333333333333,none,-1
+the holidays came to an end at last,the new came came to at the end ,the holidays came to an end at last,0.25,none,-1
+it'll be easy to find someone to rent this house,it be happy to be home in this house place ,it'll be easy to find someone to rent this house,0.2,none,-1
+you must 5 at the station by be o'clock,you must be at the o'clock o'clock o'clock o'clock ,you must be at the station by 5 o'clock,0.6666666666666666,swap,2
+i usually toss my loose change into my desk drawer,i always always my my my my mind into my ,i usually toss my loose change into my desk drawer,0.2,none,-1
+he is still grappling with religious naked beliefs,he is still with his ideas with ,he is still grappling with religious beliefs,0.42857142857142855,insertion,6
+i'm feeling really kind of strange,i'm really very feeling of a ,i'm really feeling kind of strange,0.5,swap,1
+we don't even know if it's true,we don't know if it's true true ,we don't even know if it's true,0.42857142857142855,none,-1
+please don't forget light turn off the to before you go to bed,please don't turn off the light to the the to the the bed ,please don't forget to turn off the light before you go to bed,0.23076923076923078,swap,3
+remained single all his life,he lived his life his life ,he remained single all his life,0.5,deletion,0
+i could do that you,i could do that you do ,i could do that for you,0.6666666666666666,deletion,4
+i took name off the list,i left out one the list from ,i took your name off the list,0.14285714285714285,deletion,2
+what tomorrow you be doing at this time will,what will you do this at this time time ,what will you be doing at this time tomorrow,0.6666666666666666,swap,1
+the students made her life happy,the baby made me happy happy ,the students made her life happy,0.5,none,-1
+i'll let you when i need you,i'll call you when i i i i ,i'll let you know when i need you,0.375,deletion,3
+he is watching burning my every move,he is giving my watch every ,he is watching my every move,0.5,insertion,3
+after taking a bath, tom ate dinner,after a breakfast breakfast tom tom tom ,after taking a bath, tom ate dinner,0.2857142857142857,none,-1
+i can't tell you law yet,i can't tell you yet ,i can't tell you yet,1.0,insertion,4
+i told weekends not to call me on you,i told me to call on you on me ,i told you not to call me on weekends,0.3333333333333333,swap,8
+have you ever eaten at that restaurant,have you ever eaten at restaurant restaurant ,have you ever eaten at that restaurant,0.8571428571428571,none,-1
+i painted the fence green,i painted the red red ,i painted the fence green,0.6,none,-1
+she told him that she happy was,she told him that she was a ,she told him that she was happy,0.8571428571428571,swap,6
+they're can i set a place at the table for you,i can't put a table for you you here for ,can i set a place at the table for you,0.1,insertion,0
+they don't listen to me,they don't listen to me ,they don't listen to me,1.0,none,-1
+were you tired last night,were you tired last night ,were you tired last night,1.0,none,-1
+i don't like being treated this way,i don't like being being this this ,i don't like being treated this way,0.7142857142857143,none,-1
+i can't believe that you aren't at least willing consider the possibility of other alternatives,i can't believe you can't believe that at least at the least of of that possibility ,i can't believe that you aren't at least willing to consider the possibility of other alternatives,0.25,deletion,9
+it is useless to try to remember all the words in the dictionary,it is is to to write to write in in in in the ,it is useless to try to remember all the words in the dictionary,0.3076923076923077,none,-1
+he got dressed went outside,he went there a bed outside ,he got dressed and went outside,0.3333333333333333,deletion,3
+i see couldn't a thing,i couldn't see a big ,i couldn't see a thing,0.8,swap,1
+how can so be you cruel,how can you be so cruel ,how can you be so cruel,1.0,swap,2
+go i've got to sorry,,i've really to to me ,sorry, i've got to go,0.2,swap,4
+i can't believe we haven't run into each other before,i can't we we before we before before we before ,i can't believe we haven't run into each other before,0.4,none,-1
+we have to warn him,we have to warn him ,we have to warn him,1.0,none,-1
+i want to know who sent you,i want to know who you who ,i want to know who sent you,0.7142857142857143,none,-1
+this is an important event,it is important important important ,this is an important event,0.4,none,-1
+i don't like living in the country,i don't like living in the country ,i don't like living in the country,1.0,none,-1
+your sudden surprised me,your speech gave me me ,your sudden appearance surprised me,0.4,deletion,2
+you can't trust anything he says,you can't believe anything he says ,you can't trust anything he says,0.8333333333333334,none,-1
+my sister me made a beautiful doll,my mother made me a big baby ,my sister made me a beautiful doll,0.5714285714285714,swap,3
+my brother insisted on going there alone,my father is going going there there ,my brother insisted on going there alone,0.42857142857142855,none,-1
+he went out in spite of the rain,he went out of the the rain the ,he went out in spite of the rain,0.375,none,-1
+what are some foods you can eat to lower your cholesterol,how some foods can you eat your to to eat from ,what are some foods you can eat to lower your cholesterol,0.18181818181818182,none,-1
+we heard the door close,we heard the door open ,we heard the door close,0.8,none,-1
+playing, she was afraid to catch a cold,she was was too to catch a ,she was afraid to catch a cold,0.2857142857142857,insertion,0
+he gave the dog a tea bone,he gave the dog a cup ,he gave the dog a bone,0.8333333333333334,insertion,5
+i clear to make something want,i want to make me something ,i want to make something clear,0.6666666666666666,swap,1
+to tell the truth, i didn't go there,to go the i go there there to ,to tell the truth, i didn't go there,0.25,none,-1
+everybody knows who you are,who knows who you are ,everybody knows who you are,0.8,none,-1
+would you please wait for a few minutes,would you please wait for for a few ,would you please wait for a few minutes,0.625,none,-1
+boy lifted the heavy box with one hand,he one the box with one hand hand the ,the boy lifted the heavy box with one hand,0.0,deletion,0
+see can we his house over there,he can he his place place his ,we can see his house over there,0.2857142857142857,swap,0
+you don't really want that, do you,you really don't want you you you ,you don't really want that, do you,0.42857142857142855,none,-1
+his car has just been repaired,my car has just been a ,his car has just been repaired,0.6666666666666666,none,-1
+i need some good advice,i need some good advice ,i need some good advice,1.0,none,-1
+i'm taking a couple of days off,i'm a a couple of a couple ,i'm taking a couple of days off,0.5714285714285714,none,-1
+that's rumor completely unfounded a,that's rumor rumor by myself ,that's a completely unfounded rumor,0.2,swap,1
+movie left the they early,she left the the last ,they left the movie early,0.4,swap,0
+i want you to come to my wedding,i want you to come my birthday come ,i want you to come to my wedding,0.625,none,-1
+i don't have time for this,i don't have this time for ,i don't have time for this,0.5,none,-1
+a bow is no without arrows,no is is without a without without ,a bow is no use without arrows,0.2857142857142857,deletion,4
+apart from that, i don't know anything,anything i i i don't anything i ,apart from that, i don't know anything,0.2857142857142857,none,-1
+she advised him to a lawyer, so he did,she advised him to a a a not he he ,she advised him to see a lawyer, so he did,0.6,deletion,4
+she scrubbed the kitchen floor with a brush,she cleaned the dishes with a knife dishes ,she scrubbed the kitchen floor with a brush,0.25,none,-1
+the weather changes very often in england,the weather very very in in winter ,the weather changes very often in england,0.5714285714285714,none,-1
+try, please tell me what happened,please could me me me ,please tell me what happened,0.4,insertion,0
+i did what tom me to do,did did what me do to do do ,i did what tom told me to do,0.375,deletion,4
+i'll believing see what i can do, but no promises,i'll see if i can do can do can ,i'll see what i can do, but no promises,0.4444444444444444,insertion,1
+i really like your work,i really really your your ,i really like your work,0.6,none,-1
+she told me to go,she advised me to go there ,she told me where to go,0.3333333333333333,deletion,3
+i don't need your protection,i don't need your your ,i don't need your protection,0.8,none,-1
+she went to see him the other day,she went to see him other other yesterday ,she went to see him the other day,0.75,none,-1
+tom forgot to feed the dog,tom forgot to eat the the ,tom forgot to feed the dog,0.6666666666666666,none,-1
+my brother is very important. at least he thinks he is,my father is very much at he is he he is ,my brother is very important. at least he thinks he is,0.5454545454545454,none,-1
+did you go out last night,did you go out last night ,did you go out last night,1.0,none,-1
+why do i have to do this by myself,why do i have to do by myself myself ,why do i have to do this by myself,0.7777777777777778,none,-1
+i wonder what tom thought of it,i wonder what tom of it of ,i wonder what tom thought of it,0.5714285714285714,none,-1
+how many sisters do you have,how many brothers do you you ,how many sisters do you have,0.6666666666666666,none,-1
+i hate to be a nuisance,i hate to be a friendly ,i hate to be a nuisance,0.8333333333333334,none,-1
+tom kissed mary and she slapped him,tom and mary john and she john ,tom kissed mary and she slapped him,0.2857142857142857,none,-1
+it was his lengthy narrative that bored me to death,it was that that to me me me me me ,it was his lengthy narrative that bored me to death,0.3,none,-1
+it was easy for me to do so,it was easy for me to do do ,it was easy for me to do so,0.875,none,-1
+he is a man you can rely upon,he is a a you you you you ,he is a man you can rely upon,0.5,none,-1
+there are many beautiful parks in london,there are many people in in in ,there are many beautiful parks in london,0.5714285714285714,none,-1
+from escaped tom his cell,tom lives his room from ,tom escaped from his cell,0.2,swap,0
+tom is throwing stones at birds,tom is hiding at a dog ,tom is throwing stones at birds,0.3333333333333333,none,-1
+is anybody else in the house,is there anyone in the house ,is anybody else in the house,0.6666666666666666,none,-1
+this is a lot more fun than studying,a is a lot fun fun fun more ,this is a lot more fun than studying,0.5,none,-1
+calling i don't know what he'll do,i don't know what do do ,i don't know what he'll do,0.8333333333333334,insertion,0
+those who want to remain do so,who do want to do do do do ,those who want to remain may do so,0.375,deletion,5
+she wants to know who hunter sent the flowers,she wants to know who she who who ,she wants to know who sent the flowers,0.625,insertion,5
+i those kinds of answers,i answer answer a of answer ,i hate those kinds of answers,0.3333333333333333,deletion,1
+the news satisfied, spread all over japan,the president was over over the ,the news spread all over japan,0.3333333333333333,insertion,2
+tom will be waiting for me,tom will be wait for me ,tom will be waiting for me,0.8333333333333334,none,-1
+i think i know why tom here,i think why i tom here here here ,i think i know why tom isn't here,0.375,deletion,6
+be appears to it working,it seems to be there ,it appears to be working,0.6,swap,3
+i just want sorry to know how you i am,i just want to be sorry you how to say ,i just want you to know how sorry i am,0.3,swap,7
+would you like me to do something about it,would you do me to do about it about ,would you like me to do something about it,0.5555555555555556,none,-1
+he has taken over his father's,he has taken his own business business ,he has taken over his father's business,0.5714285714285714,deletion,6
+can you give us your point view,can you give us this point your idea ,can you give us your point of view,0.625,deletion,6
+i do it's think possible,i think it made me ,i do think it's possible,0.2,swap,3
+we are in part responsible for it,we are in in in in it ,we are in part responsible for it,0.5714285714285714,none,-1
+he to the suitcases carried our room,he brought our box to the box ,he carried the suitcases to our room,0.2857142857142857,swap,1
+did i hear you right,did i hear you you ,did i hear you right,0.8,none,-1
+just tell key him the truth,tell him tell the truth ,just tell him the truth,0.4,insertion,2
+to you remember what do do,you do remember what you do ,do you remember what to do,0.5,swap,0
+it used to be that a could only marry if she had a dowry,it had to be a only she had to to that if she had a ,it used to be that a girl could only marry if she had a dowry,0.2,deletion,6
+tom laughed at some of mary's jokes, but he thought some of them weren't very funny,tom tried at some of but but a good of them but a good not at ,tom laughed at some of mary's jokes, but he thought some of them weren't very funny,0.25,none,-1
+i to personally thank you,i just want to you you ,i want to personally thank you,0.3333333333333333,deletion,1
+he let his books fall to the floor,he left his book to the the floor ,he let his books fall to the floor,0.5,none,-1
+"can i use mary. your dictionary?" "yes, here you are.",can i use your book of your please please ,"can i use your dictionary?" "yes, here you are.",0.3333333333333333,insertion,3
+you don't want to tell me why, do you,you don't want to do me why you you ,you don't want to tell me why, do you,0.6666666666666666,none,-1
+it's up to how you and me,it's up to you and you ,it's up to you and me,0.8333333333333334,insertion,3
+when do you intend to start,when do you start to start ,when do you intend to start,0.8333333333333334,none,-1
+who's taking for the loss,who is for for the loss ,who's taking responsibility for the loss,0.5,deletion,2
+switch the light. i can't see anything,see the light can't see can see can ,switch on the light. i can't see anything,0.125,deletion,1
+i want you to die,i want you to die ,i want you to die,1.0,none,-1
+would you get me a glass of water,could you bring me a glass of water ,would you get me a glass of water,0.75,none,-1
+i saw him cross the road,i saw him run the street ,i saw him cross the road,0.6666666666666666,none,-1
+she turned pale at the news,she turned at the news news ,she turned pale at the news,0.5,none,-1
+we should observe the speed limit,we should check the price of ,we should observe the speed limit,0.5,none,-1
+teach would you like some coffee,would you mind tea some ,would you like some coffee,0.4,insertion,0
+i thought it might be of some use,i thought it might use of use of ,i thought it might be of some use,0.625,none,-1
+we talked in sign language,we spoke in in a ,we talked in sign language,0.4,none,-1
+commotion i knew there would be something to eat,i figured something would be there to eat ,i knew there would be something to eat,0.625,insertion,0
+i managed butcher to find his office,i found to find his office ,i managed to find his office,0.8333333333333334,insertion,2
+do not be shy. your nest pronunciation is more or less correct,do not be your or not be punctual if you please ,do not be shy. your pronunciation is more or less correct,0.2727272727272727,insertion,5
+it rained for a week,it rained for a cold ,it rained for a week,0.8,none,-1
+used to play in the park,tom used to play the the in ,we used to play in the park,0.5714285714285714,deletion,0
+look, i want you to do me a favor,i want me to me me me me me ,look, i want you to do me a favor,0.1111111111111111,none,-1
+you've got the person,you've got the person person ,you've got the wrong person,0.8,deletion,3
+why are your eyes so big,why are you your eyes so ,why are your eyes so big,0.3333333333333333,none,-1
+he made up his quickly mind,he made up mind mind mind ,he made up his mind quickly,0.6666666666666666,swap,4
+i like the way she laughs at my teenager jokes,i like the the the the the the at ,i like the way she laughs at my jokes,0.3333333333333333,insertion,8
+could you talk rush a little slower,could you talk a little more ,could you talk a little slower,0.8333333333333334,insertion,3
+i'm afraid the rumor is true,i'm the rumor rumor is true ,i'm afraid the rumor is true,0.6666666666666666,none,-1
+this is the flag of japan,this is the red of the ,this is the flag of japan,0.6666666666666666,none,-1
+tom doesn't seem celebrating to know who we are,tom doesn't seem to be here who we ,tom doesn't seem to know who we are,0.5,insertion,3
+i'll do it my way this time,i'll do this this this way my ,i'll do it my way this time,0.2857142857142857,none,-1
+why don't you say something,why don't you say it ,why don't you say something,0.8,none,-1
+i'm getting married next week,i'm getting going next week ,i'm getting married next week,0.8,none,-1
+the doctor examined the baby,the baby baby the baby ,the doctor examined the baby,0.6,none,-1
+therapy i've just eaten so i'm not hungry,i'm just hungry i'm not hungry i'm ,i've just eaten so i'm not hungry,0.14285714285714285,insertion,0
+i didn't need to paint the fence,i didn't need to paint the fire ,i didn't need to paint the fence,0.8571428571428571,none,-1
+change advise you to i clothes,i must bring to eat on ,i advise you to change clothes,0.3333333333333333,swap,0
+your wife's on the phone. says it's urgent,her phone is called the telephone she's called phone ,your wife's on the phone. she says it's urgent,0.0,deletion,5
+i asked him where i should park my car,i asked him where to drive my car car ,i asked him where i should park my car,0.5555555555555556,none,-1
+if you don't eat breakfast, you'll probably be hungry during the morning and won't be as efficient at work as you could be,if you you you you you you you you you you you you you you you you you you you you you the ,if you don't eat breakfast, you'll probably be hungry during the morning and won't be as efficient at work as you could be,0.13043478260869565,none,-1
+i guess it won't,i won't it won't won't ,i guess it won't matter,0.6,deletion,4
+i get the feeling you don't really want me to win,i i you want me the really to to me me ,i get the feeling you don't really want me to win,0.18181818181818182,none,-1
+you do hope i enjoyed the dinner,i did do you enjoy the the ,i do hope you enjoyed the dinner,0.42857142857142855,swap,3
+i feel like singing in the rain,i feel like the the in the ,i feel like singing in the rain,0.42857142857142855,none,-1
+i want you get started right away,i want you get away right away away ,i want you to get started right away,0.5,deletion,3
+we don't have any bread left,we don't have enough eat here ,we don't have any bread left,0.5,none,-1
+i admired figured you might want this,i figured you might want this ,i figured you might want this,1.0,insertion,1
+would you be willing audition to write a letter for me,would you be willing for me for me me me ,would you be willing to write a letter for me,0.5,insertion,4
+don't touch ever you me again,don't ever me again again again ,don't you ever touch me again,0.3333333333333333,swap,3
+i wonder if there's a somebody market for something like that,i wonder there there something a for people like in ,i wonder if there's a market for something like that,0.4,insertion,5
+am sure we have a lot in common,i know you are a lot of we in ,i am sure we have a lot in common,0.1111111111111111,deletion,0
+what makes you think we have a secret,what you you think you we keep a ,what makes you think we have a secret,0.375,none,-1
+run as as you can,as as as you can as ,run as fast as you can,0.16666666666666666,deletion,2
+i'll here if you really want me to,i'll leave me if you want me to me ,i'll stay here if you really want me to,0.3333333333333333,deletion,1
+just remember i dropped everything to be for you,i just i i to be for for you to ,just remember i dropped everything to be here for you,0.1,deletion,7
+i appreciate that screwdriver very much,i appreciate the really that ,i appreciate that very much,0.4,insertion,3
+maybe tom was trying to incorrect warn us about something,maybe maybe tom was trying to tell us something ,maybe tom was trying to warn us about something,0.2222222222222222,insertion,5
+he lost his son in the traffic accident,he lost his accident in the accident accident ,he lost his son in the traffic accident,0.75,none,-1
+colds let me kiss you one last time,let me give you one time time ,let me kiss you one last time,0.7142857142857143,insertion,0
+smiles do not cinch always indicate pleasure,she should not bring their red ,smiles do not always indicate pleasure,0.16666666666666666,insertion,3
+that meal was simply divine,that food was just was ,that meal was simply divine,0.4,none,-1
+please remember to mail this letter,please please mail this letter letter ,please remember to mail this letter,0.3333333333333333,none,-1
+i won't be pressured into something i don't want to do,i won't be going to do want to do i want to ,i won't be pressured into doing something i don't want to do,0.25,deletion,5
+time, you've gone too far,hurry you've gone gone too late ,this time, you've gone too far,0.3333333333333333,deletion,0
+it must be nice patients to have friends in high places,it would nice nice to people people people in people ,it must be nice to have friends in high places,0.3,insertion,4
+do you have a bag,do you have a big ,do you have a bag,0.8,none,-1
+she glanced briefly the newspaper,she looked the the newspaper newspaper ,she glanced briefly at the newspaper,0.3333333333333333,deletion,3
+i made lie dog my down,i made my dog down my ,i made my dog lie down,0.6666666666666666,swap,4
+tom's job was china to outsourced,tom's was was was was to ,tom's job was outsourced to china,0.3333333333333333,swap,3
+do solitary you take american express,do you take you an ,do you take american express,0.6,insertion,1
+my daughter's getting all gussied up for her date,my sister is going for over my for over my ,my daughter's getting all gussied up for her first date,0.1,deletion,8
+she knows everything about cooking,she knows everything she cooking ,she knows everything about cooking,0.8,none,-1
+in water pools, swimming is continuously pumped through a filter,water is is in in a is a its water ,in swimming pools, water is continuously pumped through a filter,0.0,swap,1
+he put the key in the lock,he gave the key open in the ,he put the key in the lock,0.42857142857142855,none,-1
+can you figure out this problem,can you solve this problem problem ,can you figure out this problem,0.5,none,-1
+what did you do with my pants,what did you do with my hands ,what did you do with my pants,0.8571428571428571,none,-1
+are you happy with that,are you happy with that ,are you happy with that,1.0,none,-1
+do you want to leave it bicycle like that,do you want to do it that that ,do you want to leave it like that,0.75,insertion,6
+we more walked quickly than usual,we were less than we we ,we walked more quickly than usual,0.16666666666666666,swap,2
+last year saw a big political change in japan,the new year in a in in in in ,last year saw a big political change in japan,0.1111111111111111,none,-1
+we managed to get there on time,we got to make it time time ,we managed to get there on time,0.42857142857142855,none,-1
+it's high time the children went to bed,it's high time the bed to bed the ,it's high time the children went to bed,0.5,none,-1
+there no milk left,there is no milk milk ,there is no milk left,0.8,deletion,1
+a brass band beaches is marching along the street,the is is is around the street the ,a brass band is marching along the street,0.125,insertion,3
+i'm sure you have other skills,i'm sure you have some other ,i'm sure you have other skills,0.6666666666666666,none,-1
+i think my japanese is really bad,i think my really is a really ,i think my japanese is really bad,0.5714285714285714,none,-1
+having done his work, he went out,he went out his work went out ,having done his work, he went out,0.2857142857142857,none,-1
+he not was happy about it,he was happy about it happy ,he was not happy about it,0.3333333333333333,swap,2
+every student has access to the library,the students has to to to the the ,every student has free access to the library,0.375,deletion,3
+he was surrounded by a throng of reporters,he was a large of people by a ,he was surrounded by a throng of reporters,0.25,none,-1
+are referee you finished reading the newspaper,are you finished the the newspaper ,are you finished reading the newspaper,0.8333333333333334,insertion,1
+i had such high hopes for you,i had so great for you you ,i had such high hopes for you,0.42857142857142855,none,-1
+believe you can this is already happening,can you can this this is already ,can you believe this is already happening,0.42857142857142855,swap,2
+she told him where to put the suitcase,she told him to put away the money ,she told him where to put the suitcase,0.5,none,-1
