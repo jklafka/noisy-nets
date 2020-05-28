@@ -17,8 +17,9 @@ knitr::opts_chunk$set(echo = TRUE)
 # clean_results <- read_csv(here("Results/clean-results.csv"), 
 #                     col_names = c("Input", "Prediction", "Output", "Correct"))
 
-noisy_results <- read_csv(here("Results/noisy-results.csv"), 
-                    col_names = c("Input", "Prediction", "Output", "Correct")) %>%
+noisy_results <- read_csv(here("Results/noisy-test.csv"), 
+                    col_names = c("Input", "Prediction", "Output", "Correct", 
+                                  "Noisetype", "Noiselocation")) %>%
   filter(str_detect(Correct, pattern = "\\d+")) %>%
   mutate(Correct = as.numeric(Correct))
 
