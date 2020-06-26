@@ -32,5 +32,5 @@ for pair in pairs:
 
     with open("Vectors/" + args.output_file + ".csv", 'a') as outfile:
         writer = csv.writer(outfile)
-        writer.writerow(encoded_clean_text[0][-1])
-        writer.writerow(encoded_noisy_text[0][-1]) 
+        writer.writerow(encoded_clean_text[0][-1] + [0])
+        writer.writerow(encoded_noisy_text[0][-1] + [1]) 
