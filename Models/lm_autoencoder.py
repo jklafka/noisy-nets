@@ -238,5 +238,7 @@ for testing_pair in testing_pairs:
 
     loss, prediction = test(vocab, input_text, target_text, lm,
                             encoder_rnn, decoder_rnn)
-    logging.info(','.join([input_text, prediction, target_text, str(loss),
+    logging.info(';'.join([input_text, prediction, target_text, str(loss),
                 str(testing_pair[2]), str(testing_pair[3])]))
+    # logging.info(','.join([input_text, prediction, target_text, str(loss),
+    #             str(testing_pair[2]), str(testing_pair[3])]))

@@ -17,16 +17,14 @@ knitr::opts_chunk$set(echo = TRUE)
 # clean_results <- read_csv(here("Results/clean-results.csv"), 
 #                     col_names = c("Input", "Prediction", "Output", "Correct"))
 
-noisy_results <- read_csv(here("Results/noisy-test.csv"), 
+noisy_results <- read_delim(here("Results/noisy-test.csv"), delim = ";", skip = 62,
+# noisy_results <- read_csv(here("Results/noisy-test.csv"), 
                     col_names = c("Input", "Prediction", "Output", "Correct", 
                                   "Noisetype", "Noiselocation")) %>%
   filter(str_detect(Correct, pattern = "\\d+")) %>%
-  mutate(Correct = as.numeric(Correct))
-
-# results %>% 
-#   clean_results %>% 
-#   bind_rows(noisy_results)
+  mutate(Correct = as.numeric(Correct)) %>% drop_na()
 ```
+  
 
 Training on 10000 iterations, testing on 1000. For all noisy and clean results, we achieve $21\%$ complete accuracy at the sentence level, and $67\%$ mean accuracy at the word level. On the clean results only, we get $40\%$ accuracy at the sentence level and $86.6\%$ accuracy at the word level. 
 
@@ -35,11 +33,20 @@ noisy_results %>%
   ggplot(aes(x = Correct)) + 
     geom_histogram(binwidth = .05)
 
+noisy_results %>% nrow()
+
 noisy_results %>% pull(Correct) %>% mean()
+
+
 (noisy_results %>% filter(Correct == 1.0) %>% nrow()) / (noisy_results %>% nrow())
 
 only_noise <- noisy_results %>% 
   filter(Input != Output) 
+
+only_noise %>% 
+  ggplot(aes(x = Correct)) + 
+    geom_histogram(binwidth = .05)
+
 only_noise %>% pull(Correct) %>% mean()
 (only_noise %>% filter(Correct == 1.0) %>% nrow()) / (only_noise %>% nrow())
 ```
@@ -68,11 +75,14 @@ outputs <- noisy_results %>%
   select(id, Output) %>%
   unnest_tokens(word, Output)
 
-predictions %>%
+joined <- predictions %>%
   left_join(outputs, by = "id") %>% 
-  mutate(Correct = ifelse(word.x == word.y, 1, 0)) %>%
-  group_by(id) %>%
-  mutate(word_id = 1:n()) %>%
-  summarize(Percent = sum(Correct) / max(word_id)) %>%
+  mutate(Correct = ifelse(word.x == word.y, 1, 0))
+
+joined %>% group_by(id) %>%
+  mutate(word_id = 1:n()) %>% 
+  summarize(Percent = sum(Correct) / max(word_id))
+
+joined %>% pull(Correct) %>% sum() / joined %>% nrow()
   
 ```
