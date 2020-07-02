@@ -17,8 +17,8 @@ knitr::opts_chunk$set(echo = TRUE)
 # clean_results <- read_csv(here("Results/clean-results.csv"), 
 #                     col_names = c("Input", "Prediction", "Output", "Correct"))
 
-noisy_results <- read_delim(here("Results/noisy-test.csv"), delim = ";", skip = 62,
-# noisy_results <- read_csv(here("Results/noisy-test.csv"), 
+noisy_results <- read_delim(here("Results/noisy-test_noisy_noisy.csv"), delim = ",", quote="", skip = 62,
+# noisy_results <- read_csv(here("Results/noisy-test_clean_clean.csv", 
                     col_names = c("Input", "Prediction", "Output", "Correct", 
                                   "Noisetype", "Noiselocation")) %>%
   filter(str_detect(Correct, pattern = "\\d+")) %>%
@@ -35,7 +35,15 @@ noisy_results %>%
 
 noisy_results %>% nrow()
 
+# na_results <- noisy_results %>% filter(is.na(Correct))
+# 
+# na_results 
+
+# noisy_results %>% drop_na() %>% nrow()
+
 noisy_results %>% pull(Correct) %>% mean()
+
+
 
 
 (noisy_results %>% filter(Correct == 1.0) %>% nrow()) / (noisy_results %>% nrow())
@@ -65,24 +73,57 @@ clean_results %>% pull(Correct) %>% mean()
 
 ```{r analyzing what went wrong}
 ## how many words in common between prediction and output
-predictions <- noisy_results %>%
+# predictions <- noisy_results %>%
+#   mutate(id = 1:n()) %>%
+#   select(id, Prediction) %>%
+#   unnest_tokens(word, Prediction)
+#   
+# outputs <- noisy_results %>%
+#   mutate(id = 1:n()) %>%
+#   select(id, Output) %>%
+#   unnest_tokens(word, Output) %>% 
+#   group_by(id) %>%
+#   mutate(word_id = 1:n()) 
+# 
+# joined <- predictions %>%
+#   left_join(outputs, by = "id") %>% 
+#   mutate(Correct = ifelse(word.x == word.y, 1, 0)) 
+# 
+# joined %>% group_by(id) %>% 
+#   summarize(Percent = sum(Correct) / max(word_id)) %>% 
+#   pull(Percent) %>% mean()
+
+  
+```
+
+```{r definition, echo = FALSE}
+
+# Define a function of analyzing how many words in common. 
+Ratio_common_words <- function(results) { 
+  predictions <- results %>%
   mutate(id = 1:n()) %>%
   select(id, Prediction) %>%
   unnest_tokens(word, Prediction)
   
-outputs <- noisy_results %>%
+outputs <- results %>%
   mutate(id = 1:n()) %>%
   select(id, Output) %>%
-  unnest_tokens(word, Output)
+  unnest_tokens(word, Output) %>% 
+  group_by(id) %>%
+  mutate(word_id = 1:n()) 
 
 joined <- predictions %>%
   left_join(outputs, by = "id") %>% 
-  mutate(Correct = ifelse(word.x == word.y, 1, 0))
+  mutate(Correct = ifelse(word.x == word.y, 1, 0)) 
 
-joined %>% group_by(id) %>%
-  mutate(word_id = 1:n()) %>% 
-  summarize(Percent = sum(Correct) / max(word_id))
+return(joined %>% group_by(id) %>% 
+  summarize(Percent = sum(Correct) / max(word_id)) %>% 
+  pull(Percent) %>% mean())
+}
+```
 
-joined %>% pull(Correct) %>% sum() / joined %>% nrow()
-  
+```{r}
+Ratio_common_words(noisy_results)
+Ratio_common_words(only_noise)
+Ratio_common_words(clean_results)
 ```
