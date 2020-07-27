@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # clean_results <- read_csv(here("Results/clean-results.csv"), 
 #                     col_names = c("Input", "Prediction", "Output", "Correct"))
 
-noisy_results <- read_delim(here("Results/noisy-test_noisy_noisy.csv"), delim = ",", quote="", skip = 62,
+noisy_results <- read_delim(here("Results/noisy-test_mixed_clean.csv"), delim = ",", quote="", skip = 62,
 # noisy_results <- read_csv(here("Results/noisy-test_clean_clean.csv", 
                     col_names = c("Input", "Prediction", "Output", "Correct", 
                                   "Noisetype", "Noiselocation")) %>%
